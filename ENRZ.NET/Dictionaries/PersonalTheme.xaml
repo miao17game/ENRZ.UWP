@@ -36,8 +36,6 @@
             <SolidColorBrush x:Key="AppPersonalTextColorSpecial03" Color="#202020"/>
             <!--特殊字体颜色04 顶栏前景色-->
             <SolidColorBrush x:Key="AppPersonalTextColorSpecial04" Color="#FF1B9AEF"/>
-            <!--MainPage歌词功能板背景色-->
-            <SolidColorBrush x:Key="AppPersonalMusicBarBackground" Color="#FF1B9AEF"/>
             <!--Switch按钮前景色-->
             <SolidColorBrush x:Key="SwitchForeground" Color="#FFFFFF"/>
             <!--关于页面面板前景色-->
@@ -78,13 +76,14 @@
             <SolidColorBrush x:Key="DQDListTopColor" Color="#9933BB73"/>
             <!--DQDListBottomColor-->
             <SolidColorBrush x:Key="DQDListBottomColor" Color="#4433BB73"/>
+
+            <!--ENRZBackgroundColor-->
+            <SolidColorBrush x:Key="ENRZBackground" Color="#202020"/>
+            <!--ENRZBackgroundColor-->
+            <SolidColorBrush x:Key="ENRZForeground01" Color="#CA003E"/>
+
             <!--DQDReBackColor-->
             <Color x:Key="DQDReBackColor">#99000000</Color>
-
-            <Style x:Key="ImageSourceStyle" TargetType="Image">
-                <Setter Property="Stretch" Value="UniformToFill"/>
-                <Setter Property="Source" Value="Assets/116.jpg"/>
-            </Style>
 
         </ResourceDictionary>
 
@@ -121,8 +120,6 @@
             <SolidColorBrush x:Key="AppPersonalTextColorSpecial03" Color="White"/>
             <!--特殊字体颜色04 顶栏前景色-->
             <SolidColorBrush x:Key="AppPersonalTextColorSpecial04" Color="#FF1B9AEF"/>
-            <!--MainPage歌词功能板背景色-->
-            <SolidColorBrush x:Key="AppPersonalMusicBarBackground" Color="#FF1B9AEF"/>
             <!--Switch按钮前景色-->
             <SolidColorBrush x:Key="SwitchForeground" Color="#303030"/>
             <!--关于页面面板前景色-->
@@ -163,13 +160,14 @@
             <SolidColorBrush x:Key="DQDListTopColor" Color="#9930BB45"/>
             <!--DQDListBottomColor-->
             <SolidColorBrush x:Key="DQDListBottomColor" Color="#4430BB45"/>
+
+            <!--ENRZBackgroundColor-->
+            <SolidColorBrush x:Key="ENRZBackground" Color="#FCFCFC"/>
+            <!--ENRZBackgroundColor-->
+            <SolidColorBrush x:Key="ENRZForeground01" Color="#FF125B"/>
+
             <!--DQDReBackColor-->
             <Color x:Key="DQDReBackColor">#99FFFFFF</Color>
-
-            <Style x:Key="ImageSourceStyle" TargetType="Image">
-                <Setter Property="Stretch" Value="UniformToFill"/>
-                <Setter Property="Source" Value="Assets/321.jpg"/>
-            </Style>
 
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>

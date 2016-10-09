@@ -66,12 +66,12 @@ namespace ENRZ.Core. Tools {
         /// <param name="IsLightTheme">是否为亮主题</param>
         public static void InitDesktopStatusBar ( bool IsLightTheme ) {
             if ( !IsLightTheme ) {
-                SetTitleBarSelfView ( 0 , 51, 187, 115, Colors.White, Colors.Transparent, Colors.Transparent);
-                SetTitleBarButtonSelfView ( 0 , 51, 187, 115, Colors.Transparent);
+                SetTitleBarSelfView ( 0 , 202, 0, 62, Colors.White, Colors.Transparent, Colors.Transparent);
+                SetTitleBarButtonSelfView (0, 202, 0, 62, Colors.Transparent);
                 SetTitleBarButtonHPIView ( Colors . SteelBlue , Colors . White , Colors .SteelBlue, Colors .White, Colors.Transparent, Colors.Transparent);
             } else {
-                SetTitleBarSelfView ( 0 , 51, 187, 85 , Colors . White , Colors.Transparent, Colors.Transparent);
-                SetTitleBarButtonSelfView ( 0 , 51, 187, 85, Colors . White );
+                SetTitleBarSelfView ( 0 , 202, 0, 62 , Colors . White , Colors.Transparent, Colors.Transparent);
+                SetTitleBarButtonSelfView (0, 202, 0, 62, Colors . White );
                 SetTitleBarButtonHPIView ( Colors .SteelBlue, Colors . White , Colors .SteelBlue, Colors . White , Colors.Transparent, Colors.Transparent);
             }
         }
