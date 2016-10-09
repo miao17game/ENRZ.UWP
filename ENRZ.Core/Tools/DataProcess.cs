@@ -4,6 +4,7 @@ using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -53,13 +54,14 @@ namespace ENRZ.Core.Tools {
                     naviBarModel.Title = li.SelectSingleNode("a").InnerText;
                     naviBarModel.PathUri = new Uri(li.SelectSingleNode("a").Attributes["href"].Value);
                     // Check if it has innerItems
+                    naviBarModel.Items = new List<BarItemModel>();
+                    naviBarModel.Items.Add(new BarItemModel { Title = "首页", PathUri = naviBarModel.PathUri, });
                     if (li.SelectSingleNode("ul[@class='gn-sub']") != null) {
-                        var innerList = new List<BarItemModel>();
                         foreach (var innerLi in li.SelectSingleNode("ul[@class='gn-sub']").SelectNodes("li")) {
-                            var itemModel = new BarItemModel();
-                            itemModel.Title = innerLi.SelectSingleNode("a").InnerText;
-                            itemModel.PathUri = new Uri(innerLi.SelectSingleNode("a").Attributes["href"].Value);
-                            innerList.Add(itemModel);
+                            naviBarModel.Items.Add(new BarItemModel {
+                                Title = innerLi.SelectSingleNode("a").InnerText,
+                                PathUri = new Uri(innerLi.SelectSingleNode("a").Attributes["href"].Value),
+                            });
                         }
                     }
 
@@ -67,6 +69,45 @@ namespace ENRZ.Core.Tools {
                 }
             }
 
+            return list;
+        }
+
+        public static List<NewsPreviewModel> FetchNewsPreviewFromHtml(string htmlResources) {
+            var pageResources = new HtmlDocument();
+            pageResources.LoadHtml(htmlResources);
+            HtmlNode rootnode = pageResources.DocumentNode;
+            string XPathString = "//div[@id='main-contbox']";
+            HtmlNodeCollection FlDivCollection = rootnode.SelectSingleNode(XPathString).SelectNodes("div[@class='mc-content fl']");
+            var list = new List<NewsPreviewModel>();
+            foreach (var fl in FlDivCollection) {
+                var SecCollection = fl.SelectNodes("section[@class='list-thumbnail']");
+                foreach(var section in SecCollection) {
+                    try {
+                        var stampMess = section.SelectSingleNode("div[@class='list-thumbnail-stamp']");
+                        list.Add(new NewsPreviewModel {
+                            StampTitle = stampMess.SelectSingleNode("a").InnerText,
+                            StampUri = new Uri(stampMess.SelectSingleNode("a").Attributes["href"].Value),
+                            StampDate = stampMess.InnerText,
+                            Title = section.SelectSingleNode("h4").SelectSingleNode("a").InnerText,
+                            PathUri = new Uri(section.SelectSingleNode("h4").SelectSingleNode("a").Attributes["href"].Value),
+                            ImageUri = new Uri(section.SelectSingleNode("div[@class='list-thumbnail-pic']").SelectSingleNode("a").SelectSingleNode("img").Attributes["src"].Value),
+                            Description = section.SelectSingleNode("div[@class='list-thumbnail-desc']").SelectSingleNode("p").InnerText
+                        });
+                    } catch (NullReferenceException ex) {
+                        ReportError(ex.Message);
+                        Debug.WriteLine(ex.StackTrace);
+                    } catch (ArgumentNullException ex) {
+                        ReportError(ex.Message);
+                        Debug.WriteLine(ex.StackTrace);
+                    } catch (UriFormatException ex) {
+                        ReportError(ex.Message);
+                        Debug.WriteLine(ex.StackTrace);
+                    } catch (Exception ex) {
+                        ReportError(ex.Message);
+                        Debug.WriteLine(ex.StackTrace);
+                    }
+                }
+            }
             return list;
         }
 

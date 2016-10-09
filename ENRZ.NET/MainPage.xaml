@@ -78,7 +78,7 @@
                                         <Storyboard>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PressedBackground"
     											Storyboard.TargetProperty="Fill">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppPersonalAccent03}" />
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ENRZForeground01}" />
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
     											Storyboard.TargetProperty="Foreground">
@@ -90,7 +90,7 @@
                                         <Storyboard>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PressedBackground"
     											Storyboard.TargetProperty="Fill">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppPersonalAccent03}" />
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ENRZForeground01}" />
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
     											Storyboard.TargetProperty="Foreground">
@@ -102,7 +102,7 @@
                                         <Storyboard>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PressedBackground"
     											Storyboard.TargetProperty="Fill">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppPersonalAccent03}" />
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ENRZForeground01}" />
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
     											Storyboard.TargetProperty="Foreground">
@@ -114,7 +114,7 @@
                                         <Storyboard>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PressedBackground"
     											Storyboard.TargetProperty="Fill">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppPersonalAccent03}" />
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ENRZForeground01}" />
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
     											Storyboard.TargetProperty="Foreground">
@@ -201,10 +201,12 @@
                             Width="70"
                             Height="70"
                             Click="HamburgerButton_Click"
+                            Foreground="White"
                             Style="{ThemeResource MainPageButtonBackHamburgerStyle}"/>
                     <ListBox Name="HamburgerListBox" 
                              Background="Transparent"
                              RelativePanel.Below="HamburgerButton"
+                             SelectionChanged="HamburgerListBox_SelectionChanged"
                              ItemsSource="{Binding Source={StaticResource NaviBarResouces}}">
                         <ListBox.ItemTemplate>
                             <DataTemplate x:DataType="model:NavigationBarModel">
@@ -232,19 +234,24 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <Button Name="SettingsButton" Height="70" Margin="5,0,0,0"
-                            Click="SettingsButton_Click" RelativePanel.AlignBottomWithPanel="True"
+                    <Button Name="SettingsButton" 
+                            Height="70" Margin="5,0,0,0"
+                            Click="SettingsButton_Click" 
+                            RelativePanel.AlignBottomWithPanel="True"
                             Style="{StaticResource MainPageButtonBackHamburgerStyle}"
-                            HorizontalAlignment="Left" VerticalAlignment="Bottom" >
+                            HorizontalAlignment="Left" 
+                            VerticalAlignment="Bottom" >
                         <Grid Width="{Binding OpenPaneLength, ElementName=OutsideSplitView}">
                             <Grid Width="48" Height="48" HorizontalAlignment="Left">
                                 <Ellipse Fill="#EB3557" Width="40" Height="40" />
-                                <TextBlock  Text="&#xE115;" Width="50" FontSize="22" Margin=" -1,0,0,0"
+                                <TextBlock  Text="&#xE115;" 
+                                            Width="50" FontSize="22" Margin=" -1,0,0,0"
                                             Foreground="{ThemeResource AppPersonalTextColorPure}"
                                             Style="{ThemeResource CenterContentTextBlock}"
                                             FontFamily="{ThemeResource SymbolThemeFontFamily}"/>
                             </Grid>
-                            <TextBlock  Text="设置" Margin=" 70,0,0,0" FontSize="16"
+                            <TextBlock  Text="设置" 
+                                        Margin=" 60,0,0,0" FontSize="16"
                                         Foreground="{ThemeResource AppPersonalTextColorPure}"
                                         FontFamily="{ThemeResource PhoneFontFamilySemiLight}"
                                         Style="{ThemeResource CenterContentTextBlock}"/>
@@ -258,7 +265,8 @@
                             Background="{ThemeResource ENRZForeground01}" 
                             Height="70" VerticalAlignment="Top">
                         <TextBlock Text="ENRZ.COM" FontSize="20"
-                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"/>
                     </Border>
                     <Button Name="BaseHamburgerButton"
                             VerticalAlignment="Top"
@@ -266,13 +274,16 @@
                             Width="70"
                             Height="70"
                             Click="HamburgerButton_Click"
+                            Foreground="White"
                             Style="{ThemeResource MainPageButtonBackHamburgerStyle}"/>
                     <Frame Name="BasePartFrame" Margin="0,70,0,0"/>
                 </Grid>
             </SplitView.Content>
         </SplitView>
 
-        <Grid Name="ContentGrid" Grid.Column="1"/>
+        <Grid Name="ContentGrid" Grid.Column="1">
+            <Frame Name="ContentFrame"/>
+        </Grid>
 
         <Frame Name="PrepareFrame" Grid.ColumnSpan="2"/>
     </Grid>

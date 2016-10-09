@@ -1,7 +1,9 @@
-﻿using ENRZ.Core.Tools;
+﻿using ENRZ.Core.Models;
+using ENRZ.Core.Tools;
 using ENRZ.NET.Pages;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -26,6 +28,7 @@ namespace ENRZ.NET {
 
         public MainPage() {
             this.InitializeComponent();
+            Current = this;
             PrepareFrame.Navigate(typeof(PreparePage));
             StatusBarInit.InitInnerDesktopStatusBar(true);
             Window.Current.SetTitleBar(BasePartBorder);
@@ -42,7 +45,46 @@ namespace ENRZ.NET {
         }
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e) {
+            BasePartFrame.Navigate(typeof(SettingsPage));
+            HamburgerListBox.SelectedIndex = -1;
+        }
+
+        private void HamburgerListBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            NavigationSplit.IsPaneOpen = false;
+            var model = e.AddedItems.FirstOrDefault() as NavigationBarModel;
+            if (model == null)
+                return;
+            NavigateToBase?.Invoke(
+                sender,
+                new NavigateParameter { PathUri = model.PathUri, Items = model.Items,},
+                InnerResources.GetFrameInstance(NavigateType.NaviBar), 
+                InnerResources.GetPageType(NavigateType.NaviBar));
+        }
+
+        /// <summary>
+        /// Resources Helper
+        /// </summary>
+        public static class InnerResources{
+
+            public static Type GetPageType(NavigateType type) { return PagesMaps.ContainsKey(type) ? PagesMaps[type] : null; }
+            static private Dictionary<NavigateType, Type> PagesMaps = new Dictionary<NavigateType, Type> {
+            {NavigateType.NaviBar,typeof(BaseListPage)},
+            {NavigateType.InnerBarItem,typeof(ContentPage)},
+            {NavigateType.Settings,typeof(SettingsPage)},
+        };
+
+            public static Frame GetFrameInstance(NavigateType type) { return FrameMaps.ContainsKey(type) ? FrameMaps[type] : null; }
+            static private Dictionary<NavigateType, Frame> FrameMaps = new Dictionary<NavigateType, Frame> {
+            {NavigateType.NaviBar,Current.BasePartFrame},
+            {NavigateType.InnerBarItem,Current.ContentFrame},
+        };
 
         }
+
+        #region Properties and state
+        public static MainPage Current;
+        public delegate void NavigationEventHandler(object sender, NavigateParameter parameter, Frame frame, Type type);
+        public NavigationEventHandler NavigateToBase = (sender, parameter, frame, type) => { frame.Navigate(type, parameter); };
+        #endregion
     }
 }
