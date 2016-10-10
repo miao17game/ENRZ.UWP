@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.UI;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Media;
 
-namespace DQD.Core.Tools.Converters {
-    public class TopOrBottomConverter: IValueConverter {
+namespace ENRZ.Core.Models.Converters {
+    public class SelfVisibilityConverter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, string language) {
             return ConvertToVisibility((string)value);
         }
@@ -19,10 +16,6 @@ namespace DQD.Core.Tools.Converters {
             throw new NotImplementedException();
         }
 
-        private Brush ConvertToVisibility(string value) {
-            return value.Equals("Top") ? Application.Current.Resources["DQDListTopColor"] as Brush :
-                value.Equals("Bottom") ? Application.Current.Resources["DQDListBottomColor"] as Brush :
-                null;
-        }
+        private Visibility ConvertToVisibility(string value) { return string.IsNullOrEmpty(value) ? Visibility.Collapsed : Visibility.Visible; }
     }
 }

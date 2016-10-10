@@ -1,0 +1,352 @@
+﻿<Page
+    x:Class="ENRZ.NET.Pages.ImagePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ENRZ.NET.Pages"
+    xmlns:model="using:ENRZ.Core.Models"
+    xmlns:MSControls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:Converters="using:ENRZ.Core.Models.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <CollectionViewSource x:Name="FlipResouces"/>
+        <CollectionViewSource x:Name="TopResouces"/>
+        <CollectionViewSource x:Name="RecommendResouces"/>
+        <CollectionViewSource x:Name="SelectResouces"/>
+        <CollectionViewSource x:Name="HeaderResources"/>
+        <CollectionViewSource x:Name="GridViewResources"/>
+        <Converters:ValueConverter x:Key="ValueConverter"/>
+        <Style x:Key="ImgNaviButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{ThemeResource AboutPageForeground}"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundTransparentBrush}" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="UseSystemFocusVisuals" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid x:Name="RootGrid" Background="{TemplateBinding Background}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="rectangle"
+    											Storyboard.TargetProperty="Fill">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{TemplateBinding Background}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="rectangle"
+    											Storyboard.TargetProperty="Fill">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppPersonalFirstAccent}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <PointerDownThemeAnimation Storyboard.TargetName="RootGrid" />
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="rectangle"
+    											Storyboard.TargetProperty="Fill">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppPersonalFirstAccent}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Selected">
+                                        <Storyboard>
+                                            <PointerDownThemeAnimation Storyboard.TargetName="RootGrid" />
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="rectangle"
+    											Storyboard.TargetProperty="Fill">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource AppPersonalFirstAccent}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+    											Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseMediumLowBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+    											Storyboard.TargetProperty="BorderBrush">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledTransparentBrush}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter x:Name="ContentPresenter"
+    							BorderBrush="{TemplateBinding BorderBrush}"
+    							BorderThickness="{TemplateBinding BorderThickness}"
+    							Content="{TemplateBinding Content}"
+    							Background="{TemplateBinding Background}"
+    							ContentTransitions="{TemplateBinding ContentTransitions}"
+    							ContentTemplate="{TemplateBinding ContentTemplate}"
+    							Padding="{TemplateBinding Padding}"
+    							HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+    							VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+    							AutomationProperties.AccessibilityView="Raw"/>
+                            <Rectangle x:Name="rectangle"
+    							Fill="Transparent"
+    							Height="0"
+    							VerticalAlignment="Top"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid Name="grid" 
+          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Pivot Width="{Binding Width, ElementName=grid ,Mode=OneWay}"
+               ItemsSource="{Binding Source={StaticResource HeaderResources}}"
+               SelectionChanged="Pivot_SelectionChanged"
+               Margin="0,0,0,60">
+            <Pivot.HeaderTemplate>
+                <DataTemplate x:DataType="model:BarItemModel">
+                    <TextBlock Text="{Binding Title}"
+                               Margin="5,0,5,5" 
+                               TextAlignment="Center" 
+                               FontSize="18"
+                               Foreground="{ThemeResource AppPersonalTextColorPure02}"/>
+                </DataTemplate>
+            </Pivot.HeaderTemplate>
+            <Pivot.ItemTemplate>
+                <DataTemplate x:DataType="model:BarItemModel" >
+                    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                        <MSControls:AdaptiveGridView Name="AdaptiveGridView"
+                                                     ItemHeight="200"
+                                                     DesiredWidth="200"
+                                                     SelectionMode="None"
+                                                     IsItemClickEnabled="True"
+                                                     ItemClick="AdaptiveGridView_ItemClick"
+                                                     ItemsSource="{Binding Source={StaticResource GridViewResources}}">
+                            <MSControls:AdaptiveGridView.ItemTemplate>
+                                <DataTemplate x:DataType="model:NewsPreviewModel">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Image
+                                            Source="{Binding ImageUri}"
+                                            Stretch="UniformToFill"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Grid.RowSpan="2"/>
+                                        <Border Background="#70000000" 
+                                                VerticalAlignment="Bottom"
+                                                Grid.Row="1">
+                                            <TextBlock Text="{Binding Title}" 
+                                                       Margin="5,10,5,10"
+                                                       VerticalAlignment="Bottom"
+                                                       TextWrapping="WrapWholeWords"
+                                                       Foreground="#DDFFFFFF"/>
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </MSControls:AdaptiveGridView.ItemTemplate>
+                        </MSControls:AdaptiveGridView>
+                    </Grid>
+                </DataTemplate>
+            </Pivot.ItemTemplate>
+        </Pivot>
+
+        <ScrollViewer Name="IndexScroll" Margin=" 0,0,0,60" 
+                      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <StackPanel>
+                <Grid Name="Row01" Height="300">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.5*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.7*"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    
+                    <FlipView Name="MyFlip"
+                              Margin="0,0,0,0"
+                              Grid.RowSpan="6"
+                              Style="{ThemeResource SpecialFlipStyle}"
+                              Loaded="MyFlip_Loaded"
+                              ItemsSource="{Binding Source={StaticResource FlipResouces}}">
+                        <FlipView.ItemTemplate>
+                            <DataTemplate x:DataType="model:SimpleImgModel">
+                                <Grid >
+                                    <Image Source="{Binding ImageUri}"
+                                           Height="{Binding Height, ElementName=MyFlip}"
+                                           Stretch="UniformToFill"/>
+                                    <Border Background="#A0202020" VerticalAlignment="Bottom">
+                                        <TextBlock Text="{Binding Title}" 
+                                                   FontWeight="Bold"
+                                                   FontSize="18"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Left"
+                                                   Foreground="#EFEFEF"
+                                                   Margin="10"/>
+                                    </Border>
+                                    <Button Content="{Binding PathUri}" 
+                                            CommandParameter="{Binding PathUri}"
+                                            Background="Transparent"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch"
+                                            Click="FlipInnerButton_Click"
+                                    Opacity="0"/>
+                                </Grid>
+                            </DataTemplate>
+                        </FlipView.ItemTemplate>
+                    </FlipView>
+                    
+                    <Border Grid.Column="1" Background="{ThemeResource ENRZForeground01}">
+                        <TextBlock Text="每日热图TOP5" FontSize="14" 
+                                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                    
+                    <ListView Name="TopListView" Grid.Column="1" Grid.Row="1" Grid.RowSpan="5"
+                              SelectionMode="None" ItemClick="ListView_ItemClick" IsItemClickEnabled="True"
+                              ItemsSource="{Binding Source={StaticResource TopResouces}}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="model:SimpleImgModel">
+                                <Grid Height="{
+                                    Binding ElementName=TopListView, 
+                                    Path=ActualHeight, 
+                                    ConverterParameter=5,
+                                    Converter={StaticResource ValueConverter}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="1.3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding ImageUri}"
+                                           Stretch="UniformToFill"
+                                           Grid.Column="0"/>
+                                    <Border Background="Transparent" 
+                                            VerticalAlignment="Bottom" Grid.Column="1">
+                                        <TextBlock Text="{Binding Title}" 
+                                                   VerticalAlignment="Top"
+                                                   TextWrapping="WrapWholeWords"
+                                                   HorizontalAlignment="Left"
+                                                   Foreground="#EFEFEF"
+                                                   Margin="5" FontSize="14"/>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+
+                <Grid Name="Row02" Height="320">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.5*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.3*"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    
+                    <Grid Grid.Column="0" >
+                        <TextBlock Text="编辑推荐 Recommend" FontSize="14" 
+                                   Foreground="{ThemeResource AppPersonalTextColorPure02}"
+                                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                                   Margin=" 10,0,0,0" FontWeight="Bold"/>
+                        <Rectangle Height="1" VerticalAlignment="Bottom" 
+                                   Margin="5,0,5,5" Fill="{ThemeResource ENRZForeground01}"/>
+                    </Grid>
+                    <Grid Grid.Column="1" >
+                        <TextBlock Text="精选 Select" FontSize="14" 
+                                   Foreground="{ThemeResource AppPersonalTextColorPure02}"
+                                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                                   Margin=" 5,0,0,0" FontWeight="Bold"/>
+                        <Rectangle Height="1" VerticalAlignment="Bottom" 
+                                   Margin="5,0,5,5" Fill="{ThemeResource ENRZForeground01}"/>
+                    </Grid>
+                    
+                    <GridView Grid.Row="1" Grid.RowSpan="2"
+                              SelectionMode="None" IsItemClickEnabled="True" 
+                              ItemClick="GridView_ItemClick"
+                              Style="{ThemeResource ENRZGridViewStyle}"
+                              ItemsSource="{Binding Source={StaticResource RecommendResouces}}">
+                        <GridView.ItemTemplate>
+                            <DataTemplate x:DataType="model:SimpleImgModel">
+                                <Grid Height="270" Width="140">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="5*"/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Image Source="{Binding ImageUri}"
+                                           Stretch="UniformToFill"
+                                           Grid.Row="0"/>
+                                    <TextBlock Text="{Binding Title}"
+                                               FontSize="12"
+                                               Grid.Row="1" 
+                                               TextWrapping="WrapWholeWords"
+                                               VerticalAlignment="Top"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+                    <GridView Name="SelectGridView" Grid.Column="1"
+                              Grid.Row="1" Grid.RowSpan="2"
+                              SelectionMode="None" IsItemClickEnabled="True" 
+                              ItemClick="SelectGridView_ItemClick"
+                              Style="{ThemeResource ENRZGridViewStyle}"
+                              ItemsSource="{Binding Source={StaticResource SelectResouces}}">
+                        <GridView.ItemTemplate>
+                            <DataTemplate x:DataType="model:SimpleImgModel">
+                                <Border Height="270" Width="140">
+                                    <Image Source="{Binding ImageUri}"
+                                           Stretch="UniformToFill"/>
+                                </Border>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+                </Grid>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <Grid Height="65" VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Name="GirlButton" Content="&#xEB52;"
+                    Style="{StaticResource ImgNaviButtonStyle}"
+                    Click="ButtonSelect"/>
+            <Button Name="FashionlButton" Content="&#xE759;"
+                    Style="{StaticResource ImgNaviButtonStyle}"
+                    Click="ButtonSelect" Grid.Column="1"/>
+            <Button Name="IndexButton" Content="&#xE80F;"
+                    Background="{ThemeResource ENRZForeground01}"
+                    Height="63"
+                    Style="{StaticResource ImgNaviButtonStyle}"
+                    Click="ButtonSelect" Grid.Column="2"/>
+            <Button Name="EntButton" Content="&#xED55;"
+                    Style="{StaticResource ImgNaviButtonStyle}"
+                    Click="ButtonSelect" Grid.Column="3"/>
+            <Button Name="PalythingButton" Content="&#xE928;"
+                    Style="{StaticResource ImgNaviButtonStyle}"
+                    Click="ButtonSelect" Grid.Column="4"/>
+        </Grid>
+    </Grid>
+</Page>

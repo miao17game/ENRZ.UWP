@@ -9,5 +9,6 @@ namespace ENRZ.Core.Models {
         NaviBar = 0,
         InnerBarItem = 1,
         Settings = 2,
+        SpecialImage = 3,
     }
 }

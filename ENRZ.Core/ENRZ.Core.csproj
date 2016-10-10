@@ -135,10 +135,14 @@
     <Compile Include="Models\BarItemModel.cs" />
     <Compile Include="Models\Converters\ColorConverter.cs" />
     <Compile Include="Models\Converters\IconConverter.cs" />
+    <Compile Include="Models\Converters\ValueConverter.cs" />
+    <Compile Include="Models\Converters\VisibilityConverter.cs" />
+    <Compile Include="Models\Converters\SelfVisibilityConverter.cs" />
     <Compile Include="Models\NavigateParameter.cs" />
     <Compile Include="Models\NavigateType.cs" />
     <Compile Include="Models\NavigationBarModel.cs" />
     <Compile Include="Models\NewsPreviewModel.cs" />
+    <Compile Include="Models\SimpleImgModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\AlphaKeyGroup.cs" />
     <Compile Include="Tools\DataProcess.cs" />

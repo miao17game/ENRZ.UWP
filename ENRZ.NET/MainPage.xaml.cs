@@ -40,7 +40,7 @@ namespace ENRZ.NET {
         }
 
         private async void GetResources() {
-            var list = DataProcess.FetchNavigationBarFromHtml((await WebProcess.GetHtmlResources(HomeHost)).ToString());
+            var list = DataProcess.FetchNavigationBarFromHtml((await WebProcess.GetHtmlResources(HomeHost, false)).ToString());
             NaviBarResouces.Source = list;
         }
 
@@ -54,11 +54,14 @@ namespace ENRZ.NET {
             var model = e.AddedItems.FirstOrDefault() as NavigationBarModel;
             if (model == null)
                 return;
+            NavigateType type = model.Title.ToString() == "美图" ? 
+                NavigateType.SpecialImage : 
+                NavigateType.NaviBar;
             NavigateToBase?.Invoke(
                 sender,
                 new NavigateParameter { PathUri = model.PathUri, Items = model.Items,},
-                InnerResources.GetFrameInstance(NavigateType.NaviBar), 
-                InnerResources.GetPageType(NavigateType.NaviBar));
+                InnerResources.GetFrameInstance(type), 
+                InnerResources.GetPageType(type));
         }
 
         /// <summary>
@@ -70,12 +73,14 @@ namespace ENRZ.NET {
             static private Dictionary<NavigateType, Type> PagesMaps = new Dictionary<NavigateType, Type> {
             {NavigateType.NaviBar,typeof(BaseListPage)},
             {NavigateType.InnerBarItem,typeof(ContentPage)},
+            {NavigateType.SpecialImage,typeof(ImagePage)},
             {NavigateType.Settings,typeof(SettingsPage)},
         };
 
             public static Frame GetFrameInstance(NavigateType type) { return FrameMaps.ContainsKey(type) ? FrameMaps[type] : null; }
             static private Dictionary<NavigateType, Frame> FrameMaps = new Dictionary<NavigateType, Frame> {
             {NavigateType.NaviBar,Current.BasePartFrame},
+            {NavigateType.SpecialImage,Current.BasePartFrame},
             {NavigateType.InnerBarItem,Current.ContentFrame},
         };
 

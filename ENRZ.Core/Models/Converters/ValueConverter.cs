@@ -1,22 +1,22 @@
-﻿using DQD.Core.Models.TeamModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-namespace DQD.Core.Tools.Converters {
-    public class TeamModelConverter : IValueConverter {
+namespace ENRZ.Core.Models.Converters {
+    public class ValueConverter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, string language) {
-            return ConvertToVisibility((string)value, parameter.ToString());
+            return ToValueCode(System.Convert.ToDouble(value), System.Convert.ToUInt32(parameter));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language) {
             throw new NotImplementedException();
         }
 
-        private Visibility ConvertToVisibility(string value , string parameter) { return value.Equals(parameter) ? Visibility.Visible : Visibility.Collapsed; }
+        private double ToValueCode(double num, uint seed) {
+            return num / seed;
+        }
     }
 }

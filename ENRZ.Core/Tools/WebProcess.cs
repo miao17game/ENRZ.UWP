@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using ENRZ.Core.Controls;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
+using DBCSCodePage;
 
 namespace ENRZ.Core. Tools {
     public static class WebProcess {
@@ -18,7 +19,7 @@ namespace ENRZ.Core. Tools {
         /// </summary>
         /// <param name="urlString">Target web uri-string</param>
         /// <returns></returns>
-        public  static async Task<StringBuilder> GetHtmlResources ( string urlString ) {
+        public  static async Task<StringBuilder> GetHtmlResources ( string urlString , bool NeedGB2312 ) {
             var LrcStringBuider = new StringBuilder ( );
             try {
                 var request = WebRequest.Create(urlString) as HttpWebRequest;
@@ -26,7 +27,7 @@ namespace ENRZ.Core. Tools {
                 try {
                     using (var response = await request.GetResponseAsync() as HttpWebResponse) {
                         var stream = response.GetResponseStream();
-                        var streamReader = new StreamReader(stream, Encoding.UTF8);
+                        var streamReader = new StreamReader(stream, NeedGB2312 ? DBCSEncoding.GetDBCSEncoding("gb2312") : Encoding.UTF8);
                         LrcStringBuider.Append(await streamReader.ReadToEndAsync());
                     }
                 } catch (WebException ex) {

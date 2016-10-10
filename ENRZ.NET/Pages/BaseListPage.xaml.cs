@@ -41,7 +41,7 @@ namespace ENRZ.NET.Pages {
             GridViewResources.Source =
                 DataProcess.FetchNewsPreviewFromHtml(
                     (await WebProcess.GetHtmlResources(
-                        args.PathUri.ToString()))
+                        args.PathUri.ToString(), false))
                         .ToString());
             //(GridViewResources.Source as List<NewsPreviewModel>).ForEach(i => { Debug.WriteLine(i.ImageUri); });
         }

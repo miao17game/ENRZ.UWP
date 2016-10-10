@@ -1,4 +1,5 @@
-﻿using ENRZ.Core.Controls;
+﻿using DBCSCodePage;
+using ENRZ.Core.Controls;
 using ENRZ.Core.Models;
 using HtmlAgilityPack;
 using System;
@@ -15,14 +16,6 @@ using Windows.UI.Xaml.Media.Imaging;
 namespace ENRZ.Core.Tools {
     public static class DataProcess {
         #region Properties and State
-
-        private const string HomeHost = "http://www.enrz.com/";
-        private const string HomeHostInsert = "http://www.enrz.com";
-        private const string MatchHost = "http://www.dongqiudi.com/match";
-        private const string ArticleHost = "http://dongqiudi.com/article/";
-        private const string DefaultImageFlagHost = "http://static1.dongqiudi.com/web-new/web/images/defaultTeam.png";
-        private const string DefaultMenberHost = "http://static1.dongqiudi.com/web-new/web/images/defaultPlayer.png";
-        private enum TableItemType { Round = 0, Away = 1, Home = 2, Link = 3, Vs = 4, Stat = 5, Live = 6 ,Times = 7 }
 
         #endregion
 
@@ -77,39 +70,237 @@ namespace ENRZ.Core.Tools {
             pageResources.LoadHtml(htmlResources);
             HtmlNode rootnode = pageResources.DocumentNode;
             string XPathString = "//div[@id='main-contbox']";
-            HtmlNodeCollection FlDivCollection = rootnode.SelectSingleNode(XPathString).SelectNodes("div[@class='mc-content fl']");
+            var mainContBox = rootnode.SelectSingleNode(XPathString);
+            if (mainContBox == null) 
+                return null;
+            var FlDivCollection = mainContBox.SelectNodes("div[@class='mc-content fl']");
             var list = new List<NewsPreviewModel>();
-            foreach (var fl in FlDivCollection) {
-                var SecCollection = fl.SelectNodes("section[@class='list-thumbnail']");
-                foreach(var section in SecCollection) {
-                    try {
-                        var stampMess = section.SelectSingleNode("div[@class='list-thumbnail-stamp']");
-                        list.Add(new NewsPreviewModel {
-                            StampTitle = stampMess.SelectSingleNode("a").InnerText,
-                            StampUri = new Uri(stampMess.SelectSingleNode("a").Attributes["href"].Value),
-                            StampDate = stampMess.InnerText,
-                            Title = section.SelectSingleNode("h4").SelectSingleNode("a").InnerText,
-                            PathUri = new Uri(section.SelectSingleNode("h4").SelectSingleNode("a").Attributes["href"].Value),
-                            ImageUri = new Uri(section.SelectSingleNode("div[@class='list-thumbnail-pic']").SelectSingleNode("a").SelectSingleNode("img").Attributes["src"].Value),
-                            Description = section.SelectSingleNode("div[@class='list-thumbnail-desc']").SelectSingleNode("p").InnerText
-                        });
-                    } catch (NullReferenceException ex) {
-                        ReportError(ex.Message);
-                        Debug.WriteLine(ex.StackTrace);
-                    } catch (ArgumentNullException ex) {
-                        ReportError(ex.Message);
-                        Debug.WriteLine(ex.StackTrace);
-                    } catch (UriFormatException ex) {
-                        ReportError(ex.Message);
-                        Debug.WriteLine(ex.StackTrace);
-                    } catch (Exception ex) {
-                        ReportError(ex.Message);
-                        Debug.WriteLine(ex.StackTrace);
+            if (FlDivCollection == null) { 
+                return null;
+            } else { // Primary page model
+                foreach (var fl in FlDivCollection) {
+                    var SecCollection = fl.SelectNodes("section[@class='list-thumbnail']");
+                    foreach (var section in SecCollection) {
+                        try {
+                            var stampMess = section.SelectSingleNode("div[@class='list-thumbnail-stamp']");
+                            list.Add(new NewsPreviewModel {
+                                StampTitle = stampMess.SelectSingleNode("a").InnerText,
+                                StampUri = new Uri(stampMess.SelectSingleNode("a").Attributes["href"].Value),
+                                StampDate = stampMess.InnerText,
+                                Title = section.SelectSingleNode("h4").SelectSingleNode("a").InnerText,
+                                PathUri = new Uri(section.SelectSingleNode("h4").SelectSingleNode("a").Attributes["href"].Value),
+                                ImageUri = new Uri(section.SelectSingleNode("div[@class='list-thumbnail-pic']").SelectSingleNode("a").SelectSingleNode("img").Attributes["src"].Value),
+                                Description = section.SelectSingleNode("div[@class='list-thumbnail-desc']").SelectSingleNode("p").InnerText
+                            });
+                        } catch (NullReferenceException ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        } catch (ArgumentNullException ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        } catch (UriFormatException ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        } catch (Exception ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        }
                     }
                 }
             }
             return list;
         }
+
+        public static NewsPreviewModel FetchImagesIndexFromHtml(string htmlResources) {
+            var pageResources = new HtmlDocument();
+            pageResources.LoadHtml(htmlResources);
+            HtmlNode rootnode = pageResources.DocumentNode;
+            string XPathString = "//div[@class='c']";
+            var classC = rootnode.SelectSingleNode(XPathString);
+            if (classC == null) // Pictures page mode failed
+                return null;
+            var model = new NewsPreviewModel();
+            FetchSlideResources(classC, model);
+            FetchTopResources(classC, model);
+            FetchRecommendResources(classC, model);
+            FetchSelectResources(classC, model);
+            return model;
+        }
+
+        #region Inner Methods
+        private static void FetchSlideResources(HtmlNode classC, NewsPreviewModel model) {
+            var classC1 = classC.SelectSingleNode("div[@class='c1']");
+            if (classC != null) {
+                try {
+                    var classC1_Li = classC1
+                        .SelectSingleNode("div[@class='c1_l']")
+                        .SelectSingleNode("div[@class='c1_slide']")
+                        .SelectSingleNode("ul")
+                        .SelectNodes("li");
+                    model.SlideImageList = new List<SimpleImgModel>();
+                    foreach (var item in classC1_Li) {
+                        try {
+                            var aRoute = item.SelectSingleNode("a");
+                            model.SlideImageList.Add(new SimpleImgModel {
+                                Title = aRoute.Attributes["title"].Value,
+                                PathUri = new Uri(aRoute.Attributes["href"].Value),
+                                ImageUri = new Uri(aRoute.SelectSingleNode("img").Attributes["src"].Value),
+                            });
+                        } catch (NullReferenceException ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        } catch (ArgumentNullException ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        } catch (UriFormatException ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        } catch (Exception ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        }
+                    }
+                } catch { ReportError("Slider source fetch error."); }
+            }
+        }
+
+        private static void FetchTopResources(HtmlNode classC, NewsPreviewModel model) {
+            var classC1 = classC.SelectSingleNode("div[@class='c1']");
+            if (classC != null) {
+                try {
+                    var classC1_Li = classC1
+                        .SelectSingleNode("div[@class='c1_r']")
+                        .SelectSingleNode("ol[@class='o']")
+                        .SelectNodes("li");
+                    model.TopImageList = new List<SimpleImgModel>();
+                    foreach (var item in classC1_Li) {
+                        try {
+                            var aRoute = item.SelectSingleNode("a[@class='o_l_80']");
+                            model.TopImageList.Add(new SimpleImgModel {
+                                Title = aRoute.Attributes["title"].Value,
+                                PathUri = new Uri(aRoute.Attributes["href"].Value),
+                                ImageUri = new Uri(aRoute.SelectSingleNode("img").Attributes["src"].Value),
+                            });
+                        } catch (NullReferenceException ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        } catch (ArgumentNullException ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        } catch (UriFormatException ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        } catch (Exception ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        }
+                    }
+                } catch { ReportError("Top5 source fetch error."); }
+            }
+        }
+
+        private static void FetchRecommendResources(HtmlNode classC, NewsPreviewModel model) {
+            var classC2 = classC.SelectSingleNode("div[@class='c2']");
+            if (classC != null) {
+                try {
+                    var classC1_Ul = classC2
+                        .SelectSingleNode("div[@class='c2_left']")
+                        .SelectSingleNode("div[@class='c2_slide']")
+                        .SelectSingleNode("div[@class='c2_slide_c']")
+                        .SelectNodes("ul[@class='c2_lc']");
+                    model.RecommendImageList = new List<SimpleImgModel>();
+                    foreach (var ul in classC1_Ul) {
+                        var classC1_Li = ul.SelectNodes("li");
+                        foreach (var item in classC1_Li) {
+                            try {
+                                var aRoute = item.SelectSingleNode("a");
+                                model.RecommendImageList.Add(new SimpleImgModel {
+                                    Title = aRoute.Attributes["title"].Value,
+                                    PathUri = new Uri(aRoute.Attributes["href"].Value),
+                                    ImageUri = new Uri(aRoute.SelectSingleNode("img").Attributes["src"].Value),
+                                });
+                            } catch (NullReferenceException ex) {
+                                ReportError(ex.Message);
+                                Debug.WriteLine(ex.StackTrace);
+                            } catch (ArgumentNullException ex) {
+                                ReportError(ex.Message);
+                                Debug.WriteLine(ex.StackTrace);
+                            } catch (UriFormatException ex) {
+                                ReportError(ex.Message);
+                                Debug.WriteLine(ex.StackTrace);
+                            } catch (Exception ex) {
+                                ReportError(ex.Message);
+                                Debug.WriteLine(ex.StackTrace);
+                            }
+                        }
+                    }
+                } catch { ReportError("Recommend source fetch error."); }
+            }
+        }
+
+        private static void FetchSelectResources(HtmlNode classC, NewsPreviewModel model) {
+            var classC2 = classC.SelectSingleNode("div[@class='c2']");
+            if (classC != null) {
+                try {
+                    var classC1_Li = classC2
+                        .SelectSingleNode("div[@class='c1_r c2_r']")
+                        .SelectSingleNode("div[@class='c2_rc']")
+                        .SelectSingleNode("ul[@class='c2_rc_1']")
+                        .SelectNodes("li");
+                    model.SelectImageList = new List<SimpleImgModel>();
+                    foreach (var item in classC1_Li) {
+                        try {
+                            var aRoute = item.SelectSingleNode("a");
+                            model.SelectImageList.Add(new SimpleImgModel {
+                                Title = aRoute.Attributes["title"].Value,
+                                PathUri = new Uri(aRoute.Attributes["href"].Value),
+                                ImageUri = new Uri(aRoute.SelectSingleNode("img").Attributes["src"].Value),
+                            });
+                        } catch (NullReferenceException ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        } catch (ArgumentNullException ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        } catch (UriFormatException ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        } catch (Exception ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        }
+                    }
+                    var classC1_Div = classC2
+                        .SelectSingleNode("div[@class='c1_r c2_r']")
+                        .SelectSingleNode("div[@class='c2_rc']")
+                        .SelectNodes("div[@class='c2_rc_2']");
+                    foreach (var item in classC1_Div) {
+                        try {
+                            var aRoute = item.SelectSingleNode("a");
+                            model.SelectImageList.Add(new SimpleImgModel {
+                                Title = aRoute.Attributes["title"].Value,
+                                PathUri = new Uri(aRoute.Attributes["href"].Value),
+                                ImageUri = new Uri(aRoute.SelectSingleNode("img").Attributes["src"].Value),
+                            });
+                        } catch (NullReferenceException ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        } catch (ArgumentNullException ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        } catch (UriFormatException ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        } catch (Exception ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        }
+                    }
+                } catch { ReportError("Select source fetch error."); }
+            }
+        }
+
+        #endregion
 
     }
 }
