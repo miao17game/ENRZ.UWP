@@ -18,7 +18,7 @@ namespace ENRZ.Core.Models.Converters {
         private string ToIconCode(string title) {
             var result = default(string);
             switch (title) {
-                case "首页": result = char.ConvertFromUtf32(0xE10F); break;
+                case "ENRZ.COM": result = char.ConvertFromUtf32(0xE10F); break;
                 case "尤物": result = char.ConvertFromUtf32(0xE95E); break;
                 case "资讯": result = char.ConvertFromUtf32(0xE1CB); break;
                 case "恋物癖": result = char.ConvertFromUtf32(0xEE57); break;

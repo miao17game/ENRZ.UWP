@@ -20,7 +20,7 @@ namespace ENRZ.Core.Models.Converters {
         private Brush ToColorSolidBrush(string title) {
             SolidColorBrush result = new SolidColorBrush();
             switch (title) {
-                case "首页": result.Color = Color.FromArgb(255,75,21,173); break;
+                case "ENRZ.COM": result.Color = Color.FromArgb(255,75,21,173); break;
                 case "尤物": result.Color = Color.FromArgb(255, 217, 6, 94); break;
                 case "资讯": result.Color = Color.FromArgb(255, 60, 188, 98); break;
                 case "恋物癖": result.Color = Color.FromArgb(255, 97, 17, 171); break;

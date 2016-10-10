@@ -264,7 +264,8 @@
                     <Border Name="BasePartBorder" 
                             Background="{ThemeResource ENRZForeground01}" 
                             Height="70" VerticalAlignment="Top">
-                        <TextBlock Text="ENRZ.COM" FontSize="20"
+                        <TextBlock Name="navigateTitlePath"
+                                   Text="ENRZ.COM" FontSize="20"
                                    HorizontalAlignment="Center" 
                                    VerticalAlignment="Center"/>
                     </Border>

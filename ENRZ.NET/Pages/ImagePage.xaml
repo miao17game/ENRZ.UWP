@@ -15,6 +15,10 @@
         <CollectionViewSource x:Name="TopResouces"/>
         <CollectionViewSource x:Name="RecommendResouces"/>
         <CollectionViewSource x:Name="SelectResouces"/>
+        <CollectionViewSource x:Name="GirlResouces"/>
+        <CollectionViewSource x:Name="FashionResouces"/>
+        <CollectionViewSource x:Name="EntResouces"/>
+        <CollectionViewSource x:Name="PlaythingResouces"/>
         <CollectionViewSource x:Name="HeaderResources"/>
         <CollectionViewSource x:Name="GridViewResources"/>
         <Converters:ValueConverter x:Key="ValueConverter"/>
@@ -109,6 +113,106 @@
     <Grid Name="grid" 
           Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+        <!--#region Adaptive Traggers-->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="Mobile360">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+
+                        <Setter Target="MyFlip.(Grid.RowSpan)" Value="3"/>
+                        <Setter Target="border.(Grid.Row)" Value="3"/>
+                        <Setter Target="border.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="border.(Grid.Column)" Value="0"/>
+                        <Setter Target="TopListView.(Grid.Column)" Value="0"/>
+                        <Setter Target="TopListView.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="TopListView.(Grid.Row)" Value="4"/>
+                        <Setter Target="TopListView.(Grid.RowSpan)" Value="2"/>
+                        <Setter Target="MyFlip.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="Row01.(FrameworkElement.Height)" Value="800"/>
+                        <Setter Target="textBlock.(FrameworkElement.HorizontalAlignment)" Value="Left"/>
+                        <Setter Target="textBlock.(FrameworkElement.Margin)">
+                            <Setter.Value>
+                                <Thickness>10,0,0,0</Thickness>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="textBlock.(TextBlock.FontSize)" Value="18"/>
+                        <Setter Target="grid1.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="grid1.(Grid.Row)" Value="1"/>
+                        <Setter Target="grid2.(Grid.RowSpan)" Value="1"/>
+                        <Setter Target="grid2.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="grid2.(Grid.Column)" Value="0"/>
+                        <Setter Target="grid2.(Grid.Row)" Value="3"/>
+                        <Setter Target="gridView.(Grid.Row)" Value="2"/>
+                        <Setter Target="gridView.(Grid.RowSpan)" Value="1"/>
+                        <Setter Target="SelectGridView.(Grid.RowSpan)" Value="1"/>
+                        <Setter Target="SelectGridView.(Grid.Column)" Value="0"/>
+                        <Setter Target="SelectGridView.(Grid.Row)" Value="4"/>
+                        <Setter Target="gridView.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="SelectGridView.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="Row02.(FrameworkElement.Height)" Value="800"/>
+                        <Setter Target="textBlock1.(TextBlock.FontSize)" Value="18"/>
+                        <Setter Target="textBlock2.(TextBlock.FontSize)" Value="18"/>
+
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Mobile480">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="361"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+
+                        <Setter Target="MyFlip.(Grid.RowSpan)" Value="3"/>
+                        <Setter Target="border.(Grid.Row)" Value="3"/>
+                        <Setter Target="border.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="border.(Grid.Column)" Value="0"/>
+                        <Setter Target="TopListView.(Grid.Column)" Value="0"/>
+                        <Setter Target="TopListView.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="TopListView.(Grid.Row)" Value="4"/>
+                        <Setter Target="TopListView.(Grid.RowSpan)" Value="2"/>
+                        <Setter Target="MyFlip.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="Row01.(FrameworkElement.Height)" Value="800"/>
+                        <Setter Target="textBlock.(FrameworkElement.HorizontalAlignment)" Value="Left"/>
+                        <Setter Target="textBlock.(FrameworkElement.Margin)">
+                            <Setter.Value>
+                                <Thickness>10,0,0,0</Thickness>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Target="textBlock.(TextBlock.FontSize)" Value="18"/>
+                        <Setter Target="grid1.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="grid1.(Grid.Row)" Value="1"/>
+                        <Setter Target="grid2.(Grid.RowSpan)" Value="1"/>
+                        <Setter Target="grid2.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="grid2.(Grid.Column)" Value="0"/>
+                        <Setter Target="grid2.(Grid.Row)" Value="3"/>
+                        <Setter Target="gridView.(Grid.Row)" Value="2"/>
+                        <Setter Target="gridView.(Grid.RowSpan)" Value="1"/>
+                        <Setter Target="SelectGridView.(Grid.RowSpan)" Value="1"/>
+                        <Setter Target="SelectGridView.(Grid.Column)" Value="0"/>
+                        <Setter Target="SelectGridView.(Grid.Row)" Value="4"/>
+                        <Setter Target="gridView.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="SelectGridView.(Grid.ColumnSpan)" Value="2"/>
+                        <Setter Target="Row02.(FrameworkElement.Height)" Value="800"/>
+                        <Setter Target="textBlock1.(TextBlock.FontSize)" Value="18"/>
+                        <Setter Target="textBlock2.(TextBlock.FontSize)" Value="18"/>
+
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Desktop">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="400" MinWindowWidth="800"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <!--#endregion -->
+
+        <!--#region List Pivot-->
         <Pivot Width="{Binding Width, ElementName=grid ,Mode=OneWay}"
                ItemsSource="{Binding Source={StaticResource HeaderResources}}"
                SelectionChanged="Pivot_SelectionChanged"
@@ -162,11 +266,15 @@
                 </DataTemplate>
             </Pivot.ItemTemplate>
         </Pivot>
+        <!--#endregion-->
 
+        <!--#region For Index Content-->
         <ScrollViewer Name="IndexScroll" Margin=" 0,0,0,60" 
                       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <StackPanel>
-                <Grid Name="Row01" Height="300">
+
+                <!--#region Row1-->
+                <Grid Name="Row01" Height="600">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2.5*"/>
                         <ColumnDefinition/>
@@ -175,11 +283,11 @@
                         <RowDefinition Height="0.7*"/>
                         <RowDefinition/>
                         <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition Height="0.8*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
                     </Grid.RowDefinitions>
-                    
+
                     <FlipView Name="MyFlip"
                               Margin="0,0,0,0"
                               Grid.RowSpan="6"
@@ -212,22 +320,24 @@
                             </DataTemplate>
                         </FlipView.ItemTemplate>
                     </FlipView>
-                    
-                    <Border Grid.Column="1" Background="{ThemeResource ENRZForeground01}">
-                        <TextBlock Text="每日热图TOP5" FontSize="14" 
+
+                    <Border x:Name="border" Grid.Column="1" Background="{ThemeResource ENRZForeground01}">
+                        <TextBlock x:Name="textBlock" Text="每日热图TOP5" FontSize="14" 
                                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Border>
-                    
+
                     <ListView Name="TopListView" Grid.Column="1" Grid.Row="1" Grid.RowSpan="5"
                               SelectionMode="None" ItemClick="ListView_ItemClick" IsItemClickEnabled="True"
-                              ItemsSource="{Binding Source={StaticResource TopResouces}}">
+                              ItemsSource="{Binding Source={StaticResource TopResouces}}"
+                              ItemContainerStyle="{ThemeResource SpecialListViewItemExpanded}">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="model:SimpleImgModel">
                                 <Grid Height="{
                                     Binding ElementName=TopListView, 
                                     Path=ActualHeight, 
                                     ConverterParameter=5,
-                                    Converter={StaticResource ValueConverter}}">
+                                    Converter={StaticResource ValueConverter}}"
+                                      Background="Transparent">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition/>
                                         <ColumnDefinition Width="1.3*"/>
@@ -236,7 +346,7 @@
                                            Stretch="UniformToFill"
                                            Grid.Column="0"/>
                                     <Border Background="Transparent" 
-                                            VerticalAlignment="Bottom" Grid.Column="1">
+                                            VerticalAlignment="Center" Grid.Column="1">
                                         <TextBlock Text="{Binding Title}" 
                                                    VerticalAlignment="Top"
                                                    TextWrapping="WrapWholeWords"
@@ -249,43 +359,48 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </Grid>
+                <!--#endregion-->
 
-                <Grid Name="Row02" Height="320">
+                <!--#region Row2-->
+                <Grid Name="Row02" Height="400">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2.5*"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.3*"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="0.15*"/>
                         <RowDefinition/>
+                        <RowDefinition Height="0.15*"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    
-                    <Grid Grid.Column="0" >
-                        <TextBlock Text="编辑推荐 Recommend" FontSize="14" 
+
+                    <Grid x:Name="grid1" Grid.Column="0" Grid.Row="0">
+                        <TextBlock x:Name="textBlock1" Text="编辑推荐 Recommend" FontSize="14" 
                                    Foreground="{ThemeResource AppPersonalTextColorPure02}"
                                    VerticalAlignment="Center" HorizontalAlignment="Left"
-                                   Margin=" 10,0,0,0" FontWeight="Bold"/>
+                                   Margin=" 10,10,0,10" FontWeight="Bold"/>
                         <Rectangle Height="1" VerticalAlignment="Bottom" 
-                                   Margin="5,0,5,5" Fill="{ThemeResource ENRZForeground01}"/>
+                                   Margin="5,0,5,3" Fill="{ThemeResource ENRZForeground01}"/>
                     </Grid>
-                    <Grid Grid.Column="1" >
-                        <TextBlock Text="精选 Select" FontSize="14" 
+                    <Grid x:Name="grid2" Grid.Column="1" Grid.Row="0">
+                        <TextBlock x:Name="textBlock2" Text="精选 Select" FontSize="14" 
                                    Foreground="{ThemeResource AppPersonalTextColorPure02}"
                                    VerticalAlignment="Center" HorizontalAlignment="Left"
-                                   Margin=" 5,0,0,0" FontWeight="Bold"/>
+                                   Margin=" 5,10,0,10" FontWeight="Bold"/>
                         <Rectangle Height="1" VerticalAlignment="Bottom" 
-                                   Margin="5,0,5,5" Fill="{ThemeResource ENRZForeground01}"/>
+                                   Margin="5,0,5,3" Fill="{ThemeResource ENRZForeground01}"/>
                     </Grid>
-                    
-                    <GridView Grid.Row="1" Grid.RowSpan="2"
+
+                    <GridView x:Name="gridView" Grid.Row="1" Grid.RowSpan="4"
                               SelectionMode="None" IsItemClickEnabled="True" 
-                              ItemClick="GridView_ItemClick"
+                              ItemClick="IndexGridView_ItemClick"
                               Style="{ThemeResource ENRZGridViewStyle}"
-                              ItemsSource="{Binding Source={StaticResource RecommendResouces}}">
+                              ItemsSource="{Binding Source={StaticResource RecommendResouces}}"
+                              Margin="5,0,5,3" >
                         <GridView.ItemTemplate>
                             <DataTemplate x:DataType="model:SimpleImgModel">
-                                <Grid Height="270" Width="140">
+                                <Grid Height="360" Width="220">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="5*"/>
                                         <RowDefinition/>
@@ -303,14 +418,15 @@
                         </GridView.ItemTemplate>
                     </GridView>
                     <GridView Name="SelectGridView" Grid.Column="1"
-                              Grid.Row="1" Grid.RowSpan="2"
+                              Grid.Row="1" Grid.RowSpan="4"
                               SelectionMode="None" IsItemClickEnabled="True" 
-                              ItemClick="SelectGridView_ItemClick"
+                              ItemClick="IndexGridView_ItemClick"
                               Style="{ThemeResource ENRZGridViewStyle}"
-                              ItemsSource="{Binding Source={StaticResource SelectResouces}}">
+                              ItemsSource="{Binding Source={StaticResource SelectResouces}}"
+                              Margin="5,0,5,3">
                         <GridView.ItemTemplate>
                             <DataTemplate x:DataType="model:SimpleImgModel">
-                                <Border Height="270" Width="140">
+                                <Border Height="360" Width="220">
                                     <Image Source="{Binding ImageUri}"
                                            Stretch="UniformToFill"/>
                                 </Border>
@@ -318,10 +434,181 @@
                         </GridView.ItemTemplate>
                     </GridView>
                 </Grid>
+                <!--#endregion-->
+
+                <!--#region Row3-->
+                <Grid Name="Row03" Height="450">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.13*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <TextBlock Text="美女 GIRL" FontSize="18" 
+                                   Foreground="{ThemeResource AppPersonalTextColorPure02}"
+                                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                                   Margin=" 5,0,0,0" FontWeight="Bold"/>
+                        <Rectangle Height="1" VerticalAlignment="Bottom" 
+                                   Margin="5,0,5,5" Fill="{ThemeResource ENRZForeground01}"/>
+                    </Grid>
+                    <GridView Name="GirlGridView" Grid.Row="1" Grid.RowSpan="2"
+                              SelectionMode="None" IsItemClickEnabled="True" 
+                              ItemClick="IndexGridView_ItemClick"
+                              Style="{ThemeResource ENRZGridViewStyle}"
+                              ItemsSource="{Binding Source={StaticResource GirlResouces}}"
+                              Margin="5,0,5,3">
+                        <GridView.ItemTemplate>
+                            <DataTemplate x:DataType="model:SimpleImgModel">
+                                <Grid Height="390" Width="250">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="7*"/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Image Source="{Binding ImageUri}"
+                                           Stretch="UniformToFill"
+                                           Grid.Row="0"/>
+                                    <TextBlock Text="{Binding Title}"
+                                               FontSize="16"
+                                               Grid.Row="1" 
+                                               TextWrapping="WrapWholeWords"
+                                               VerticalAlignment="Top"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+                </Grid>
+                <!--#endregion-->
+
+                <!--#region Row4-->
+                <Grid Name="Row04" Height="450">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.13*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <TextBlock Text="时尚 FASHION" FontSize="18" 
+                                   Foreground="{ThemeResource AppPersonalTextColorPure02}"
+                                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                                   Margin=" 5,0,0,0" FontWeight="Bold"/>
+                        <Rectangle Height="1" VerticalAlignment="Bottom" 
+                                   Margin="5,0,5,5" Fill="{ThemeResource ENRZForeground01}"/>
+                    </Grid>
+                    <GridView Name="FashionGridView" Grid.Row="1" Grid.RowSpan="2"
+                              SelectionMode="None" IsItemClickEnabled="True" 
+                              ItemClick="IndexGridView_ItemClick"
+                              Style="{ThemeResource ENRZGridViewStyle}"
+                              ItemsSource="{Binding Source={StaticResource FashionResouces}}"
+                              Margin="5,0,5,3">
+                        <GridView.ItemTemplate>
+                            <DataTemplate x:DataType="model:SimpleImgModel">
+                                <Grid Height="390" Width="250">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="5*"/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Image Source="{Binding ImageUri}"
+                                           Stretch="UniformToFill"
+                                           Grid.Row="0"/>
+                                    <TextBlock Text="{Binding Title}"
+                                               FontSize="16"
+                                               Grid.Row="1" 
+                                               TextWrapping="WrapWholeWords"
+                                               VerticalAlignment="Top"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+                </Grid>
+                <!--#endregion-->
+
+                <!--#region Row5-->
+                <Grid Name="Row05" Height="450">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.13*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <TextBlock Text="玩物 PLAYTHING" FontSize="18" 
+                                   Foreground="{ThemeResource AppPersonalTextColorPure02}"
+                                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                                   Margin=" 5,0,0,0" FontWeight="Bold"/>
+                        <Rectangle Height="1" VerticalAlignment="Bottom" 
+                                   Margin="5,0,5,5" Fill="{ThemeResource ENRZForeground01}"/>
+                    </Grid>
+                    <GridView Name="PlaythingGridView" Grid.Row="1" Grid.RowSpan="2"
+                              SelectionMode="None" IsItemClickEnabled="True" 
+                              ItemClick="IndexGridView_ItemClick"
+                              Style="{ThemeResource ENRZGridViewStyle}"
+                              ItemsSource="{Binding Source={StaticResource PlaythingResouces}}"
+                              Margin="5,0,5,3">
+                        <GridView.ItemTemplate>
+                            <DataTemplate x:DataType="model:SimpleImgModel">
+                                <Grid Height="390" Width="250">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="5*"/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Image Source="{Binding ImageUri}"
+                                           Stretch="UniformToFill"
+                                           Grid.Row="0"/>
+                                    <TextBlock Text="{Binding Title}"
+                                               FontSize="16"
+                                               Grid.Row="1" 
+                                               TextWrapping="WrapWholeWords"
+                                               VerticalAlignment="Top"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+                </Grid>
+                <!--#endregion-->
+
+                <!--#region Row6-->
+                <Grid Name="Row06" Height="450">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.13*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <TextBlock Text="娱乐 ENT" FontSize="18" 
+                                   Foreground="{ThemeResource AppPersonalTextColorPure02}"
+                                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                                   Margin=" 5,0,0,0" FontWeight="Bold"/>
+                        <Rectangle Height="1" VerticalAlignment="Bottom" 
+                                   Margin="5,0,5,5" Fill="{ThemeResource ENRZForeground01}"/>
+                    </Grid>
+                    <GridView Name="EntGridView" Grid.Row="1" Grid.RowSpan="2"
+                              SelectionMode="None" IsItemClickEnabled="True" 
+                              ItemClick="IndexGridView_ItemClick"
+                              Style="{ThemeResource ENRZGridViewStyle}"
+                              ItemsSource="{Binding Source={StaticResource EntResouces}}"
+                              Margin="5,0,5,3">
+                        <GridView.ItemTemplate>
+                            <DataTemplate x:DataType="model:SimpleImgModel">
+                                <Grid Height="390" Width="250">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="5*"/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Image Source="{Binding ImageUri}"
+                                           Stretch="UniformToFill"
+                                           Grid.Row="0"/>
+                                    <TextBlock Text="{Binding Title}"
+                                               FontSize="16"
+                                               Grid.Row="1" 
+                                               TextWrapping="WrapWholeWords"
+                                               VerticalAlignment="Top"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+                </Grid>
+                <!--#endregion-->
 
             </StackPanel>
         </ScrollViewer>
+        <!--#endregion-->
 
+        <!--#region Button Panel-->
         <Grid Height="65" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -348,5 +635,7 @@
                     Style="{StaticResource ImgNaviButtonStyle}"
                     Click="ButtonSelect" Grid.Column="4"/>
         </Grid>
+        <!--#endregion-->
+
     </Grid>
 </Page>

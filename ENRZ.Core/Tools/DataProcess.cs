@@ -44,10 +44,12 @@ namespace ENRZ.Core.Tools {
             foreach (var li in LiCollection) {
                 if (li.SelectSingleNode("a") != null) {
                     var naviBarModel = new NavigationBarModel();
-                    naviBarModel.Title = li.SelectSingleNode("a").InnerText;
+                    naviBarModel.Title = li.SelectSingleNode("a").InnerText== "首页"? 
+                        "ENRZ.COM"
+                        :li.SelectSingleNode("a").InnerText;
                     naviBarModel.PathUri = new Uri(li.SelectSingleNode("a").Attributes["href"].Value);
                     // Check if it has innerItems
-                    naviBarModel.Items = new List<BarItemModel>();
+                    naviBarModel.Items = new List<BarItemModel>(); 
                     naviBarModel.Items.Add(new BarItemModel { Title = "首页", PathUri = naviBarModel.PathUri, });
                     if (li.SelectSingleNode("ul[@class='gn-sub']") != null) {
                         foreach (var innerLi in li.SelectSingleNode("ul[@class='gn-sub']").SelectNodes("li")) {
@@ -124,13 +126,15 @@ namespace ENRZ.Core.Tools {
             FetchTopResources(classC, model);
             FetchRecommendResources(classC, model);
             FetchSelectResources(classC, model);
+            for(int i = 0; i < 4; i++) 
+                FetchCollectionResources(classC, model, i);
             return model;
         }
 
         #region Inner Methods
         private static void FetchSlideResources(HtmlNode classC, NewsPreviewModel model) {
             var classC1 = classC.SelectSingleNode("div[@class='c1']");
-            if (classC != null) {
+            if (classC1 != null) {
                 try {
                     var classC1_Li = classC1
                         .SelectSingleNode("div[@class='c1_l']")
@@ -166,7 +170,7 @@ namespace ENRZ.Core.Tools {
 
         private static void FetchTopResources(HtmlNode classC, NewsPreviewModel model) {
             var classC1 = classC.SelectSingleNode("div[@class='c1']");
-            if (classC != null) {
+            if (classC1 != null) {
                 try {
                     var classC1_Li = classC1
                         .SelectSingleNode("div[@class='c1_r']")
@@ -201,7 +205,7 @@ namespace ENRZ.Core.Tools {
 
         private static void FetchRecommendResources(HtmlNode classC, NewsPreviewModel model) {
             var classC2 = classC.SelectSingleNode("div[@class='c2']");
-            if (classC != null) {
+            if (classC2 != null) {
                 try {
                     var classC1_Ul = classC2
                         .SelectSingleNode("div[@class='c2_left']")
@@ -240,7 +244,7 @@ namespace ENRZ.Core.Tools {
 
         private static void FetchSelectResources(HtmlNode classC, NewsPreviewModel model) {
             var classC2 = classC.SelectSingleNode("div[@class='c2']");
-            if (classC != null) {
+            if (classC2 != null) {
                 try {
                     var classC1_Li = classC2
                         .SelectSingleNode("div[@class='c1_r c2_r']")
@@ -297,6 +301,102 @@ namespace ENRZ.Core.Tools {
                         }
                     }
                 } catch { ReportError("Select source fetch error."); }
+            }
+        }
+
+        private static void FetchCollectionResources(HtmlNode classC, NewsPreviewModel model, int index) {
+            var classC3 = classC.SelectNodes("div[@class='c3']").ElementAt(index);
+            var targetList = new List<SimpleImgModel>();
+            if (classC3 != null) {
+                try {
+                    var classC1_Left = classC3.SelectNodes("div[@class='c3_l']");
+                    foreach (var item in classC1_Left) {
+                        try {
+                            var aRoute = item.SelectSingleNode("a");
+                            targetList.Add(new SimpleImgModel {
+                                Title = aRoute.Attributes["title"].Value,
+                                PathUri = new Uri(aRoute.Attributes["href"].Value),
+                                ImageUri = new Uri(aRoute.SelectSingleNode("img").Attributes["src"].Value),
+                            });
+                        } catch (NullReferenceException ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        } catch (ArgumentNullException ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        } catch (UriFormatException ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        } catch (Exception ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        }
+                    }
+                    var classC1_Li = classC3
+                        .SelectSingleNode("div[@class='c3_r']")
+                        .SelectSingleNode("ul")
+                        .SelectNodes("li");
+                    foreach (var item in classC1_Li) {
+                        try {
+                            var aRoute = item.SelectSingleNode("a");
+                            targetList.Add(new SimpleImgModel {
+                                Title = aRoute.Attributes["title"].Value,
+                                PathUri = new Uri(aRoute.Attributes["href"].Value),
+                                ImageUri = new Uri(aRoute.SelectSingleNode("img").Attributes["src"].Value),
+                            });
+                        } catch (NullReferenceException ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        } catch (ArgumentNullException ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        } catch (UriFormatException ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        } catch (Exception ex) {
+                            ReportError(ex.Message);
+                            Debug.WriteLine(ex.StackTrace);
+                        }
+                    }
+                } catch { ReportError("Collection source fetch error."); }
+                if (index == 1) {
+                    var classC3B = classC.SelectSingleNode("div[@class='c3_b']");
+                    if (classC3B != null) {
+                        try {
+                            var classSpecial = classC3B
+                                .SelectNodes("div");
+                            foreach (var item in classSpecial) {
+                                try {
+                                    var aRoute = item.SelectSingleNode("a");
+                                    targetList.Add(new SimpleImgModel {
+                                        Title = aRoute.Attributes["title"].Value,
+                                        PathUri = new Uri(aRoute.Attributes["href"].Value),
+                                        ImageUri = new Uri(aRoute.SelectSingleNode("img").Attributes["src"].Value),
+                                    });
+                                } catch (NullReferenceException ex) {
+                                    ReportError(ex.Message);
+                                    Debug.WriteLine(ex.StackTrace);
+                                } catch (ArgumentNullException ex) {
+                                    ReportError(ex.Message);
+                                    Debug.WriteLine(ex.StackTrace);
+                                } catch (UriFormatException ex) {
+                                    ReportError(ex.Message);
+                                    Debug.WriteLine(ex.StackTrace);
+                                } catch (Exception ex) {
+                                    ReportError(ex.Message);
+                                    Debug.WriteLine(ex.StackTrace);
+                                }
+                            }
+                        } catch { ReportError("Special source fetch error."); }
+                    }
+                }
+                switch (index) {
+                    case 0: model.GirlImageList = targetList; break;
+                    case 1: model.FashionImageList = targetList; break;
+                    case 2: model.PlaythingImageList = targetList; break;
+                    case 3: model.EntImageList = targetList; break;
+                    default: break;
+                }
             }
         }
 

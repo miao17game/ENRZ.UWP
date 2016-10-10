@@ -24,6 +24,8 @@ namespace ENRZ.NET.Pages {
     public sealed partial class ImagePage : Page {
         public ImagePage() {
             this.InitializeComponent();
+            Current = this;
+            this.NavigationCacheMode = NavigationCacheMode.Required;
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e) {
@@ -38,6 +40,10 @@ namespace ENRZ.NET.Pages {
             TopResouces.Source = source.TopImageList;
             RecommendResouces.Source = source.RecommendImageList;
             SelectResouces.Source = source.SelectImageList;
+            GirlResouces.Source = source.GirlImageList;
+            FashionResouces.Source = source.FashionImageList;
+            PlaythingResouces.Source = source.PlaythingImageList;
+            EntResouces.Source = source.EntImageList;
         }
 
         private void InitFlipTimer() {
@@ -68,6 +74,12 @@ namespace ENRZ.NET.Pages {
         }
 
         private void ButtonSelect(object sender, RoutedEventArgs e) {
+            var button = sender as Button;
+            if ( button.Name== "IndexButton" ) {
+                IndexScroll.Visibility = Visibility.Visible;
+                return;
+            }
+            IndexScroll.Visibility = Visibility.Collapsed;
 
         }
 
@@ -87,12 +99,26 @@ namespace ENRZ.NET.Pages {
             InitFlipTimer();
         }
 
-        private void GridView_ItemClick(object sender, ItemClickEventArgs e) {
+        private void IndexGridView_ItemClick(object sender, ItemClickEventArgs e) {
 
         }
 
-        private void SelectGridView_ItemClick(object sender, ItemClickEventArgs e) {
+        static class InnerResources {
+
+            public static string GetSceneName(string buttonName) { return SceneMap.ContainsKey(buttonName) ? SceneMap[buttonName] : null; }
+            static private Dictionary<string, string> SceneMap = new Dictionary<string, string> {
+                { Current.IndexButton.Name, "首页" },
+                { Current.GirlButton.Name, "美女" },
+                {Current.FashionlButton.Name, "时尚" },
+                {Current.PalythingButton.Name, "玩物" },
+                {Current.EntButton.Name, "娱乐" },
+            };
 
         }
+
+        #region Properties and state
+        public static ImagePage Current;
+        #endregion
+
     }
 }

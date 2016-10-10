@@ -51,7 +51,7 @@ namespace ENRZ.Core. Tools {
             if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar")) {
                 StatusBar statusBar = StatusBar.GetForCurrentView();
                 if (!IsLightTheme) {
-                    statusBar.BackgroundColor = Color.FromArgb(0, 32, 32, 32);
+                    statusBar.BackgroundColor = Color.FromArgb(0, 202, 0, 62);
                     statusBar.ForegroundColor = Colors.White;
                 } else {
                     statusBar.BackgroundColor = Color.FromArgb(0, 246, 246, 246);

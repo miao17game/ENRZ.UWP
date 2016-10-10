@@ -29,6 +29,8 @@ namespace ENRZ.NET {
         public MainPage() {
             this.InitializeComponent();
             Current = this;
+            NavigateTitlePath = this.navigateTitlePath;
+            ChangeTitlePath(NaviPathTitle.RoutePath);
             PrepareFrame.Navigate(typeof(PreparePage));
             StatusBarInit.InitInnerDesktopStatusBar(true);
             Window.Current.SetTitleBar(BasePartBorder);
@@ -54,14 +56,24 @@ namespace ENRZ.NET {
             var model = e.AddedItems.FirstOrDefault() as NavigationBarModel;
             if (model == null)
                 return;
-            NavigateType type = model.Title.ToString() == "美图" ? 
-                NavigateType.SpecialImage : 
-                NavigateType.NaviBar;
-            NavigateToBase?.Invoke(
-                sender,
-                new NavigateParameter { PathUri = model.PathUri, Items = model.Items,},
-                InnerResources.GetFrameInstance(type), 
-                InnerResources.GetPageType(type));
+            NaviPathTitle.Route01 = model.Title;
+            ChangeTitlePath(NaviPathTitle.RoutePath);
+            NavigateType type = model.Title.ToString() == "美图" ?
+            NavigateType.SpecialImage :
+            NavigateType.NaviBar;
+            if (InnerResources.IfContainsPageInstance(NaviPathTitle.RoutePath)) {
+                InnerResources.GetFrameInstance(type).Content = InnerResources.GetPageInstance(NaviPathTitle.RoutePath);
+            } else {
+                NavigateToBase?.Invoke(
+                    sender,
+                    new NavigateParameter { PathUri = model.PathUri, Items = model.Items, },
+                    InnerResources.GetFrameInstance(type),
+                    InnerResources.GetPageType(type));
+            }
+        }
+
+        public static void ChangeTitlePath(string value) {
+            Current.NavigateTitlePath.Text = value;
         }
 
         /// <summary>
@@ -84,12 +96,25 @@ namespace ENRZ.NET {
             {NavigateType.InnerBarItem,Current.ContentFrame},
         };
 
+            public static void AddBaseListPageInstance(string key, BaseListPage instance) { if (!BaseListPageMap.ContainsKey(key)) { BaseListPageMap.Add(key, instance); } }
+            public static BaseListPage GetPageInstance(string key) { return BaseListPageMap.ContainsKey(key) ? BaseListPageMap[key] : null; }
+            public static bool IfContainsPageInstance(string key) { return BaseListPageMap.ContainsKey(key); }
+            static private Dictionary<string, BaseListPage> BaseListPageMap = new Dictionary<string, BaseListPage> {
+            };
+
         }
 
         #region Properties and state
         public static MainPage Current;
+        public TextBlock NavigateTitlePath;
         public delegate void NavigationEventHandler(object sender, NavigateParameter parameter, Frame frame, Type type);
         public NavigationEventHandler NavigateToBase = (sender, parameter, frame, type) => { frame.Navigate(type, parameter); };
+        public struct PathTitle {
+            public string Route01 { get; set; }
+            public string Route02 { get; set; }
+            public string RoutePath { get { return Route02!=null? Route01 + "-" + Route02: Route01; } }
+        }
+        public static PathTitle NaviPathTitle = new PathTitle { Route01 = "ENRZ.COM" };
         #endregion
     }
 }

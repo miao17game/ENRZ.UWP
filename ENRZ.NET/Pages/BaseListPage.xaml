@@ -17,8 +17,6 @@
     <Grid Name="grid" 
           Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         
-        <TextBlock Name="Args" Text="BaseListPage" FontSize="20" VerticalAlignment="Bottom"/>
-        
         <Pivot Width="{Binding Width, ElementName=grid ,Mode=OneWay}"
                ItemsSource="{Binding Source={StaticResource HeaderResources}}"
                SelectionChanged="Pivot_SelectionChanged">
@@ -40,7 +38,8 @@
                                                      SelectionMode="None"
                                                      IsItemClickEnabled="True"
                                                      ItemClick="AdaptiveGridView_ItemClick"
-                                                     ItemsSource="{Binding Source={StaticResource GridViewResources}}">
+                                                     ItemsSource="{Binding Source={StaticResource GridViewResources}}"
+                                                     Loaded="AdaptiveGridView_Loaded">
                             <MSControls:AdaptiveGridView.ItemTemplate>
                                 <DataTemplate x:DataType="model:NewsPreviewModel">
                                     <Grid>
