@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 namespace ENRZ.Core.Models {
     public enum NavigateType {
         NaviBar = 0,
-        InnerBarItem = 1,
+        Content = 1,
         Settings = 2,
-        SpecialImage = 3,
+        ImageNaviBar = 3,
+        PicutreContent = 4,
     }
 }

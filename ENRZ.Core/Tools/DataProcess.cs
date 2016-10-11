@@ -1,6 +1,7 @@
 ﻿using DBCSCodePage;
 using ENRZ.Core.Controls;
 using ENRZ.Core.Models;
+using ENRZ.Core.Models.PageContentModels;
 using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ using Windows.UI.Xaml.Media.Imaging;
 namespace ENRZ.Core.Tools {
     public static class DataProcess {
         #region Properties and State
-
+        public enum BarItemType { NavigationOutside = 0, InnerBarItem = 1,}
         #endregion
 
         public static async void ReportError(string erroeMessage) {
@@ -50,7 +51,7 @@ namespace ENRZ.Core.Tools {
                     naviBarModel.PathUri = new Uri(li.SelectSingleNode("a").Attributes["href"].Value);
                     // Check if it has innerItems
                     naviBarModel.Items = new List<BarItemModel>(); 
-                    naviBarModel.Items.Add(new BarItemModel { Title = "首页", PathUri = naviBarModel.PathUri, });
+                    naviBarModel.Items.Add(new BarItemModel { Title = naviBarModel.Title, PathUri = naviBarModel.PathUri, });
                     if (li.SelectSingleNode("ul[@class='gn-sub']") != null) {
                         foreach (var innerLi in li.SelectSingleNode("ul[@class='gn-sub']").SelectNodes("li")) {
                             naviBarModel.Items.Add(new BarItemModel {
@@ -131,7 +132,247 @@ namespace ENRZ.Core.Tools {
             return model;
         }
 
+        public static List<BarItemModel> FetchBarItemNaviFromHtml(string htmlResources) {
+            var pageResources = new HtmlDocument();
+            pageResources.LoadHtml(htmlResources);
+            HtmlNode rootnode = pageResources.DocumentNode;
+            string XPathString = "//div[@class='li_nav']";
+            var LiNavigation = rootnode.SelectSingleNode(XPathString);
+            if (LiNavigation == null) 
+                return null;
+            var navi_Li_Coll = LiNavigation 
+                .SelectSingleNode("//div[@class='lin_nav_c']")
+                .SelectSingleNode("//ul[@id='lin_nav']")
+                .SelectNodes("li");
+            var list = new List<BarItemModel>();
+            foreach (var li in navi_Li_Coll) {
+                try {
+                    list.Add(new BarItemModel {
+                        Title = li.SelectSingleNode("a").Attributes["title"].Value,
+                        PathUri = new Uri(li.SelectSingleNode("a").Attributes["href"].Value),
+                    });
+                } catch (NullReferenceException ex) {
+                    ReportError(ex.Message);
+                    Debug.WriteLine(ex.StackTrace);
+                } catch (ArgumentNullException ex) {
+                    ReportError(ex.Message);
+                    Debug.WriteLine(ex.StackTrace);
+                } catch (UriFormatException ex) {
+                    ReportError(ex.Message);
+                    Debug.WriteLine(ex.StackTrace);
+                } catch (Exception ex) {
+                    ReportError(ex.Message);
+                    Debug.WriteLine(ex.StackTrace);
+                }
+            }
+            return list;
+        }
+
+        public static List<SimpleImgModel> FetchBarItemInnerFromHtml(string htmlResources) {
+            var pageResources = new HtmlDocument();
+            pageResources.LoadHtml(htmlResources);
+            HtmlNode rootnode = pageResources.DocumentNode;
+            try {
+                string XPathString = "//div[@class='li_c fn-clear']";
+                var navi_Li_Coll = rootnode
+                    .SelectSingleNode(XPathString)
+                    .SelectSingleNode("//div[@class='li_l']")
+                    .SelectSingleNode("//ul[@class='li_lu li_lu_small']")
+                    .SelectNodes("li");
+                var list = new List<SimpleImgModel>();
+                foreach (var li in navi_Li_Coll) {
+                    try {
+                        list.Add(new SimpleImgModel {
+                            Title = li.SelectSingleNode("a").Attributes["title"].Value,
+                            PathUri = new Uri(li.SelectSingleNode("a").Attributes["href"].Value),
+                            ImageUri = new Uri(li.SelectSingleNode("a").SelectSingleNode("img").Attributes["src"].Value),
+                        });
+                    } catch (NullReferenceException ex) {
+                        ReportError(ex.Message);
+                        Debug.WriteLine(ex.StackTrace);
+                    } catch (ArgumentNullException ex) {
+                        ReportError(ex.Message);
+                        Debug.WriteLine(ex.StackTrace);
+                    } catch (UriFormatException ex) {
+                        ReportError(ex.Message);
+                        Debug.WriteLine(ex.StackTrace);
+                    } catch (Exception ex) {
+                        ReportError(ex.Message);
+                        Debug.WriteLine(ex.StackTrace);
+                    }
+                }
+                return list;
+            } catch {
+                return new List<SimpleImgModel>();
+            }
+        }
+
+        public static PicturesCollModel FetchPictureCollectionFromHtml(string htmlResources) {
+            var addHost = "http://pic.enrz.com";
+            var pageResources = new HtmlDocument();
+            pageResources.LoadHtml(htmlResources);
+            HtmlNode rootnode = pageResources.DocumentNode;
+            try {
+                string XPathString = "//div[@class='detail_rel']";
+                var navi_Li_Coll = rootnode.SelectSingleNode(XPathString).SelectNodes("div");
+                var model = new PicturesCollModel();
+                model.PictureItems = new List<BarItemModel>();
+                foreach (var div in navi_Li_Coll) {
+                    try {
+                        switch (div.Attributes["id"].Value) {
+                            case "hover1": try {
+                                    model.Previous = new SimpleImgModel {
+                                        Title = div.SelectSingleNode("a").Attributes["title"].Value,
+                                        PathUri = new Uri(addHost + div.SelectSingleNode("a").Attributes["href"].Value),
+                                        ImageUri = new Uri(div.SelectSingleNode("a").SelectSingleNode("img").Attributes["src"].Value)
+                                    };
+                                } catch { }
+                                break;
+                            case "hover2": try {
+                                    var UlCollection = div
+                                  .SelectSingleNode("//div[@class='detail_thumb_cm']")
+                                  .SelectNodes("ul");
+                                    foreach (var ul in UlCollection) {
+                                        foreach(var li in ul.SelectNodes("li")) {
+                                            model.PictureItems.Add(new BarItemModel {
+                                                PathUri = new Uri(addHost + li.SelectSingleNode("a").Attributes["href"].Value),
+                                            });
+                                        }
+                                    }
+                                } catch { }
+                                break;
+                            case "hover3": try {
+                                    model.Next = new SimpleImgModel {
+                                        Title = div.SelectSingleNode("a").Attributes["title"].Value,
+                                        PathUri = new Uri(addHost + div.SelectSingleNode("a").Attributes["href"].Value),
+                                        ImageUri = new Uri(div.SelectSingleNode("a").SelectSingleNode("img").Attributes["src"].Value)
+                                    };
+                                } catch { }
+                                break;
+                            default:break;
+                        }
+                    } catch (Exception ex) {
+                        ReportError(ex.Message);
+                        Debug.WriteLine(ex.StackTrace);
+                    }
+                }
+                model.MoreCollection = new List<SimpleImgModel>();
+                try {
+                    var moreCollection = rootnode
+                 .SelectSingleNode("//div[@class='detail_m fn-clear mt20']")
+                 .SelectSingleNode("div[@class='detail_recom']")
+                 .SelectSingleNode("ul")
+                 .SelectNodes("li");
+                    foreach (var li in moreCollection) {
+                        var noteA = li.SelectSingleNode("a");
+                        model.MoreCollection.Add(new SimpleImgModel {
+                            Title = noteA.Attributes["title"].Value,
+                            PathUri = new Uri(noteA.Attributes["href"].Value),
+                            ImageUri = new Uri(noteA.SelectSingleNode("img").Attributes["src"].Value),
+                        });
+                    }
+                } catch{ }
+                try {
+                    var moreCollection2 = rootnode
+                   .SelectSingleNode("//div[@class='detail_m fn-clear mt20']")
+                   .SelectSingleNode("div[@class='detail_u']")
+                   .SelectSingleNode("ul")
+                   .SelectNodes("li");
+                    foreach (var li in moreCollection2) {
+                        var noteA = li.SelectSingleNode("a");
+                        model.MoreCollection.Add(new SimpleImgModel {
+                            Title = noteA.Attributes["title"].Value,
+                            PathUri = new Uri(noteA.Attributes["href"].Value),
+                            ImageUri = new Uri(noteA.SelectSingleNode("img").Attributes["src"].Value),
+                        });
+                    }
+                } catch { }
+                return model;
+            } catch {
+                return new PicturesCollModel();
+            }
+        }
+
+        public static SimpleImgModel FetchPictureSingleFromHtml(string htmlResources) {
+            var pageResources = new HtmlDocument();
+            pageResources.LoadHtml(htmlResources);
+            HtmlNode rootnode = pageResources.DocumentNode;
+            try {
+                string XPathString = "//div[@class='detail_view_m']";
+                var imaDiv = rootnode.SelectSingleNode(XPathString);
+                var model = new SimpleImgModel();
+                try {
+                    model.ImageUri = new Uri(imaDiv.SelectSingleNode("img").Attributes["src"].Value);
+                } catch (NullReferenceException ex) {
+                    ReportError(ex.Message);
+                    Debug.WriteLine(ex.StackTrace);
+                } catch (ArgumentNullException ex) {
+                    ReportError(ex.Message);
+                    Debug.WriteLine(ex.StackTrace);
+                } catch (UriFormatException ex) {
+                    ReportError(ex.Message);
+                    Debug.WriteLine(ex.StackTrace);
+                } catch (Exception ex) {
+                    ReportError(ex.Message);
+                    Debug.WriteLine(ex.StackTrace);
+                }
+                return model;
+            } catch {
+                return null;
+            }
+        }
+
+        public static PageContentModel GetPageInnerContent(string htmlResources) {
+            var model = new PageContentModel();
+            try {
+                HtmlDocument doc = new HtmlDocument();
+                doc.LoadHtml(htmlResources);
+                HtmlNode rootnode = doc.DocumentNode;
+                string XPathString = "//div[@id='main-contbox']";
+                var pageBox = rootnode.SelectSingleNode(XPathString);
+                var select01 = pageBox.SelectSingleNode("div[@class='mc-content fl']").SelectSingleNode("div[@id='content']");
+                model.Title = select01.SelectSingleNode("h2").InnerText;
+                model.PreviewContent = select01.SelectSingleNode("h3").InnerText;
+                var contents = select01.SelectNodes("p");
+                uint index = 0;
+                model.ContentImage = new List<ContentImages>();
+                model.ContentString = new List<ContentStrings>();
+                model.ContentGif = new List<ContentGifs>();
+                model.ContentVideo = new List<ContentVideos>();
+                model.ContentFlash = new List<ContentFlashs>();
+                model.ContentSelfUri = new List<ContentSelfUris>();
+                foreach (var item in contents) {
+                    try {
+                        index++;
+                        if (item.SelectSingleNode("a") != null) {
+                            if (item.SelectSingleNode("a").SelectSingleNode("img") != null) {
+                                model.ContentImage.Add(new ContentImages { Image=new BitmapImage(new Uri(item.SelectSingleNode("a").SelectSingleNode("img").Attributes["src"].Value)), Index=index });
+                            }
+                        } else {
+                            model.ContentString.Add(new ContentStrings { Content = item.InnerText, Index=index });
+                        }
+                    } catch (NullReferenceException) {
+                        ReportException("部分内容暂不支持显示");
+                    } catch (ArgumentOutOfRangeException AOORE) {
+                        ReportError(AOORE.Message.ToString());
+                    } catch (ArgumentNullException) {
+                    } catch (FormatException FE) {
+                        ReportError(FE.Message.ToString());
+                    } catch (Exception E) {
+                        ReportError(E.Message.ToString());
+                    }
+                }
+            } catch (ArgumentOutOfRangeException AOORE) {
+                ReportError(AOORE.Message.ToString());
+            } catch (ArgumentNullException) {
+            } catch (Exception E) {
+                ReportError(E.Message.ToString());
+            }
+            return model;
+        }
+
         #region Inner Methods
+
         private static void FetchSlideResources(HtmlNode classC, NewsPreviewModel model) {
             var classC1 = classC.SelectSingleNode("div[@class='c1']");
             if (classC1 != null) {

@@ -25,6 +25,15 @@ namespace ENRZ.Core.DataVirtualization {
             if(InitType == InitSelector.Special) { LoadPreview(); }
         }
 
+        public ENRZDataContext(FetchDataCallbackHandler back, uint rollNum, string targetHost, InitSelector type) {
+            FetchCallback = back;
+            number = 0;
+            rollNumber = rollNum;
+            this.targetHost = targetHost;
+            InitType = type;
+            if (InitType == InitSelector.Special) { LoadPreview(); }
+        }
+
         private async void LoadPreview() { await LoadMoreItemsAsync(0); InitType = InitSelector.Default; }
 
         protected override bool HasMoreItemsOrNot() { return true; }
@@ -32,7 +41,7 @@ namespace ENRZ.Core.DataVirtualization {
         protected override async Task<IList<object>> LoadItemsAsync(CancellationToken cancToken, uint count) {
             //await Task.Delay(10);
             wholeCount += rollNumber;
-            var coll = await FetchCallback.Invoke( number, rollNumber,wholeCount);
+            var coll = await FetchCallback.Invoke( number, targetHost, rollNumber,wholeCount);
 
             // Is this ok?
             //return (coll as ObservableCollection<object>).ToArray();
@@ -40,7 +49,7 @@ namespace ENRZ.Core.DataVirtualization {
         }
 
         uint wholeCount = 0;
-        public delegate Task<List<T>> FetchDataCallbackHandler( int ID , uint rollNum, uint nowWholeCount);
+        public delegate Task<List<T>> FetchDataCallbackHandler( int ID , string host, uint rollNum, uint nowWholeCount);
         public FetchDataCallbackHandler FetchCallback;
         private int number;
         private uint rollNumber;

@@ -33,8 +33,8 @@
                 <DataTemplate x:DataType="model:BarItemModel" >
                     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                         <MSControls:AdaptiveGridView Name="AdaptiveGridView"
-                                                     ItemHeight="200"
-                                                     DesiredWidth="200"
+                                                     ItemHeight="240"
+                                                     DesiredWidth="320"
                                                      SelectionMode="None"
                                                      IsItemClickEnabled="True"
                                                      ItemClick="AdaptiveGridView_ItemClick"
@@ -42,7 +42,7 @@
                                                      Loaded="AdaptiveGridView_Loaded">
                             <MSControls:AdaptiveGridView.ItemTemplate>
                                 <DataTemplate x:DataType="model:NewsPreviewModel">
-                                    <Grid>
+                                    <Grid Margin="-2">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*"/>
                                             <RowDefinition Height="*"/>

@@ -22,6 +22,11 @@ namespace ENRZ.NET.Pages {
     public sealed partial class SettingsPage : Page {
         public SettingsPage() {
             this.InitializeComponent();
+            VersionMessage.Text = "版本信息：" + Edi.UWP.Helpers.Utils.GetAppVersion();
+        }
+
+        private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+
         }
     }
 }

@@ -149,6 +149,7 @@
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+        <!--#region StateTriggers-->
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="Mobile360">
@@ -158,7 +159,23 @@
                     <VisualState.Setters>
 
                         <Setter Target="NavigationSplit.(SplitView.DisplayMode)" Value="Overlay"/>
-
+                        <Setter Target="BasePartBorder.(FrameworkElement.Height)" Value="90"/>
+                        <Setter Target="navigateTitlePath.(FrameworkElement.Margin)" >
+                            <Setter.Value>0,20,0,0</Setter.Value>
+                        </Setter>
+                        <Setter Target="BaseHamburgerButton.(FrameworkElement.Margin)" >
+                            <Setter.Value>0,20,0,0</Setter.Value>
+                        </Setter>
+                        <Setter Target="HamburgerButton.(FrameworkElement.Margin)" >
+                            <Setter.Value>0,20,0,0</Setter.Value>
+                        </Setter>
+                        <Setter Target="BasePartFrame.(FrameworkElement.Margin)" >
+                            <Setter.Value>0,90,0,0</Setter.Value> 
+                        </Setter>
+                        <Setter Target="SlideAnimaRec.(FrameworkElement.Margin)" >
+                            <Setter.Value>0,140,0,70</Setter.Value> 
+                        </Setter>
+                        
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Mobile480">
@@ -168,6 +185,22 @@
                     <VisualState.Setters>
 
                         <Setter Target="NavigationSplit.(SplitView.DisplayMode)" Value="Overlay"/>
+                        <Setter Target="BasePartBorder.(FrameworkElement.Height)" Value="90"/>
+                        <Setter Target="navigateTitlePath.(FrameworkElement.Margin)" >
+                            <Setter.Value>0,20,0,0</Setter.Value>
+                        </Setter>
+                        <Setter Target="BaseHamburgerButton.(FrameworkElement.Margin)" >
+                            <Setter.Value>0,20,0,0</Setter.Value>
+                        </Setter>
+                        <Setter Target="HamburgerButton.(FrameworkElement.Margin)" >
+                            <Setter.Value>0,20,0,0</Setter.Value>
+                        </Setter>
+                        <Setter Target="BasePartFrame.(FrameworkElement.Margin)" >
+                            <Setter.Value>0,90,0,0</Setter.Value>
+                        </Setter>
+                        <Setter Target="SlideAnimaRec.(FrameworkElement.Margin)" >
+                            <Setter.Value>0,140,0,70</Setter.Value>
+                        </Setter>
 
                     </VisualState.Setters>
                 </VisualState>
@@ -178,11 +211,43 @@
                     <VisualState.Setters>
 
                         <Setter Target="BaseHamburgerButton.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="SlideAnimaRec.(FrameworkElement.Margin)" >
+                            <Setter.Value>70,120,0,70</Setter.Value>
+                        </Setter>
                         
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="DesktopExtra_Tablet">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="700" MinWindowWidth="1300"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+
+                        <Setter Target="NavigationSplit.(SplitView.IsPaneOpen)" Value="True"/>
+                        <Setter Target="BaseHamburgerButton.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="SlideAnimaRec.(FrameworkElement.Margin)" >
+                            <Setter.Value>70,120,0,70</Setter.Value>
+                        </Setter>
+                        <Setter Target="SlideAnimaRec.(UIElement.Visibility)" Value="Collapsed"/>
+
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="DesktopExtra_LightTablet">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="1300"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+
+                        <Setter Target="BaseHamburgerButton.(UIElement.Visibility)" Value="Collapsed"/>
+                        <Setter Target="SlideAnimaRec.(FrameworkElement.Margin)" >
+                            <Setter.Value>70,120,0,70</Setter.Value>
+                        </Setter>
+
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        <!--#endregion-->
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -191,9 +256,10 @@
 
         <SplitView Name="NavigationSplit" 
                    Grid.Column="0"
-                   DisplayMode="CompactOverlay"
+                   DisplayMode="CompactInline"
                    OpenPaneLength="300"
-                   CompactPaneLength="70">
+                   CompactPaneLength="70"
+                   PaneClosed="NavigationSplit_PaneClosed">
             <SplitView.Pane>
                 <RelativePanel>
                     <Button Name="HamburgerButton"
@@ -201,7 +267,6 @@
                             Width="70"
                             Height="70"
                             Click="HamburgerButton_Click"
-                            Foreground="White"
                             Style="{ThemeResource MainPageButtonBackHamburgerStyle}"/>
                     <ListBox Name="HamburgerListBox" 
                              Background="Transparent"
@@ -228,7 +293,7 @@
                                     </Grid>
                                     <TextBlock  Name="ModelTitle" Text="{Binding Title}" 
                                                 Margin=" 60,0,0,0" FontSize="16"
-                                                Foreground="{ThemeResource AppPersonalTextColorPure}"
+                                                Foreground="{ThemeResource AppPersonalTextColorPure02}"
                                                 Style="{ThemeResource CenterContentTextBlock}"/>
                                 </Grid>
                             </DataTemplate>
@@ -252,7 +317,7 @@
                             </Grid>
                             <TextBlock  Text="设置" 
                                         Margin=" 60,0,0,0" FontSize="16"
-                                        Foreground="{ThemeResource AppPersonalTextColorPure}"
+                                        Foreground="{ThemeResource AppPersonalTextColorPure02}"
                                         FontFamily="{ThemeResource PhoneFontFamilySemiLight}"
                                         Style="{ThemeResource CenterContentTextBlock}"/>
                         </Grid>
@@ -261,13 +326,15 @@
             </SplitView.Pane>
             <SplitView.Content>
                 <Grid>
+
                     <Border Name="BasePartBorder" 
                             Background="{ThemeResource ENRZForeground01}" 
                             Height="70" VerticalAlignment="Top">
                         <TextBlock Name="navigateTitlePath"
                                    Text="ENRZ.COM" FontSize="20"
                                    HorizontalAlignment="Center" 
-                                   VerticalAlignment="Center"/>
+                                   VerticalAlignment="Center"
+                                   Foreground="White"/>
                     </Border>
                     <Button Name="BaseHamburgerButton"
                             VerticalAlignment="Top"
@@ -281,6 +348,9 @@
                 </Grid>
             </SplitView.Content>
         </SplitView>
+
+        <Rectangle Name="SlideAnimaRec" Width="50" Fill="White"
+                   HorizontalAlignment="Left" Margin="0,120,0,70" Opacity="0"/>
 
         <Grid Name="ContentGrid" Grid.Column="1">
             <Frame Name="ContentFrame"/>

@@ -18,17 +18,17 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using static ENRZ.NET.MainPage;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace ENRZ.NET.Pages {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+    
     public sealed partial class BaseListPage : Page {
+
+        #region Constructor
         public BaseListPage() {
             this.InitializeComponent();
         }
+        #endregion
 
+        #region Events
         protected override void OnNavigatedTo(NavigationEventArgs e) {
             base.OnNavigatedTo(e);
             var args = e.Parameter as NavigateParameter;
@@ -41,7 +41,7 @@ namespace ENRZ.NET.Pages {
             var args = (sender as Pivot).SelectedItem as BarItemModel;
             if (args == null)
                 return;
-            NaviPathTitle.Route02 = args.Title=="首页"? null : args.Title;
+            NaviPathTitle.Route03 = (sender as Pivot).SelectedIndex == 0 ? null: args.Title;
             ChangeTitlePath(NaviPathTitle.RoutePath);
             ArgsPathKey = args.PathUri.ToString();
             if (InsideResources.IfContainsListInstance(ArgsPathKey)) {
@@ -59,10 +59,28 @@ namespace ENRZ.NET.Pages {
             InsideResources.AddResourcesInDec(ArgsPathKey, newList);
         }
 
-        private void AdaptiveGridView_ItemClick(object sender, ItemClickEventArgs e) {
-
+        private void AdaptiveGridView_Loaded(object sender, RoutedEventArgs e) {
+            adaptiveGV = sender as AdaptiveGridView;
+            InsideResources.AddAGVInDec(ArgsPathKey, sender as AdaptiveGridView);
         }
 
+        private void AdaptiveGridView_ItemClick(object sender, ItemClickEventArgs e) {
+            var model = e.ClickedItem as NewsPreviewModel;
+            if (model == null)
+                return;
+            Current.NavigateToBase?.Invoke(
+                sender,
+                new NavigateParameter { PathUri = model.PathUri },
+                InnerResources.GetFrameInstance(NavigateType.Content),
+                InnerResources.GetPageType(NavigateType.Content));
+        }
+        #endregion
+
+        #region Methods
+
+        #endregion
+
+        #region Inside Resources class
         /// <summary>
         /// Resources Helper
         /// </summary>
@@ -81,15 +99,12 @@ namespace ENRZ.NET.Pages {
             };
 
         }
+        #endregion
 
         #region Properties and state
         public AdaptiveGridView adaptiveGV;
         private string ArgsPathKey;
         #endregion
 
-    private void AdaptiveGridView_Loaded(object sender, RoutedEventArgs e) {
-            adaptiveGV = sender as AdaptiveGridView;
-            InsideResources.AddAGVInDec(ArgsPathKey, sender as AdaptiveGridView);
-        }
     }
 }

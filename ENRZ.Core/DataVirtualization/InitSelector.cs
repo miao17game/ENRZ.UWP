@@ -8,5 +8,6 @@ namespace ENRZ.Core.DataVirtualization {
     public enum InitSelector {
         Default = 1,
         Special = 2,
+        ENRZ = 3,
     }
 }
