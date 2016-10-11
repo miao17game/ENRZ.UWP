@@ -32,6 +32,7 @@ namespace ENRZ.NET {
         public MainPage() {
             this.InitializeComponent();
             Current = this;
+            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
             MainContentFrame = this.ContentFrame;
             NavigateTitlePath = this.navigateTitlePath;
             ChangeTitlePath(NaviPathTitle.RoutePath);

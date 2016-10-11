@@ -179,12 +179,13 @@
                                FontWeight="ExtraBold" Foreground="White"/>
                 </Border>
 
-                <MSControls:AdaptiveGridView Name="AdaptiveGridView"
+                <MSControls:AdaptiveGridView Name="AdaptiveGV"
                                                      ItemHeight="200"
                                                      DesiredWidth="200"
                                                      SelectionMode="None"
                                                      IsItemClickEnabled="True"
-                                                     ItemsSource="{Binding Source={StaticResource GridViewResources}}">
+                                             ItemClick="AdaptiveGV_ItemClick"
+                                             ItemsSource="{Binding Source={StaticResource GridViewResources}}">
                     <MSControls:AdaptiveGridView.ItemTemplate>
                         <DataTemplate x:DataType="model:SimpleImgModel">
                             <Grid Margin="-2">

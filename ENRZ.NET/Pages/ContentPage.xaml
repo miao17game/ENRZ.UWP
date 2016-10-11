@@ -23,6 +23,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
 
+                        <Setter Target="navigateTitlePath.(FrameworkElement.MaxWidth)" Value="200"/>
                         <Setter Target="BasePartBorder.(FrameworkElement.Height)" Value="90"/>
                         <Setter Target="navigateTitlePath.(FrameworkElement.Margin)" >
                             <Setter.Value>0,20,0,0</Setter.Value>
@@ -42,6 +43,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
 
+                        <Setter Target="navigateTitlePath.(FrameworkElement.MaxWidth)" Value="300"/>
                         <Setter Target="BasePartBorder.(FrameworkElement.Height)" Value="90"/>
                         <Setter Target="navigateTitlePath.(FrameworkElement.Margin)" >
                             <Setter.Value>0,20,0,0</Setter.Value>
@@ -87,10 +89,11 @@
                             Background="{ThemeResource ENRZForeground01}" 
                             Height="70" VerticalAlignment="Top">
             <TextBlock Name="navigateTitlePath"
-                                   Text="ContentPage" FontSize="20"
-                                   HorizontalAlignment="Center" 
-                                   VerticalAlignment="Center"
-                                   Foreground="White"/>
+                       MaxWidth="500"
+                       Text="ENRZ.COM" FontSize="20"
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"
+                       Foreground="White"/>
         </Border>
         <Button Name="BaseHamburgerButton"
                             VerticalAlignment="Top"

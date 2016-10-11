@@ -29,11 +29,15 @@ namespace ENRZ.NET.Pages {
         public ContentPage() {
             this.InitializeComponent();
             if (AnalyticsInfo.VersionInfo.DeviceFamily.Equals("Windows.Mobile")) {
-                this.Width = ApplicationView.GetForCurrentView().VisibleBounds.Width ;
-                MainPage.Current.Frame.SizeChanged += (sender, args) => { this.Width = ApplicationView.GetForCurrentView().VisibleBounds.Width ; };
+                this.Width = ApplicationView.GetForCurrentView().VisibleBounds.Width;
+                MainPage.Current.Frame.SizeChanged += (sender, args) => { this.Width = ApplicationView.GetForCurrentView().VisibleBounds.Width; };
             } else {
-                this.Width = ApplicationView.GetForCurrentView().VisibleBounds.Width / 2;
-                MainPage.Current.Frame.SizeChanged += (sender, args) => { this.Width = ApplicationView.GetForCurrentView().VisibleBounds.Width / 2; };
+                var nowWidth = ApplicationView.GetForCurrentView().VisibleBounds.Width;
+                this.Width = nowWidth > 600 ? nowWidth / 2 : nowWidth;
+                MainPage.Current.Frame.SizeChanged += (sender, args) => {
+                    var nowWidthEx = ApplicationView.GetForCurrentView().VisibleBounds.Width;
+                    this.Width = nowWidthEx > 600 ? nowWidthEx / 2 : nowWidthEx;
+                };
             }
         }
 
