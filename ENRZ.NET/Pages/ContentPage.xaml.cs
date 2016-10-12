@@ -67,7 +67,7 @@ namespace ENRZ.NET.Pages {
                         var textBlock = new TextBlock {
                             Text = (item as ContentStrings).Content,
                             TextWrapping = TextWrapping.WrapWholeWords,
-                            Margin = new Thickness(2, 3, 2, 3),
+                            Margin = new Thickness(10, 5, 10, 5),
                         };
                         ContentStack.Children.Add(textBlock);
                         break;

@@ -14,6 +14,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System.Profile;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -39,6 +40,9 @@ namespace ENRZ.NET {
             PrepareFrame.Navigate(typeof(PreparePage));
             StatusBarInit.InitInnerDesktopStatusBar(true);
             Window.Current.SetTitleBar(BasePartBorder);
+            if (AnalyticsInfo.VersionInfo.DeviceFamily.Equals("Windows.Mobile")) {
+                ApplicationView.GetForCurrentView().VisibleBoundsChanged += (s, e) => { ChangeViewWhenNavigationBarChanged(); };
+                ChangeViewWhenNavigationBarChanged(); }
             InitSlideRecState();
             GetResources();
         }
@@ -110,6 +114,27 @@ namespace ENRZ.NET {
         public static void ChangeTitlePath(string value) {
             Current.NavigateTitlePath.Text = value;
         }
+
+        private void ChangeViewWhenNavigationBarChanged() {
+            Width = ApplicationView.GetForCurrentView().VisibleBounds.Width;
+            var wholeHeight = Window.Current.Bounds.Height;
+            var wholeWidth = Window.Current.Bounds.Width;
+            if (Window.Current.Bounds.Height < Window.Current.Bounds.Width) {
+                Height = ApplicationView.GetForCurrentView().VisibleBounds.Height;
+                Width = ApplicationView.GetForCurrentView().VisibleBounds.Width + 48;
+                Margin =
+                    Width - wholeWidth > -0.1 ?
+                    new Thickness(0, 0, 0, 0) :
+                    new Thickness(-24, 0, 0, 0);
+                return;
+            }
+            Height = ApplicationView.GetForCurrentView().VisibleBounds.Height + 24;
+            Margin =
+                Height - wholeHeight > -0.1 ?
+                new Thickness(0, 0, 0, 0) :
+                new Thickness(0, -48, 0, 0);
+        }
+
         #endregion
 
         #region Inner Resources class

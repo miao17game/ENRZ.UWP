@@ -34,6 +34,10 @@
                         <Setter Target="Scroll.(FrameworkElement.Margin)" >
                             <Setter.Value>0,90,0,0</Setter.Value>
                         </Setter>
+                        <Setter Target="image01.(FrameworkElement.Height)" Value="70"/>
+                        <Setter Target="image02.(FrameworkElement.Height)" Value="70"/>
+                        <Setter Target="image01Text.(TextBlock.FontSize)" Value="12"/>
+                        <Setter Target="image02Text.(TextBlock.FontSize)" Value="12"/>
 
                     </VisualState.Setters>
                 </VisualState>
@@ -180,8 +184,8 @@
                 </Border>
 
                 <MSControls:AdaptiveGridView Name="AdaptiveGV"
-                                                     ItemHeight="200"
-                                                     DesiredWidth="200"
+                                                     ItemHeight="150"
+                                                     DesiredWidth="150"
                                                      SelectionMode="None"
                                                      IsItemClickEnabled="True"
                                              ItemClick="AdaptiveGV_ItemClick"
@@ -204,6 +208,7 @@
                                                 Grid.Row="1">
                                     <TextBlock Text="{Binding Title}" 
                                                        Margin="5,10,5,10"
+                                               FontSize="12"
                                                        VerticalAlignment="Bottom"
                                                        TextWrapping="WrapWholeWords"
                                                        Foreground="#DDFFFFFF"/>

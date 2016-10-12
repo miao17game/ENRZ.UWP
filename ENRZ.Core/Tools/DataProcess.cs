@@ -96,16 +96,12 @@ namespace ENRZ.Core.Tools {
                                 Description = section.SelectSingleNode("div[@class='list-thumbnail-desc']").SelectSingleNode("p").InnerText
                             });
                         } catch (NullReferenceException ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         } catch (ArgumentNullException ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         } catch (UriFormatException ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         } catch (Exception ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         }
                     }
@@ -152,16 +148,12 @@ namespace ENRZ.Core.Tools {
                         PathUri = new Uri(li.SelectSingleNode("a").Attributes["href"].Value),
                     });
                 } catch (NullReferenceException ex) {
-                    ReportError(ex.Message);
                     Debug.WriteLine(ex.StackTrace);
                 } catch (ArgumentNullException ex) {
-                    ReportError(ex.Message);
                     Debug.WriteLine(ex.StackTrace);
                 } catch (UriFormatException ex) {
-                    ReportError(ex.Message);
                     Debug.WriteLine(ex.StackTrace);
                 } catch (Exception ex) {
-                    ReportError(ex.Message);
                     Debug.WriteLine(ex.StackTrace);
                 }
             }
@@ -188,16 +180,12 @@ namespace ENRZ.Core.Tools {
                             ImageUri = new Uri(li.SelectSingleNode("a").SelectSingleNode("img").Attributes["src"].Value),
                         });
                     } catch (NullReferenceException ex) {
-                        ReportError(ex.Message);
                         Debug.WriteLine(ex.StackTrace);
                     } catch (ArgumentNullException ex) {
-                        ReportError(ex.Message);
                         Debug.WriteLine(ex.StackTrace);
                     } catch (UriFormatException ex) {
-                        ReportError(ex.Message);
                         Debug.WriteLine(ex.StackTrace);
                     } catch (Exception ex) {
-                        ReportError(ex.Message);
                         Debug.WriteLine(ex.StackTrace);
                     }
                 }
@@ -226,7 +214,7 @@ namespace ENRZ.Core.Tools {
                                         PathUri = new Uri(addHost + div.SelectSingleNode("a").Attributes["href"].Value),
                                         ImageUri = new Uri(div.SelectSingleNode("a").SelectSingleNode("img").Attributes["src"].Value)
                                     };
-                                } catch { }
+                                } catch (Exception ex) { Debug.WriteLine(ex.StackTrace); }
                                 break;
                             case "hover2": try {
                                     var UlCollection = div
@@ -239,7 +227,7 @@ namespace ENRZ.Core.Tools {
                                             });
                                         }
                                     }
-                                } catch { }
+                                } catch (Exception ex) { Debug.WriteLine(ex.StackTrace); }
                                 break;
                             case "hover3": try {
                                     model.Next = new SimpleImgModel {
@@ -247,14 +235,11 @@ namespace ENRZ.Core.Tools {
                                         PathUri = new Uri(addHost + div.SelectSingleNode("a").Attributes["href"].Value),
                                         ImageUri = new Uri(div.SelectSingleNode("a").SelectSingleNode("img").Attributes["src"].Value)
                                     };
-                                } catch { }
+                                } catch (Exception ex) { Debug.WriteLine(ex.StackTrace); }
                                 break;
                             default:break;
                         }
-                    } catch (Exception ex) {
-                        ReportError(ex.Message);
-                        Debug.WriteLine(ex.StackTrace);
-                    }
+                    } catch (Exception ex) { Debug.WriteLine(ex.StackTrace); }
                 }
                 model.MoreCollection = new List<SimpleImgModel>();
                 try {
@@ -271,7 +256,7 @@ namespace ENRZ.Core.Tools {
                             ImageUri = new Uri(noteA.SelectSingleNode("img").Attributes["src"].Value),
                         });
                     }
-                } catch{ }
+                } catch (Exception ex) { Debug.WriteLine(ex.StackTrace); }
                 try {
                     var moreCollection2 = rootnode
                    .SelectSingleNode("//div[@class='detail_m fn-clear mt20']")
@@ -286,7 +271,7 @@ namespace ENRZ.Core.Tools {
                             ImageUri = new Uri(noteA.SelectSingleNode("img").Attributes["src"].Value),
                         });
                     }
-                } catch { }
+                } catch ( Exception ex ) { Debug.WriteLine(ex.StackTrace); }
                 return model;
             } catch {
                 return new PicturesCollModel();
@@ -346,27 +331,31 @@ namespace ENRZ.Core.Tools {
                         index++;
                         if (item.SelectSingleNode("a") != null) {
                             if (item.SelectSingleNode("a").SelectSingleNode("img") != null) {
-                                model.ContentImage.Add(new ContentImages { Image=new BitmapImage(new Uri(item.SelectSingleNode("a").SelectSingleNode("img").Attributes["src"].Value)), Index=index });
+                                if (item.SelectSingleNode("script") == null) {
+                                    model.ContentImage.Add(new ContentImages {
+                                        Image = new BitmapImage(new Uri(item.SelectSingleNode("a").SelectSingleNode("img").Attributes["src"].Value)),
+                                        Index = index });
+                                }
                             }
+                        } else if (item.SelectSingleNode("script") != null) {
+                            // do nothing
                         } else {
-                            model.ContentString.Add(new ContentStrings { Content = item.InnerText, Index=index });
+                            model.ContentString.Add(new ContentStrings { Content = item.InnerText, Index = index });
                         }
                     } catch (NullReferenceException) {
                         ReportException("部分内容暂不支持显示");
-                    } catch (ArgumentOutOfRangeException AOORE) {
-                        ReportError(AOORE.Message.ToString());
-                    } catch (ArgumentNullException) {
-                    } catch (FormatException FE) {
-                        ReportError(FE.Message.ToString());
-                    } catch (Exception E) {
-                        ReportError(E.Message.ToString());
+                    } catch (ArgumentOutOfRangeException ex) {
+                        Debug.WriteLine(ex.StackTrace);
+                    } catch (ArgumentNullException ex) {
+                        Debug.WriteLine(ex.StackTrace);
+                    } catch (FormatException ex) {
+                        Debug.WriteLine(ex.StackTrace);
+                    } catch (Exception ex) {
+                        Debug.WriteLine(ex.StackTrace);
                     }
                 }
-            } catch (ArgumentOutOfRangeException AOORE) {
-                ReportError(AOORE.Message.ToString());
-            } catch (ArgumentNullException) {
-            } catch (Exception E) {
-                ReportError(E.Message.ToString());
+            } catch (Exception ex) {
+                Debug.WriteLine(ex.StackTrace);
             }
             return model;
         }
@@ -392,16 +381,12 @@ namespace ENRZ.Core.Tools {
                                 ImageUri = new Uri(aRoute.SelectSingleNode("img").Attributes["src"].Value),
                             });
                         } catch (NullReferenceException ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         } catch (ArgumentNullException ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         } catch (UriFormatException ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         } catch (Exception ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         }
                     }
@@ -427,16 +412,12 @@ namespace ENRZ.Core.Tools {
                                 ImageUri = new Uri(aRoute.SelectSingleNode("img").Attributes["src"].Value),
                             });
                         } catch (NullReferenceException ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         } catch (ArgumentNullException ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         } catch (UriFormatException ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         } catch (Exception ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         }
                     }
@@ -465,16 +446,12 @@ namespace ENRZ.Core.Tools {
                                     ImageUri = new Uri(aRoute.SelectSingleNode("img").Attributes["src"].Value),
                                 });
                             } catch (NullReferenceException ex) {
-                                ReportError(ex.Message);
                                 Debug.WriteLine(ex.StackTrace);
                             } catch (ArgumentNullException ex) {
-                                ReportError(ex.Message);
                                 Debug.WriteLine(ex.StackTrace);
                             } catch (UriFormatException ex) {
-                                ReportError(ex.Message);
                                 Debug.WriteLine(ex.StackTrace);
                             } catch (Exception ex) {
-                                ReportError(ex.Message);
                                 Debug.WriteLine(ex.StackTrace);
                             }
                         }
@@ -502,16 +479,12 @@ namespace ENRZ.Core.Tools {
                                 ImageUri = new Uri(aRoute.SelectSingleNode("img").Attributes["src"].Value),
                             });
                         } catch (NullReferenceException ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         } catch (ArgumentNullException ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         } catch (UriFormatException ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         } catch (Exception ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         }
                     }
@@ -528,16 +501,12 @@ namespace ENRZ.Core.Tools {
                                 ImageUri = new Uri(aRoute.SelectSingleNode("img").Attributes["src"].Value),
                             });
                         } catch (NullReferenceException ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         } catch (ArgumentNullException ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         } catch (UriFormatException ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         } catch (Exception ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         }
                     }
@@ -560,16 +529,12 @@ namespace ENRZ.Core.Tools {
                                 ImageUri = new Uri(aRoute.SelectSingleNode("img").Attributes["src"].Value),
                             });
                         } catch (NullReferenceException ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         } catch (ArgumentNullException ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         } catch (UriFormatException ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         } catch (Exception ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         }
                     }
@@ -586,16 +551,12 @@ namespace ENRZ.Core.Tools {
                                 ImageUri = new Uri(aRoute.SelectSingleNode("img").Attributes["src"].Value),
                             });
                         } catch (NullReferenceException ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         } catch (ArgumentNullException ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         } catch (UriFormatException ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         } catch (Exception ex) {
-                            ReportError(ex.Message);
                             Debug.WriteLine(ex.StackTrace);
                         }
                     }
@@ -615,16 +576,12 @@ namespace ENRZ.Core.Tools {
                                         ImageUri = new Uri(aRoute.SelectSingleNode("img").Attributes["src"].Value),
                                     });
                                 } catch (NullReferenceException ex) {
-                                    ReportError(ex.Message);
                                     Debug.WriteLine(ex.StackTrace);
                                 } catch (ArgumentNullException ex) {
-                                    ReportError(ex.Message);
                                     Debug.WriteLine(ex.StackTrace);
                                 } catch (UriFormatException ex) {
-                                    ReportError(ex.Message);
                                     Debug.WriteLine(ex.StackTrace);
                                 } catch (Exception ex) {
-                                    ReportError(ex.Message);
                                     Debug.WriteLine(ex.StackTrace);
                                 }
                             }

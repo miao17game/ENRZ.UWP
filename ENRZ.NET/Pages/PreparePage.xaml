@@ -88,7 +88,7 @@
             <Image Name="LogeImage" Stretch="Uniform" 
                    RelativePanel.AlignVerticalCenterWithPanel="True"
                    RelativePanel.AlignHorizontalCenterWithPanel="True"
-                   Source="ms-appx:///Assets/Square310x310Logo.png" 
+                   Source="ms-appx:///Assets/1240-1240-2.png" 
                    Width="200"/>
         </RelativePanel>
         <Grid Grid.Row="2" Grid.Column="1" >

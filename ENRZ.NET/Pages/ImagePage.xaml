@@ -231,8 +231,8 @@
                 <DataTemplate x:DataType="model:BarItemModel" >
                     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                         <MSControls:AdaptiveGridView Name="AdaptiveGridView"
-                                                     ItemHeight="200"
-                                                     DesiredWidth="200"
+                                                     ItemHeight="150"
+                                                     DesiredWidth="150"
                                                      SelectionMode="None"
                                                      IsItemClickEnabled="True"
                                                      ItemClick="AdaptiveGridView_ItemClick"
@@ -256,6 +256,7 @@
                                                 Grid.Row="1">
                                             <TextBlock Text="{Binding Title}" 
                                                        Margin="5,10,5,10"
+                                                       FontSize="13"
                                                        VerticalAlignment="Bottom"
                                                        TextWrapping="WrapWholeWords"
                                                        Foreground="#DDFFFFFF"/>

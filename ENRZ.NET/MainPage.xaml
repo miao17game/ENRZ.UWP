@@ -270,6 +270,7 @@
                             Style="{ThemeResource MainPageButtonBackHamburgerStyle}"/>
                     <ListBox Name="HamburgerListBox" 
                              Background="Transparent"
+                             Margin="0,0,0,70"
                              RelativePanel.Below="HamburgerButton"
                              SelectionChanged="HamburgerListBox_SelectionChanged"
                              ItemsSource="{Binding Source={StaticResource NaviBarResouces}}">

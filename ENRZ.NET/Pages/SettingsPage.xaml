@@ -18,9 +18,9 @@
             <PivotItem Name="Settings" Header="设置">
                 <ScrollViewer>
                     <StackPanel>
-                        <TextBlock Margin="5,15,5,5" FontSize="14" FontWeight="Thin"
+                        <TextBlock Margin="10,5,10,5" FontSize="14" FontWeight="Thin"
                                TextWrapping="WrapWholeWords">
-                            <Run Text="Placeholder :)" FontWeight="SemiBold" /><LineBreak/>
+                            <Run Text="施工中......" FontWeight="SemiBold" /><LineBreak/>
                             <LineBreak/>
                         </TextBlock>
                     </StackPanel>
@@ -29,8 +29,45 @@
             <PivotItem Name="About" Header="关于">
                 <ScrollViewer>
                     <StackPanel>
-                        <TextBlock Margin="10,5,10,5" Text="版本信息：有由统生成" 
-                                   FontWeight="SemiBold" Name="VersionMessage"/>
+
+                        <TextBlock Margin="10,5,10,5" Text="版本信息：由系统生成" 
+                                   FontWeight="ExtraBold" Name="VersionMessage"/>
+
+                        <TextBlock Margin="10,5,10,5" Text="关于 ENRZ ForUWP" 
+                                   FontWeight="ExtraBold" FontSize="16"/>
+                        <TextBlock Margin="10,5,10,5" FontSize="14" FontWeight="Thin"
+                               TextWrapping="WrapWholeWords">
+                            <Run Text="应用内容来自ENRZ.COM，本应用来自第三开发者，立足于为Windows用户提供简化的ENRZ.COM网站内容获取方式，更好的阅读体验服务。" /><LineBreak/><LineBreak/>
+                            <Run Text="开发者会在能力范围之内，提供最好的维护与跟进，但是诸如应用内容没有更新之类的状况，并非开发者管得着的事。应用开发仍处于早期阶段，希望大家积极反馈。"  /><LineBreak/><LineBreak/>
+                            <Run Text="应用所有来自于ENRZ.COM的内容完全免费，应用本身不会以收费来成为限制用户使用的门槛，我也没有这个权力。后期或许会有额外的独立内容来源，会以应用内购买的方式提供。"/><LineBreak/><LineBreak/>
+                            <Run Text="支持捐赠，多少随意，重在鼓励。开发不易，多喝营养快线，谢谢各位老司机。"/><LineBreak/>
+                        </TextBlock>
+
+                        <TextBlock Margin="10,5,10,5" Text="ENRZ For UWP 进度记录" 
+                                   FontWeight="ExtraBold" FontSize="16"/>
+                        <TextBlock Margin="10,5,10,5" FontSize="12" FontWeight="Thin"
+                               TextWrapping="WrapWholeWords">
+                            
+                            <Run Text="Version：1.0.5 / 2016.10.11" FontSize="15" FontWeight="Medium" /><LineBreak/>
+                            <Run Text="体验基本完善，修改细节" /><LineBreak/>
+                            <Run Text="应用图标修改，为提交商店做准备" /><LineBreak/><LineBreak/>
+                            
+                            <Run Text="Version：1.0.4 / 2016.10.12" FontSize="17" FontWeight="Medium" /><LineBreak/>
+                            <Run Text="内容页面开发完成" /><LineBreak/>
+                            <Run Text="菜单滑动手势加入" /><LineBreak/><LineBreak/>
+                            
+                            <Run Text="Version：1.0.3 / 2016.10.11" FontSize="17" FontWeight="Medium" /><LineBreak/>
+                            <Run Text="目录功能完成" /><LineBreak/>
+                            <Run Text="新闻与图片的获取" /><LineBreak/><LineBreak/>
+                            
+                            <Run Text="Version：1.0.1 / 2016.10.09" FontSize="17" FontWeight="Medium" /><LineBreak/>
+                            <Run Text="主要外观框架开发完成" /><LineBreak/><LineBreak/>
+                            
+                            <Run Text="Version：1.0.0 / 2016.10.09" FontSize="17" FontWeight="Medium" /><LineBreak/>
+                            <Run Text="ENRZ.COM For Windows 正式进入开发阶段" /><LineBreak/><LineBreak/>
+                            
+                        </TextBlock>
+
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>
@@ -58,6 +95,100 @@
                         <Run Text="时尚集团诞生于1993年，从一本杂志开始，至今已发展成为拥有16本高档期刊，业务涵盖期刊编辑、图书策划、网络传媒、广告、印刷、发行、数字出版、电视制作等多项领域的跨媒体多平台的传媒集团，并在上海和广州设立广告、发行分公司、办事处。集团多年来始终以 注重细节、追求卓越、引导潮流 为宗旨，为传媒产业、时尚领域和公益事业做出了里程碑式的贡献，连续多年被评为 &amp; 中国最具价值的500个品牌 &amp; 之一。"/><LineBreak/>
 
                         </TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
+            </PivotItem>
+            <PivotItem Name="AboutMe" Header="关于开发者">
+                <ScrollViewer>
+                    <StackPanel>
+                        <Ellipse Name="Ellipse" Width="150" Height="150" Margin="10,10,10,10" 
+                         VerticalAlignment="Top" >
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Assets/sb.jpg" />
+                            </Ellipse.Fill>
+                            <Ellipse.Transitions>
+                                <TransitionCollection>
+                                    <EntranceThemeTransition FromVerticalOffset="-200"/>
+                                </TransitionCollection>
+                            </Ellipse.Transitions>
+                        </Ellipse>
+
+                        <TextBlock FontWeight="ExtraBold"
+                               FontSize="20"
+                               Margin="5,15,5,5"
+                               TextWrapping="WrapWholeWords"
+                                   HorizontalAlignment="Center">Wallace Sun</TextBlock>
+
+                        <TextBlock FontWeight="Thin"
+                               FontSize="16"
+                               Margin="0,15,5,5"
+                               TextWrapping="WrapWholeWords"
+                                   HorizontalAlignment="Center">联系作者</TextBlock>
+                        <TextBlock FontWeight="Thin"
+                               FontSize="16"
+                               Margin="0,5,5,5"
+                               TextWrapping="WrapWholeWords"
+                                   HorizontalAlignment="Center">WeChat：miao17game</TextBlock>
+                        <TextBlock FontWeight="Thin"
+                               FontSize="16"
+                               Margin="0,5,5,5"
+                               TextWrapping="WrapWholeWords"
+                                   HorizontalAlignment="Center">QQ：245396954</TextBlock>
+                        <StackPanel Orientation="Horizontal" 
+                                    HorizontalAlignment="Center" Margin="0,5,5,5">
+                            <TextBlock FontWeight="Thin"
+                               FontSize="16"
+                               TextWrapping="WrapWholeWords">博客：</TextBlock>
+                            <HyperlinkButton Content="Wallace Sun"
+                                     NavigateUri="http://noodlesblog.azurewebsites.net/" 
+                                     Foreground="{ThemeResource ENRZForeground01}"
+                                     Padding="0" FontWeight="Bold"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" 
+                                    HorizontalAlignment="Center" Margin="0,5,5,5">
+                            <TextBlock FontWeight="Thin"
+                               FontSize="16"
+                               TextWrapping="WrapWholeWords">新浪微博：</TextBlock>
+                            <HyperlinkButton Content="Code大白痴" 
+                                     NavigateUri="http://weibo.com/miao17game?refer_flag=1001030102_" 
+                                     Foreground="{ThemeResource ENRZForeground01}"
+                                     Padding="0" FontWeight="Bold"/>
+                        </StackPanel>
+
+                        <TextBlock FontWeight="Thin"
+                               FontSize="16"
+                               Margin="0,5,5,0"
+                                   HorizontalAlignment="Center"
+                               TextWrapping="WrapWholeWords">
+                        <Run Text="捐助与支持" FontWeight="SemiBold"/>
+                        </TextBlock>
+                        <TextBlock FontWeight="Thin"
+                               FontSize="16"
+                               Margin="0,5,5,5"
+                                   HorizontalAlignment="Center"
+                               TextWrapping="WrapWholeWords">
+                        <Run Text="支付宝：18640046260" FontSize="14"/><LineBreak/>
+                        </TextBlock>
+                        <TextBlock FontWeight="Thin"
+                               FontSize="16"
+                               Margin="0,15,5,5"
+                                   HorizontalAlignment="Center"
+                               TextWrapping="WrapWholeWords">
+                        <Run Text="通过邮件反馈问题" FontWeight="SemiBold"/>
+                        </TextBlock>
+                        <Button Content="我要反馈"
+                            Background="{ThemeResource ENRZForeground01}"
+                            Foreground="#EFEFEF"
+                            Name="FeedBackBtn" 
+                                 Margin="0,10,5,5"
+                                HorizontalAlignment="Center"
+                            Click="FeedBackBtn_Click"/>
+
+                        <StackPanel.Transitions>
+                            <TransitionCollection>
+                                <EntranceThemeTransition FromVerticalOffset="400"/>
+                            </TransitionCollection>
+                        </StackPanel.Transitions>
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>

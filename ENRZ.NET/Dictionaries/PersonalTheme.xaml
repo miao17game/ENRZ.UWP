@@ -81,6 +81,8 @@
             <SolidColorBrush x:Key="ENRZBackground" Color="#202020"/>
             <!--ENRZBackgroundColor-->
             <SolidColorBrush x:Key="ENRZForeground01" Color="#CA003E"/>
+            <!--ENRZBackgroundColor-->
+            <SolidColorBrush x:Key="ENRZForeground02" Color="#FE9A04"/>
 
             <!--DQDReBackColor-->
             <Color x:Key="DQDReBackColor">#99000000</Color>
@@ -165,6 +167,8 @@
             <SolidColorBrush x:Key="ENRZBackground" Color="#FCFCFC"/>
             <!--ENRZBackgroundColor-->
             <SolidColorBrush x:Key="ENRZForeground01" Color="#FF125B"/>
+            <!--ENRZBackgroundColor-->
+            <SolidColorBrush x:Key="ENRZForeground02" Color="#FE9A04"/>
 
             <!--DQDReBackColor-->
             <Color x:Key="DQDReBackColor">#99FFFFFF</Color>
