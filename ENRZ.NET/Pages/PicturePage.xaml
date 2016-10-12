@@ -183,7 +183,7 @@
                                FontWeight="ExtraBold" Foreground="White"/>
                 </Border>
 
-                <MSControls:AdaptiveGridView Name="AdaptiveGV"
+                <MSControls:AdaptiveGridView Name="AdaptiveGVIew"
                                                      ItemHeight="150"
                                                      DesiredWidth="150"
                                                      SelectionMode="None"
