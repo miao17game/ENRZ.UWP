@@ -40,7 +40,7 @@ namespace ENRZ.NET.Pages {
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e) {
             isColorfulOrNot = (bool?)SettingsHelper.ReadSettingsValue(SettingsConstants.IsColorfulOrNot) ?? false;
-            isLightOrNot = (bool?)SettingsHelper.ReadSettingsValue(SettingsConstants.IsLigheOrNot) ?? false;
+            isLightOrNot = (bool?)SettingsHelper.ReadSettingsValue(SettingsConstants.IsDarkThemeOrNot) ?? false;
             if (StatusBarInit.HaveAddMobileExtensions()) { StatusBarInit.InitInnerMobileStatusBar(true); }
             StatusBarInit.InitDesktopStatusBar(false);
             StatusBarInit.InitMobileStatusBar(false);

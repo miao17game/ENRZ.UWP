@@ -114,8 +114,8 @@
     <Compile Include="Pages\ImagePage.xaml.cs">
       <DependentUpon>ImagePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PicturePage.xaml.cs">
-      <DependentUpon>PicturePage.xaml</DependentUpon>
+    <Compile Include="Pages\PicturesPage.xaml.cs">
+      <DependentUpon>PicturesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PreparePage.xaml.cs">
       <DependentUpon>PreparePage.xaml</DependentUpon>
@@ -228,7 +228,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\PicturePage.xaml">
+    <Page Include="Pages\PicturesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

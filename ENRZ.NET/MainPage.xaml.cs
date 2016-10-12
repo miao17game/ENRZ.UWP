@@ -1,5 +1,6 @@
 ﻿#region Using
 using ENRZ.Core.Controls;
+using ENRZ.Core.Helpers;
 using ENRZ.Core.Models;
 using ENRZ.Core.Tools;
 using ENRZ.NET.Pages;
@@ -33,15 +34,17 @@ namespace ENRZ.NET {
         public MainPage() {
             this.InitializeComponent();
             Current = this;
-            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+            var isDarkOrNot = (bool?)SettingsHelper.ReadSettingsValue(SettingsConstants.IsDarkThemeOrNot) ?? true;
+            RequestedTheme = isDarkOrNot ? ElementTheme.Dark : ElementTheme.Light;
+            UWPStates.NavigateManager.BackRequested += OnBackRequested;
             MainContentFrame = this.ContentFrame;
             NavigateTitlePath = this.navigateTitlePath;
             ChangeTitlePath(NaviPathTitle.RoutePath);
             PrepareFrame.Navigate(typeof(PreparePage));
             StatusBarInit.InitInnerDesktopStatusBar(true);
             Window.Current.SetTitleBar(BasePartBorder);
-            if (AnalyticsInfo.VersionInfo.DeviceFamily.Equals("Windows.Mobile")) {
-                ApplicationView.GetForCurrentView().VisibleBoundsChanged += (s, e) => { ChangeViewWhenNavigationBarChanged(); };
+            if (UWPStates.IsMobile) {
+                UWPStates.AppView.VisibleBoundsChanged += (s, e) => { ChangeViewWhenNavigationBarChanged(); };
                 ChangeViewWhenNavigationBarChanged(); }
             InitSlideRecState();
             GetResources();
@@ -50,7 +53,14 @@ namespace ENRZ.NET {
 
         #region Events
         private void NavigationSplit_PaneClosed(SplitView sender, object args) {
-            SlideAnimaRec.Visibility = Visibility.Visible;
+            UWPStates.SetVisibility(SlideAnimaRec,true);
+            OutBorder.Completed += OnOutBorderOut;
+            OutBorder.Begin();
+        }
+
+        private void OnOutBorderOut(object sender, object e) {
+            OutBorder.Completed -= OnOutBorderOut;
+            UWPStates.SetVisibility(DarkDivideBorder, false);
         }
 
         private void OnBackRequested(object sender, BackRequestedEventArgs e) {
@@ -64,8 +74,7 @@ namespace ENRZ.NET {
         }
 
         private void HamburgerButton_Click(object sender, RoutedEventArgs e) {
-            NavigationSplit.IsPaneOpen = !NavigationSplit.IsPaneOpen;
-            SlideAnimaRec.Visibility = NavigationSplit.IsPaneOpen ? Visibility.Collapsed : Visibility.Visible;
+            OpenOrClosePane();
         }
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e) {
@@ -106,6 +115,20 @@ namespace ENRZ.NET {
             });
         }
 
+        public static void DivideWindowRange(FrameworkElement element, double rangeNum, uint divideNum) {
+            if (UWPStates.IsMobile) {
+                element.Width = UWPStates.VisibleWidth;
+                Current.Frame.SizeChanged += (sender, args) => { element.Width = UWPStates.VisibleWidth; };
+            } else {
+                var nowWidth = UWPStates.VisibleWidth;
+                element.Width = nowWidth > rangeNum ? nowWidth / divideNum : nowWidth;
+                Current.Frame.SizeChanged += (sender, args) => {
+                    var nowWidthEx = UWPStates.VisibleWidth;
+                    element.Width = nowWidthEx > rangeNum ? nowWidthEx / divideNum : nowWidthEx;
+                };
+            }
+        }
+
         private async void GetResources() {
             var list = DataProcess.FetchNavigationBarFromHtml((await WebProcess.GetHtmlResources(HomeHost, false)).ToString());
             NaviBarResouces.Source = list;
@@ -116,23 +139,28 @@ namespace ENRZ.NET {
         }
 
         private void ChangeViewWhenNavigationBarChanged() {
-            Width = ApplicationView.GetForCurrentView().VisibleBounds.Width;
-            var wholeHeight = Window.Current.Bounds.Height;
-            var wholeWidth = Window.Current.Bounds.Width;
-            if (Window.Current.Bounds.Height < Window.Current.Bounds.Width) {
-                Height = ApplicationView.GetForCurrentView().VisibleBounds.Height;
-                Width = ApplicationView.GetForCurrentView().VisibleBounds.Width + 48;
+            Width = UWPStates.VisibleWidth;
+            var wholeHeight = UWPStates.WindowHeight;
+            var wholeWidth = UWPStates.WindowWidth;
+            if (wholeHeight < wholeWidth) {
+                Height = UWPStates.VisibleHeight;
+                Width = UWPStates.VisibleWidth + 48;
                 Margin =
                     Width - wholeWidth > -0.1 ?
                     new Thickness(0, 0, 0, 0) :
                     new Thickness(-24, 0, 0, 0);
                 return;
             }
-            Height = ApplicationView.GetForCurrentView().VisibleBounds.Height + 24;
+            Height = UWPStates.VisibleHeight + 24;
             Margin =
                 Height - wholeHeight > -0.1 ?
                 new Thickness(0, 0, 0, 0) :
                 new Thickness(0, -48, 0, 0);
+        }
+
+        private void OnPaneIsOpened() {
+            UWPStates.SetVisibility(DarkDivideBorder, true);
+            EnterBorder.Begin();
         }
 
         #endregion
@@ -148,7 +176,7 @@ namespace ENRZ.NET {
             {NavigateType.NaviBar,typeof(BaseListPage)},
             {NavigateType.Content,typeof(ContentPage)},
             {NavigateType.ImageNaviBar,typeof(ImagePage)},
-            {NavigateType.PicutreContent,typeof(PicturePage)},
+            {NavigateType.PicutreContent,typeof(PicturesPage)},
             {NavigateType.Settings,typeof(SettingsPage)},
         };
 
@@ -218,13 +246,15 @@ namespace ENRZ.NET {
         }
 
         private void Doubleanimation_Completed(object sender, object e) {
-            NavigationSplit.IsPaneOpen = !NavigationSplit.IsPaneOpen;
-            SlideAnimaRec.Visibility = NavigationSplit.IsPaneOpen ? Visibility.Collapsed : Visibility.Visible;
+            OpenOrClosePane();
         }
 
-        private Visibility ChangeVisibility(Visibility visibility) {
-            return visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+        private void OpenOrClosePane() {
+            NavigationSplit.IsPaneOpen = !NavigationSplit.IsPaneOpen;
+            UWPStates.SetVisibility(SlideAnimaRec, !NavigationSplit.IsPaneOpen);
+            if (NavigationSplit.IsPaneOpen && UWPStates.WindowWidth<800) { OnPaneIsOpened(); }
         }
+
         #endregion
 
         #region Properties and state

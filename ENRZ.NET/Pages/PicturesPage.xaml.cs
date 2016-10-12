@@ -21,23 +21,11 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 namespace ENRZ.NET.Pages {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class PicturePage : Page {
-        public PicturePage() {
+   
+    public sealed partial class PicturesPage : Page {
+        public PicturesPage() {
             this.InitializeComponent();
-            if (AnalyticsInfo.VersionInfo.DeviceFamily.Equals("Windows.Mobile")) {
-                this.Width = ApplicationView.GetForCurrentView().VisibleBounds.Width;
-                MainPage.Current.Frame.SizeChanged += (sender, args) => { this.Width = ApplicationView.GetForCurrentView().VisibleBounds.Width; };
-            } else {
-                var nowWidth = ApplicationView.GetForCurrentView().VisibleBounds.Width;
-                this.Width = nowWidth > 600 ? nowWidth / 2 : nowWidth;
-                MainPage.Current.Frame.SizeChanged += (sender, args) => {
-                    var nowWidthEx = ApplicationView.GetForCurrentView().VisibleBounds.Width;
-                    this.Width = nowWidthEx > 600 ? nowWidthEx / 2 : nowWidthEx;
-                };
-            }
+            MainPage.DivideWindowRange(this, 800, 2);
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e) {
@@ -65,7 +53,7 @@ namespace ENRZ.NET.Pages {
                     Background = new SolidColorBrush(Colors.Transparent),
                     Style = Application.Current.Resources["MainPageButtonBackHamburgerStyle"] as Style,
                 };
-                button.Click += (sender, clickArgs) => { DataProcess.ReportException("开发中"); };
+                button.Click += (sender, clickArgs) => { DataProcess.ReportException("图片功能开发中"); };
                 grid.Children.Add(button);
                 ContentStack.Children.Add(grid);
             }

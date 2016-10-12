@@ -1,4 +1,5 @@
 ﻿using Edi.UWP.Helpers;
+using ENRZ.Core.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,11 +24,28 @@ namespace ENRZ.NET.Pages {
     public sealed partial class SettingsPage : Page {
         public SettingsPage() {
             this.InitializeComponent();
+            Current = this;
+            this.NavigationCacheMode = NavigationCacheMode.Required;
             VersionMessage.Text = "版本信息：" + Utils.GetAppVersion();
+            ThemeSwitch.IsOn = (bool?)SettingsHelper.ReadSettingsValue(SettingsConstants.IsDarkThemeOrNot) ?? true;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e) {
+            MainPage.NaviPathTitle.Route02 = "设置";
+            MainPage.ChangeTitlePath(MainPage.NaviPathTitle.RoutePath);
         }
 
         private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-
+            if ((sender as Pivot).SelectedIndex == 0) {
+                MainPage.NaviPathTitle.Route03 = null;
+                MainPage.ChangeTitlePath(MainPage.NaviPathTitle.RoutePath);
+                return;
+            }
+            MainPage.NaviPathTitle.Route03 = 
+                (e.AddedItems.FirstOrDefault() as PivotItem).Header as string != "设置"?
+                (e.AddedItems.FirstOrDefault() as PivotItem).Header as string:
+                null;
+            MainPage.ChangeTitlePath(MainPage.NaviPathTitle.RoutePath);
         }
 
         private async void FeedBackBtn_Click(object sender, RoutedEventArgs e) {
@@ -45,7 +63,7 @@ namespace ENRZ.NET.Pages {
         public static async Task ReportError(string msg = null, string pageSummary = "N/A", bool includeDeviceInfo = true) {
             var deviceInfo = new EasClientDeviceInformation();
 
-            string subject = "ENRZ.COM 反馈";
+            string subject = "ENRZ For Win10 反馈";
             string body = $"问题描述：{msg}  " +
                           $"（程序版本：{Utils.GetAppVersion()} ";
 
@@ -64,5 +82,34 @@ namespace ENRZ.NET.Pages {
             string to = "miao17game@qq.com";
             await Tasks.OpenEmailComposeAsync(to, subject, body);
         }
+
+        private void ThemeSwitch_Toggled(object sender, RoutedEventArgs e) {
+            InsideResources.GetSwitchHandler((sender as ToggleSwitch).Name)
+               .Invoke((sender as ToggleSwitch).Name);
+        }
+
+        private void OnThemeSwitchToggled(ToggleSwitch sender) {
+            SettingsHelper.SaveSettingsValue(SettingsConstants.IsDarkThemeOrNot, sender.IsOn);
+            MainPage.Current.RequestedTheme = sender.IsOn ? ElementTheme.Dark : ElementTheme.Light;
+        }
+
+        static class InsideResources {
+
+            public static ToggleSwitch GetSwitchInstance(string str) { return SwitchSettingsMaps.ContainsKey(str) ? SwitchSettingsMaps[str] : null; }
+            static private Dictionary<string, ToggleSwitch> SwitchSettingsMaps = new Dictionary<string, ToggleSwitch> {
+            {Current.ThemeSwitch.Name,Current.ThemeSwitch},
+        };
+
+            public static SwitchEventHandler GetSwitchHandler(string str) { return SwitchHandlerMaps.ContainsKey(str) ? SwitchHandlerMaps[str] : null; }
+            static private Dictionary<string, SwitchEventHandler> SwitchHandlerMaps = new Dictionary<string, SwitchEventHandler> {
+            {Current.ThemeSwitch.Name, new SwitchEventHandler(instance=> { Current.OnThemeSwitchToggled(GetSwitchInstance(instance)); }) },
+        };
+
+        }
+
+        #region Properties and state
+        public static SettingsPage Current;
+        public delegate void SwitchEventHandler(string instance);
+        #endregion
     }
 }

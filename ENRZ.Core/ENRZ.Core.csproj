@@ -159,6 +159,7 @@
     <Compile Include="Tools\GetAlphaKeyGroup.cs" />
     <Compile Include="Tools\MessageToken.cs" />
     <Compile Include="Tools\StatusBarInit.cs" />
+    <Compile Include="Tools\UWPStates.cs" />
     <Compile Include="Tools\WebProcess.cs" />
     <Compile Include="UIHelpers\TilesHelper.cs" />
     <EmbeddedResource Include="Properties\ENRZ.Core.rd.xml" />

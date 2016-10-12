@@ -56,11 +56,11 @@ namespace ENRZ.NET.Pages {
 
         private async void ButtonSelect(object sender, RoutedEventArgs e) {
             var button = sender as Button;
-            if (button.Name == "IndexButton") {
-                IndexScroll.Visibility = Visibility.Visible;
+            if (button.Name == IndexButton.Name) {
+                UWPStates.SetVisibility(IndexScroll, true);
                 return;
             }
-            IndexScroll.Visibility = Visibility.Collapsed;
+            UWPStates.SetVisibility(IndexScroll, false);
             htmlResourcesNow = (await WebProcess.GetHtmlResources(InsideResources.GetUriPath(button.Name), true)).ToString();
             var headList = DataProcess.FetchBarItemNaviFromHtml(htmlResourcesNow);
             HeaderResources.Source = headList;

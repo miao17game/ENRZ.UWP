@@ -7,25 +7,66 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <!--#region Page.Resources-->
+    <Page.Resources>
+        <Style x:Key="SummaryTextStyle" TargetType="TextBlock" >
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Thin"/>
+            <Setter Property="Foreground" Value="{ThemeResource AppPersonalTextColorAlphaItem01}"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="TitleTextStyle" TargetType="TextBlock" >
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Foreground" Value="{ThemeResource AppPersonalTextColorPure02}"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </Page.Resources>
+    <!--#endregion-->
+    
     <Grid Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot Width="{Binding Width, ElementName=grid ,Mode=OneWay}"
                SelectionChanged="Pivot_SelectionChanged">
+            
             <Pivot.HeaderTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding}" Margin="10,3,5,3" FontSize="18" />
                 </DataTemplate>
             </Pivot.HeaderTemplate>
+            
+            <!--#region Settings-->
             <PivotItem Name="Settings" Header="设置">
                 <ScrollViewer>
                     <StackPanel>
-                        <TextBlock Margin="10,5,10,5" FontSize="14" FontWeight="Thin"
-                               TextWrapping="WrapWholeWords">
-                            <Run Text="施工中......" FontWeight="SemiBold" /><LineBreak/>
-                            <LineBreak/>
-                        </TextBlock>
+                        <StackPanel Orientation="Vertical" 
+                                    Margin=" 10,10,10,0">
+                            <TextBlock Text="视觉选项" FontWeight="Bold"
+                                   Style="{StaticResource SummaryTextStyle}"/>
+                            <Rectangle Height="1"
+                                       Margin=" 0,5,0,0"
+                                       Fill="{ThemeResource DQDSummTextColor}"/>
+                        </StackPanel>
+                        <Grid Margin="10,10,10,0" >
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="夜间模式"
+                                   Style="{StaticResource TitleTextStyle}"/>
+                                <TextBlock Text="改变应用背景和文字前景"
+                                   Style="{StaticResource SummaryTextStyle}"/>
+                            </StackPanel>
+                            <ToggleSwitch Name="ThemeSwitch" 
+                                      Style="{ThemeResource ThemeModeSwitch}" 
+                                      HorizontalAlignment="Right"
+                                      Margin="0,0,-100,0"
+                                      OnContent=" " 
+                                      OffContent=" " 
+                                      Toggled="ThemeSwitch_Toggled" />
+                        </Grid>
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>
+            <!--#endregion-->
+            
+            <!--#region About-->
             <PivotItem Name="About" Header="关于">
                 <ScrollViewer>
                     <StackPanel>
@@ -33,7 +74,7 @@
                         <TextBlock Margin="10,5,10,5" Text="版本信息：由系统生成" 
                                    FontWeight="ExtraBold" Name="VersionMessage"/>
 
-                        <TextBlock Margin="10,5,10,5" Text="关于 ENRZ ForUWP" 
+                        <TextBlock Margin="10,5,10,5" Text="关于 ENRZ For Windows10" 
                                    FontWeight="ExtraBold" FontSize="16"/>
                         <TextBlock Margin="10,5,10,5" FontSize="14" FontWeight="Thin"
                                TextWrapping="WrapWholeWords">
@@ -43,40 +84,47 @@
                             <Run Text="支持捐赠，多少随意，重在鼓励。开发不易，多喝营养快线，谢谢各位老司机。"/><LineBreak/>
                         </TextBlock>
 
-                        <TextBlock Margin="10,5,10,5" Text="ENRZ For UWP 进度记录" 
+                        <TextBlock Margin="10,5,10,5" Text="ENRZ For Windows10 进度记录" 
                                    FontWeight="ExtraBold" FontSize="16"/>
                         <TextBlock Margin="10,5,10,5" FontSize="12" FontWeight="Thin"
                                TextWrapping="WrapWholeWords">
                             
-                            <Run Text="Version：1.0.5 / 2016.10.11" FontSize="15" FontWeight="Medium" /><LineBreak/>
+                            <Run Text="Version：1.1001.1500 / 2016.10.12" FontSize="15" FontWeight="Medium" /><LineBreak/>
+                            <Run Text="Windows应用商店第一版" /><LineBreak/>
+                            <Run Text="BadgeLogo存在问题审核被驳回" /><LineBreak/><LineBreak/>
+                            
+                            <Run Text="Version：1.0.5 / 2016.10.12" FontSize="15" FontWeight="Medium" /><LineBreak/>
                             <Run Text="体验基本完善，修改细节" /><LineBreak/>
                             <Run Text="应用图标修改，为提交商店做准备" /><LineBreak/><LineBreak/>
                             
-                            <Run Text="Version：1.0.4 / 2016.10.12" FontSize="17" FontWeight="Medium" /><LineBreak/>
+                            <Run Text="Version：1.0.4 / 2016.10.12" FontSize="15" FontWeight="Medium" /><LineBreak/>
                             <Run Text="内容页面开发完成" /><LineBreak/>
                             <Run Text="菜单滑动手势加入" /><LineBreak/><LineBreak/>
                             
-                            <Run Text="Version：1.0.3 / 2016.10.11" FontSize="17" FontWeight="Medium" /><LineBreak/>
+                            <Run Text="Version：1.0.3 / 2016.10.11" FontSize="15" FontWeight="Medium" /><LineBreak/>
                             <Run Text="目录功能完成" /><LineBreak/>
                             <Run Text="新闻与图片的获取" /><LineBreak/><LineBreak/>
                             
-                            <Run Text="Version：1.0.1 / 2016.10.09" FontSize="17" FontWeight="Medium" /><LineBreak/>
+                            <Run Text="Version：1.0.1 / 2016.10.09" FontSize="15" FontWeight="Medium" /><LineBreak/>
                             <Run Text="主要外观框架开发完成" /><LineBreak/><LineBreak/>
                             
-                            <Run Text="Version：1.0.0 / 2016.10.09" FontSize="17" FontWeight="Medium" /><LineBreak/>
-                            <Run Text="ENRZ.COM For Windows 正式进入开发阶段" /><LineBreak/><LineBreak/>
+                            <Run Text="Version：1.0.0 / 2016.10.09" FontSize="15" FontWeight="Medium" /><LineBreak/>
+                            <Run Text="ENRZ.COM For Windows10 正式进入开发阶段" /><LineBreak/><LineBreak/>
                             
                         </TextBlock>
 
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>
+            <!--#endregion-->
+            
+            <!--#region About ENRZ-->
             <PivotItem Name="AboutENRZ" Header="关于ENRZ.COM">
                 <ScrollViewer>
                     <StackPanel>
                         <TextBlock Margin="10,5,10,5" FontSize="14" FontWeight="Thin"
                                TextWrapping="WrapWholeWords">
-                            <Run Text="男人装 官方网站" FontWeight="SemiBold" /><LineBreak/>
+                            <Run Text="男人装 官方网站" FontWeight="ExtraBold" FontSize="18"/><LineBreak/>
                             <LineBreak/>
                         <Run Text="时尚传媒集团旗舰刊《男人装》官方网站。"/><LineBreak/>
                         <LineBreak/>
@@ -84,13 +132,13 @@
                         <LineBreak/>
                         <Run Text="优质的图文资讯给予男士有关着装理容、乐享生活的品位指导，在这里找到一拍即合的心灵伙伴，分享对生活趣味的每一点发现，碰撞出最具价值的商业灵感。"/><LineBreak/>
                         <LineBreak/>
-                            <Run Text="男人装 杂志" FontWeight="SemiBold" /><LineBreak/>
+                            <Run Text="男人装 杂志" FontWeight="ExtraBold" FontSize="18"/><LineBreak/>
                             <LineBreak/>
                         <Run Text="《男人装》全球真性情男性杂志、国际男性杂志市场的当红杂志《FHM》于2004年4月23日以《男人装》的名义登陆中国内地市场。《男人装》是时尚集团在2004年推出的一本男性综合类时尚杂志，不仅填补了内地期刊市场男性杂志的空白，而且带来了男性杂志消费的新热潮，它开宗明义就是要做 &amp; 男人的真性情杂志 &amp; ，它填补了男性期刊市场的空缺，也填补了男性心理需要的空缺。到2012年8月，已经出版了整整一百期。"/><LineBreak/>
                         <LineBreak/>
                         <Run Text="《男人装》是中国第一本公开的纯男性杂志，有中国的《花花公子》之称。因为面对的消费群体主要是男性朋友，所以男人装封面刊登的都是美女明星的性感照片。男人装获《新周刊》新锐榜年度传媒之年度杂志奖。"/><LineBreak/>
                         <LineBreak/>
-                            <Run Text="时尚集团简介" FontWeight="SemiBold" /><LineBreak/>
+                            <Run Text="时尚集团简介" FontWeight="ExtraBold" FontSize="18"/><LineBreak/>
                             <LineBreak/>
                         <Run Text="时尚集团诞生于1993年，从一本杂志开始，至今已发展成为拥有16本高档期刊，业务涵盖期刊编辑、图书策划、网络传媒、广告、印刷、发行、数字出版、电视制作等多项领域的跨媒体多平台的传媒集团，并在上海和广州设立广告、发行分公司、办事处。集团多年来始终以 注重细节、追求卓越、引导潮流 为宗旨，为传媒产业、时尚领域和公益事业做出了里程碑式的贡献，连续多年被评为 &amp; 中国最具价值的500个品牌 &amp; 之一。"/><LineBreak/>
 
@@ -98,6 +146,9 @@
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>
+            <!--#endregion-->
+            
+            <!--#region About Me-->
             <PivotItem Name="AboutMe" Header="关于开发者">
                 <ScrollViewer>
                     <StackPanel>
@@ -192,6 +243,8 @@
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>
+            <!--#endregion-->
+            
         </Pivot>
     </Grid>
 </Page>

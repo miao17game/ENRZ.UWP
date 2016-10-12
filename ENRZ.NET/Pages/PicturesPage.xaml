@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="ENRZ.NET.Pages.PicturePage"
+    x:Class="ENRZ.NET.Pages.PicturesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ENRZ.NET.Pages"
@@ -183,7 +183,7 @@
                                FontWeight="ExtraBold" Foreground="White"/>
                 </Border>
 
-                <MSControls:AdaptiveGridView Name="AdaptiveGVIew"
+                <MSControls:AdaptiveGridView Name="AdaptiveGViewF04"
                                                      ItemHeight="150"
                                                      DesiredWidth="150"
                                                      SelectionMode="None"

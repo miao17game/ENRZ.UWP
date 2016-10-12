@@ -145,6 +145,12 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Storyboard x:Name="EnterBorder">
+            <FadeInThemeAnimation Storyboard.TargetName="DarkDivideBorder" />
+        </Storyboard>
+        <Storyboard x:Name="OutBorder">
+            <FadeOutThemeAnimation Storyboard.TargetName="DarkDivideBorder" />
+        </Storyboard>
     </Page.Resources>
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -223,7 +229,6 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
 
-                        <Setter Target="NavigationSplit.(SplitView.IsPaneOpen)" Value="True"/>
                         <Setter Target="BaseHamburgerButton.(UIElement.Visibility)" Value="Collapsed"/>
                         <Setter Target="SlideAnimaRec.(FrameworkElement.Margin)" >
                             <Setter.Value>70,120,0,70</Setter.Value>
@@ -346,6 +351,12 @@
                             Foreground="White"
                             Style="{ThemeResource MainPageButtonBackHamburgerStyle}"/>
                     <Frame Name="BasePartFrame" Margin="0,70,0,0"/>
+
+                    <Border Name="DarkDivideBorder" 
+                            Background="{ThemeResource DQDPopupBackColor}"
+                            Grid.ColumnSpan="2"
+                            Visibility="Collapsed"/>
+
                 </Grid>
             </SplitView.Content>
         </SplitView>
