@@ -25,6 +25,13 @@
     <!--#endregion-->
     
     <Grid Name="grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid.Transitions>
+            <TransitionCollection>
+                <EntranceThemeTransition FromVerticalOffset="400"/>
+            </TransitionCollection>
+        </Grid.Transitions>
+
         <Pivot Width="{Binding Width, ElementName=grid ,Mode=OneWay}"
                SelectionChanged="Pivot_SelectionChanged">
             
@@ -88,6 +95,11 @@
                                    FontWeight="ExtraBold" FontSize="16"/>
                         <TextBlock Margin="10,5,10,5" FontSize="12" FontWeight="Thin"
                                TextWrapping="WrapWholeWords">
+                            
+                            <Run Text="Version：1.1002.2304 / 2016.10.12" FontSize="15" FontWeight="Medium" /><LineBreak/>
+                            <Run Text="紧急修复Badge图标问题" /><LineBreak/>
+                            <Run Text="加入夜间模式和日间模式的切换" /><LineBreak/>
+                            <Run Text="修复了一些其他的小问题" /><LineBreak/><LineBreak/>
                             
                             <Run Text="Version：1.1001.1500 / 2016.10.12" FontSize="15" FontWeight="Medium" /><LineBreak/>
                             <Run Text="Windows应用商店第一版" /><LineBreak/>

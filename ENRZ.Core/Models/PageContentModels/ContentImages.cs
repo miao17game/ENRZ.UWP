@@ -9,5 +9,6 @@ namespace ENRZ.Core.Models.PageContentModels {
     public class ContentImages {
         public uint Index { get; set; }
         public BitmapImage Image { get; set; }
+        public Uri ImageSource { get; set; }
     }
 }

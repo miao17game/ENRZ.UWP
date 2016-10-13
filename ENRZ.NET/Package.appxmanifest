@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="64530WallaceSun.ENRZUWP" Publisher="CN=F20CB244-5466-4E73-B935-8A83BABDE8FA" Version="1.1002.2304.0" />
+  <Identity Name="64530WallaceSun.ENRZUWP" Publisher="CN=F20CB244-5466-4E73-B935-8A83BABDE8FA" Version="1.1002.3333.0" />
   <mp:PhoneIdentity PhoneProductId="d3b1be8f-9fd4-41f7-a3b5-6ed1f93debd1" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>ENRZ UWP</DisplayName>
@@ -29,5 +29,6 @@
   </Applications>
   <Capabilities>
     <Capability Name="internetClient" />
+    <uap:Capability Name="picturesLibrary" />
   </Capabilities>
 </Package>

@@ -13,13 +13,19 @@
         <CollectionViewSource x:Name="HeaderResources"/>
         <CollectionViewSource x:Name="GridViewResources"/>
     </Page.Resources>
-    
+
     <Grid Name="grid" 
-          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        
+          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="0,0,-3.5,0">
+
+        <Grid.Transitions>
+            <TransitionCollection>
+                <EntranceThemeTransition FromVerticalOffset="400"/>
+            </TransitionCollection>
+        </Grid.Transitions>
+
         <Pivot Width="{Binding Width, ElementName=grid ,Mode=OneWay}"
                ItemsSource="{Binding Source={StaticResource HeaderResources}}"
-               SelectionChanged="Pivot_SelectionChanged">
+               SelectionChanged="Pivot_SelectionChanged" >
             <Pivot.HeaderTemplate>
                 <DataTemplate x:DataType="model:BarItemModel">
                     <TextBlock Text="{Binding Title}"
@@ -31,7 +37,7 @@
             </Pivot.HeaderTemplate>
             <Pivot.ItemTemplate>
                 <DataTemplate x:DataType="model:BarItemModel" >
-                    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
                         <MSControls:AdaptiveGridView Name="AdaptiveGridView"
                                                      ItemHeight="240"
                                                      DesiredWidth="320"

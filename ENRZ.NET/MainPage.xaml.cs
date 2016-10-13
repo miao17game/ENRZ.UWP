@@ -11,8 +11,14 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Graphics.Imaging;
+using Windows.Storage;
+using Windows.Storage.Pickers;
+using Windows.Storage.Provider;
+using Windows.Storage.Streams;
 using Windows.System.Profile;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -23,7 +29,12 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using Windows.Web.Http;
+
+using static ENRZ.Core.Tools.UWPStates;
+using static ENRZ.NET.MainPage.InnerResources;
 #endregion
 
 namespace ENRZ.NET {
@@ -34,33 +45,34 @@ namespace ENRZ.NET {
         public MainPage() {
             this.InitializeComponent();
             Current = this;
+            baseListRing.IsActive = true;
+            PrepareFrame.Navigate(typeof(PreparePage));
             var isDarkOrNot = (bool?)SettingsHelper.ReadSettingsValue(SettingsConstants.IsDarkThemeOrNot) ?? true;
             RequestedTheme = isDarkOrNot ? ElementTheme.Dark : ElementTheme.Light;
-            UWPStates.NavigateManager.BackRequested += OnBackRequested;
+            NavigateManager.BackRequested += OnBackRequested;
             MainContentFrame = this.ContentFrame;
+            BaseListRing = this.baseListRing;
             NavigateTitlePath = this.navigateTitlePath;
             ChangeTitlePath(NaviPathTitle.RoutePath);
-            PrepareFrame.Navigate(typeof(PreparePage));
             StatusBarInit.InitInnerDesktopStatusBar(true);
             Window.Current.SetTitleBar(BasePartBorder);
-            if (UWPStates.IsMobile) {
-                UWPStates.AppView.VisibleBoundsChanged += (s, e) => { ChangeViewWhenNavigationBarChanged(); };
-                ChangeViewWhenNavigationBarChanged(); }
+            IfNeedAdapteVitualNavigationBar();
             InitSlideRecState();
             GetResources();
         }
+
         #endregion
 
         #region Events
         private void NavigationSplit_PaneClosed(SplitView sender, object args) {
-            UWPStates.SetVisibility(SlideAnimaRec,true);
+            SetVisibility(SlideAnimaRec,true);
             OutBorder.Completed += OnOutBorderOut;
             OutBorder.Begin();
         }
 
         private void OnOutBorderOut(object sender, object e) {
             OutBorder.Completed -= OnOutBorderOut;
-            UWPStates.SetVisibility(DarkDivideBorder, false);
+            SetVisibility(DarkDivideBorder, false);
         }
 
         private void OnBackRequested(object sender, BackRequestedEventArgs e) {
@@ -83,25 +95,50 @@ namespace ENRZ.NET {
         }
 
         private void HamburgerListBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            baseListRing.IsActive = false;
             NavigationSplit.IsPaneOpen = false;
             var model = e.AddedItems.FirstOrDefault() as NavigationBarModel;
             if (model == null)
                 return;
-            NaviPathTitle.Route02 = (sender as ListBox).SelectedIndex == 0 ? null: model.Title;
-            ChangeTitlePath(NaviPathTitle.RoutePath);
+            ChangeTitlePath(2, (sender as ListBox).SelectedIndex == 0 ? null : model.Title);
             NavigateType type = model.Title.ToString() == "美图" ?
             NavigateType.ImageNaviBar :
             NavigateType.NaviBar;
-            if (InnerResources.IfContainsPageInstance(NaviPathTitle.RoutePath)) {
-                InnerResources.GetFrameInstance(type).Content = InnerResources.GetPageInstance(NaviPathTitle.RoutePath);
+            if (IfContainsPageInstance(NaviPathTitle.RoutePath)) {
+                GetFrameInstance(type).Content = GetPageInstance(NaviPathTitle.RoutePath);
             } else {
                 NavigateToBase?.Invoke(
                     sender,
                     new NavigateParameter { PathUri = model.PathUri, Items = model.Items, },
-                    InnerResources.GetFrameInstance(type),
-                    InnerResources.GetPageType(type));
+                    GetFrameInstance(type),
+                    GetPageType(type));
             }
         }
+
+        private void ImageControlButton_Click(object sender, RoutedEventArgs e) {
+            ImagePopup.IsOpen = false;
+        }
+
+        private void ImagePopup_SizeChanged(object sender, SizeChangedEventArgs e) {
+            ImagePopupBorder.Width = (sender as Popup).ActualWidth;
+            ImagePopupBorder.Height = (sender as Popup).ActualHeight;
+        }
+
+        private void Grid_SizeChanged(object sender, SizeChangedEventArgs e) {
+            ImagePopup.Width = (sender as Grid).ActualWidth;
+            ImagePopup.Height = (sender as Grid).ActualHeight;
+        }
+
+        private async void ImageSaveButton_Click(object sender, RoutedEventArgs e) {
+            SoftwareBitmap sb = await DownloadImage(PopupImageUri.ToString());
+            if (sb != null) {
+                SoftwareBitmapSource source = new SoftwareBitmapSource();
+                await source.SetBitmapAsync(sb);
+                var name = await WriteToFile(sb);
+                new ToastSmooth("图片保存成功").Show();
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -115,16 +152,23 @@ namespace ENRZ.NET {
             });
         }
 
-        public static void DivideWindowRange(FrameworkElement element, double rangeNum, uint divideNum) {
-            if (UWPStates.IsMobile) {
-                element.Width = UWPStates.VisibleWidth;
-                Current.Frame.SizeChanged += (sender, args) => { element.Width = UWPStates.VisibleWidth; };
+        private void IfNeedAdapteVitualNavigationBar() {
+            if (IsMobile) {
+                AppView.VisibleBoundsChanged += (s, e) => { AdapteVitualNavigationBarWithoutStatusBar(this); };
+                AdapteVitualNavigationBarWithoutStatusBar(this);
+            }
+        }
+
+        public static void DivideWindowRange(Page currentFramePage, double rangeNum, uint divideNum) {
+            if (IsMobile) {
+                currentFramePage.Width = VisibleWidth;
+                Current.Frame.SizeChanged += (sender, args) => { currentFramePage.Width = VisibleWidth; };
             } else {
-                var nowWidth = UWPStates.VisibleWidth;
-                element.Width = nowWidth > rangeNum ? nowWidth / divideNum : nowWidth;
+                var nowWidth = VisibleWidth;
+                currentFramePage.Width = nowWidth > rangeNum ? nowWidth / divideNum : nowWidth;
                 Current.Frame.SizeChanged += (sender, args) => {
-                    var nowWidthEx = UWPStates.VisibleWidth;
-                    element.Width = nowWidthEx > rangeNum ? nowWidthEx / divideNum : nowWidthEx;
+                    var nowWidthEx = VisibleWidth;
+                    currentFramePage.Width = nowWidthEx > rangeNum ? nowWidthEx / divideNum : nowWidthEx;
                 };
             }
         }
@@ -138,29 +182,69 @@ namespace ENRZ.NET {
             Current.NavigateTitlePath.Text = value;
         }
 
-        private void ChangeViewWhenNavigationBarChanged() {
-            Width = UWPStates.VisibleWidth;
-            var wholeHeight = UWPStates.WindowHeight;
-            var wholeWidth = UWPStates.WindowWidth;
-            if (wholeHeight < wholeWidth) {
-                Height = UWPStates.VisibleHeight;
-                Width = UWPStates.VisibleWidth + 48;
-                Margin =
-                    Width - wholeWidth > -0.1 ?
-                    new Thickness(0, 0, 0, 0) :
-                    new Thickness(-24, 0, 0, 0);
+        public static void ChangeTitlePath(uint number , string value) {
+            if (number < 1 || number > 3)
                 return;
+            switch (number) {
+                case 1: NaviPathTitle.Route01 = value; break;
+                case 2: NaviPathTitle.Route02 = value; break;
+                case 3: NaviPathTitle.Route03 = value; break;
             }
-            Height = UWPStates.VisibleHeight + 24;
-            Margin =
-                Height - wholeHeight > -0.1 ?
-                new Thickness(0, 0, 0, 0) :
-                new Thickness(0, -48, 0, 0);
+            Current.NavigateTitlePath.Text = NaviPathTitle.RoutePath;
         }
 
         private void OnPaneIsOpened() {
-            UWPStates.SetVisibility(DarkDivideBorder, true);
+            SetVisibility(DarkDivideBorder, true);
             EnterBorder.Begin();
+        }
+
+        public static void ShowImageInScreen(Uri imageSource) {
+            Current.PopupImageUri = imageSource;
+            Current.ImageScreen.Source = new BitmapImage( imageSource);
+            Current.ImagePopup.IsOpen = true;
+        }
+
+        private async Task<SoftwareBitmap> DownloadImage(string url) {
+            try {
+                HttpClient hc = new HttpClient();
+                HttpResponseMessage resp = await hc.GetAsync(new Uri(url));
+                resp.EnsureSuccessStatusCode();
+                IInputStream inputStream = await resp.Content.ReadAsInputStreamAsync();
+                IRandomAccessStream memStream = new InMemoryRandomAccessStream();
+                await RandomAccessStream.CopyAsync(inputStream, memStream);
+                BitmapDecoder decoder = await BitmapDecoder.CreateAsync(memStream);
+                SoftwareBitmap softBmp = await decoder.GetSoftwareBitmapAsync(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied);
+                return softBmp;
+            } catch (Exception) {
+                DataProcess.ReportException("图片保存成功");
+                return null;
+            }
+        }
+
+        public async Task<string> WriteToFile(SoftwareBitmap softwareBitmap) {
+            string fileName =
+                Guid.NewGuid().GetHashCode().ToString() + "FR" +
+                DateTime.Now.Year.ToString() + "GR" +
+                DateTime.Now.Month.ToString() + "VE" +
+                DateTime.Now.Day.ToString() + "JU" +
+                DateTime.Now.Hour.ToString() + "SW" +
+                DateTime.Now.Minute.ToString() + "VJ" +
+                DateTime.Now.Second.ToString() + "MQ" +
+                DateTime.Now.Millisecond.ToString() + ".jpg";
+
+            if (softwareBitmap != null) {
+                // save image file to cache
+                StorageFile file = await (
+                    await KnownFolders.PicturesLibrary.CreateFolderAsync("ENRZ", CreationCollisionOption.OpenIfExists))
+                    .CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
+                using (IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.ReadWrite)) {
+                    BitmapEncoder encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, stream);
+                    encoder.SetSoftwareBitmap(softwareBitmap);
+                    await encoder.FlushAsync();
+                }
+            }
+
+            return fileName;
         }
 
         #endregion
@@ -251,7 +335,7 @@ namespace ENRZ.NET {
 
         private void OpenOrClosePane() {
             NavigationSplit.IsPaneOpen = !NavigationSplit.IsPaneOpen;
-            UWPStates.SetVisibility(SlideAnimaRec, !NavigationSplit.IsPaneOpen);
+            SetVisibility(SlideAnimaRec, !NavigationSplit.IsPaneOpen);
             if (NavigationSplit.IsPaneOpen && UWPStates.WindowWidth<800) { OnPaneIsOpened(); }
         }
 
@@ -261,7 +345,9 @@ namespace ENRZ.NET {
         public static MainPage Current;
         public TextBlock NavigateTitlePath;
         public Frame MainContentFrame;
+        public ProgressRing BaseListRing;
         private bool isNeedClose = false;
+        private Uri PopupImageUri;
         public delegate void NavigationEventHandler(object sender, NavigateParameter parameter, Frame frame, Type type);
         public NavigationEventHandler NavigateToBase = (sender, parameter, frame, type) => { frame.Navigate(type, parameter); };
         public struct PathTitle {

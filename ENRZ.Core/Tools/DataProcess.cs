@@ -333,7 +333,7 @@ namespace ENRZ.Core.Tools {
                             if (item.SelectSingleNode("a").SelectSingleNode("img") != null) {
                                 if (item.SelectSingleNode("script") == null) {
                                     model.ContentImage.Add(new ContentImages {
-                                        Image = new BitmapImage(new Uri(item.SelectSingleNode("a").SelectSingleNode("img").Attributes["src"].Value)),
+                                        ImageSource = new Uri(item.SelectSingleNode("a").SelectSingleNode("img").Attributes["src"].Value),
                                         Index = index });
                                 }
                             }

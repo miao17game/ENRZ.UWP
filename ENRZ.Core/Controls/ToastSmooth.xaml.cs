@@ -1,17 +1,18 @@
-﻿using System;
-using System . Collections . Generic;
-using System . IO;
-using System . Linq;
-using System . Runtime . InteropServices . WindowsRuntime;
-using Windows . Foundation;
-using Windows . Foundation . Collections;
-using Windows . UI . Xaml;
-using Windows . UI . Xaml . Controls;
-using Windows . UI . Xaml . Controls . Primitives;
-using Windows . UI . Xaml . Data;
-using Windows . UI . Xaml . Input;
-using Windows . UI . Xaml . Media;
-using Windows . UI . Xaml . Navigation;
+﻿using ENRZ.Core.Helpers;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -24,6 +25,8 @@ namespace ENRZ.Core. Controls {
 
         public ToastSmooth ( ) {
             this . InitializeComponent ( );
+            var isDarkOrNot = (bool?)SettingsHelper.ReadSettingsValue(SettingsConstants.IsDarkThemeOrNot) ?? true;
+            RequestedTheme = isDarkOrNot ? ElementTheme.Dark : ElementTheme.Light;
             DialogPopup = new Popup ( );
             this . Width = Window . Current . Bounds .Width;
             this . Height = Window . Current . Bounds . Height;

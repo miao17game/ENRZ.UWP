@@ -23,7 +23,7 @@
         <CollectionViewSource x:Name="GridViewResources"/>
         <Converters:ValueConverter x:Key="ValueConverter"/>
         <Style x:Key="ImgNaviButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="{ThemeResource AboutPageForeground}"/>
+            <Setter Property="Background" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}"/>
             <Setter Property="FontSize" Value="24"/>
             <Setter Property="FontWeight" Value="ExtraBold"/>
             <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
@@ -101,8 +101,8 @@
     							VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
     							AutomationProperties.AccessibilityView="Raw"/>
                             <Rectangle x:Name="rectangle"
-    							Fill="Transparent"
-    							Height="0"
+    							Fill="#40404040"
+    							Height="1"
     							VerticalAlignment="Top"/>
                         </Grid>
                     </ControlTemplate>
@@ -112,7 +112,13 @@
     </Page.Resources>
 
     <Grid Name="grid" 
-          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+          Background="{ThemeResource ENRZBackground02}">
+
+        <Grid.Transitions>
+            <TransitionCollection>
+                <EntranceThemeTransition FromVerticalOffset="400"/>
+            </TransitionCollection>
+        </Grid.Transitions>
 
         <!--#region Adaptive Triggers-->
         <VisualStateManager.VisualStateGroups>
@@ -132,7 +138,7 @@
                         <Setter Target="TopListView.(Grid.Row)" Value="4"/>
                         <Setter Target="TopListView.(Grid.RowSpan)" Value="2"/>
                         <Setter Target="MyFlip.(Grid.ColumnSpan)" Value="2"/>
-                        <Setter Target="Row01.(FrameworkElement.Height)" Value="800"/>
+                        <Setter Target="Row01.(FrameworkElement.Height)" Value="500"/>
                         <Setter Target="textBlock.(FrameworkElement.HorizontalAlignment)" Value="Left"/>
                         <Setter Target="textBlock.(FrameworkElement.Margin)">
                             <Setter.Value>
@@ -153,9 +159,9 @@
                         <Setter Target="SelectGridView.(Grid.Row)" Value="4"/>
                         <Setter Target="gridView.(Grid.ColumnSpan)" Value="2"/>
                         <Setter Target="SelectGridView.(Grid.ColumnSpan)" Value="2"/>
-                        <Setter Target="Row02.(FrameworkElement.Height)" Value="800"/>
-                        <Setter Target="textBlock1.(TextBlock.FontSize)" Value="18"/>
-                        <Setter Target="textBlock2.(TextBlock.FontSize)" Value="18"/>
+                        <Setter Target="Row02.(FrameworkElement.Height)" Value="600"/>
+                        <Setter Target="textBlock1.(TextBlock.FontSize)" Value="15"/>
+                        <Setter Target="textBlock2.(TextBlock.FontSize)" Value="15"/>
 
                     </VisualState.Setters>
                 </VisualState>
@@ -174,7 +180,7 @@
                         <Setter Target="TopListView.(Grid.Row)" Value="4"/>
                         <Setter Target="TopListView.(Grid.RowSpan)" Value="2"/>
                         <Setter Target="MyFlip.(Grid.ColumnSpan)" Value="2"/>
-                        <Setter Target="Row01.(FrameworkElement.Height)" Value="800"/>
+                        <Setter Target="Row01.(FrameworkElement.Height)" Value="600"/>
                         <Setter Target="textBlock.(FrameworkElement.HorizontalAlignment)" Value="Left"/>
                         <Setter Target="textBlock.(FrameworkElement.Margin)">
                             <Setter.Value>
@@ -195,9 +201,9 @@
                         <Setter Target="SelectGridView.(Grid.Row)" Value="4"/>
                         <Setter Target="gridView.(Grid.ColumnSpan)" Value="2"/>
                         <Setter Target="SelectGridView.(Grid.ColumnSpan)" Value="2"/>
-                        <Setter Target="Row02.(FrameworkElement.Height)" Value="800"/>
-                        <Setter Target="textBlock1.(TextBlock.FontSize)" Value="18"/>
-                        <Setter Target="textBlock2.(TextBlock.FontSize)" Value="18"/>
+                        <Setter Target="Row02.(FrameworkElement.Height)" Value="600"/>
+                        <Setter Target="textBlock1.(TextBlock.FontSize)" Value="16"/>
+                        <Setter Target="textBlock2.(TextBlock.FontSize)" Value="16"/>
 
                     </VisualState.Setters>
                 </VisualState>
@@ -229,7 +235,8 @@
             </Pivot.HeaderTemplate>
             <Pivot.ItemTemplate>
                 <DataTemplate x:DataType="model:BarItemModel" >
-                    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                          Margin="0,0,-3.5,0">
                         <MSControls:AdaptiveGridView Name="AdaptiveGridView"
                                                      ItemHeight="150"
                                                      DesiredWidth="150"
@@ -273,7 +280,7 @@
 
         <!--#region For Index Content-->
         <ScrollViewer Name="IndexScroll" Margin=" 0,0,0,60" 
-                      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                      Background="{ThemeResource ENRZBackground02}">
             <StackPanel>
 
                 <!--#region Row1-->
@@ -324,7 +331,7 @@
                         </FlipView.ItemTemplate>
                     </FlipView>
 
-                    <Border x:Name="border" Grid.Column="1" Background="{ThemeResource ENRZForeground01}">
+                    <Border x:Name="border" Grid.Column="1" Background="{ThemeResource ENRZForeground02}">
                         <TextBlock x:Name="textBlock" Text="每日热图TOP5" FontSize="14" 
                                    VerticalAlignment="Center" HorizontalAlignment="Center" 
                                    FontWeight="ExtraBold" Foreground="White"/>
@@ -343,12 +350,15 @@
                                     Converter={StaticResource ValueConverter}}"
                                       Background="Transparent">
                                     <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition/>
-                                        <ColumnDefinition Width="1.3*"/>
                                     </Grid.ColumnDefinitions>
                                     <Image Source="{Binding ImageUri}"
                                            Stretch="UniformToFill"
-                                           Grid.Column="0"/>
+                                           Grid.Column="0"
+                                           MaxWidth="150"
+                                           Margin=" 3,1,0,1"
+                                           HorizontalAlignment="Left"/>
                                     <Border Background="Transparent" 
                                             VerticalAlignment="Center" Grid.Column="1">
                                         <TextBlock Text="{Binding Title}" 
@@ -366,16 +376,16 @@
                 <!--#endregion-->
 
                 <!--#region Row2-->
-                <Grid Name="Row02" Height="400">
+                <Grid x:Name="Row02" Height="270">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2.5*"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="0.15*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="0.23*"/>
                         <RowDefinition/>
-                        <RowDefinition Height="0.15*"/>
+                        <RowDefinition Height="0.23*"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
@@ -403,18 +413,18 @@
                               ItemsSource="{Binding Source={StaticResource RecommendResouces}}"
                               Margin="5,0,5,3" >
                         <GridView.ItemTemplate>
-                            <DataTemplate x:DataType="model:SimpleImgModel">
-                                <Grid Height="360" Width="220" Margin="-2">
+                            <DataTemplate>
+                                <Grid Height="225" Width="140" Margin="-2">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="5*"/>
-                                        <RowDefinition/>
+                                        <RowDefinition Height="1.08*"/>
                                     </Grid.RowDefinitions>
                                     <Image Source="{Binding ImageUri}"
                                            Stretch="UniformToFill"
                                            Grid.Row="0"/>
                                     <TextBlock Text="{Binding Title}"
                                                Margin="5,0,5,0"
-                                               FontSize="14"
+                                               FontSize="12"
                                                Grid.Row="1" 
                                                TextWrapping="WrapWholeWords"
                                                VerticalAlignment="Top"/>
@@ -422,7 +432,7 @@
                             </DataTemplate>
                         </GridView.ItemTemplate>
                     </GridView>
-                    <GridView Name="SelectGridView" Grid.Column="1"
+                    <GridView x:Name="SelectGridView" Grid.Column="1"
                               Grid.Row="1" Grid.RowSpan="4"
                               SelectionMode="None" IsItemClickEnabled="True" 
                               ItemClick="IndexGridView_ItemClick"
@@ -430,8 +440,8 @@
                               ItemsSource="{Binding Source={StaticResource SelectResouces}}"
                               Margin="5,0,5,3">
                         <GridView.ItemTemplate>
-                            <DataTemplate x:DataType="model:SimpleImgModel">
-                                <Border Height="360" Width="220" Margin="-2">
+                            <DataTemplate>
+                                <Border Height="225" Width="140" Margin="-2">
                                     <Image Source="{Binding ImageUri}"
                                            Stretch="UniformToFill"/>
                                 </Border>
@@ -442,16 +452,19 @@
                 <!--#endregion-->
 
                 <!--#region Row3-->
-                <Grid Name="Row03" Height="450">
+                <Grid Name="Row03" Height="330">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.13*"/>
+                        <RowDefinition Height="0.18*"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid>
-                        <TextBlock Text="美女 GIRL" FontSize="18" 
+                        <TextBlock Text="美女 GIRL" FontSize="16" 
                                    Foreground="{ThemeResource AppPersonalTextColorPure02}"
                                    VerticalAlignment="Center" HorizontalAlignment="Left"
                                    Margin=" 5,0,0,0" FontWeight="Bold"/>
+                        <Button Name="GirlMoreButton" Content="更多>>" FontWeight="Bold" 
+                                Style="{StaticResource ButtonNoAnyShapeStyle}" Margin="0,0,5,0"
+                                FontSize="16" Click="ButtonSelect" HorizontalAlignment="Right"/>
                         <Rectangle Height="1" VerticalAlignment="Bottom" 
                                    Margin="5,0,5,5" Fill="{ThemeResource ENRZForeground01}"/>
                     </Grid>
@@ -463,7 +476,7 @@
                               Margin="5,0,5,3">
                         <GridView.ItemTemplate>
                             <DataTemplate x:DataType="model:SimpleImgModel">
-                                <Grid Height="390" Width="250" Margin="-2">
+                                <Grid Height="265" Width="160" Margin="-2">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="7*"/>
                                         <RowDefinition/>
@@ -473,7 +486,7 @@
                                            Grid.Row="0"/>
                                     <TextBlock Text="{Binding Title}"
                                                Margin="5,0,5,0"
-                                               FontSize="16"
+                                               FontSize="13"
                                                Grid.Row="1" 
                                                TextWrapping="WrapWholeWords"
                                                VerticalAlignment="Top"/>
@@ -485,16 +498,19 @@
                 <!--#endregion-->
 
                 <!--#region Row4-->
-                <Grid Name="Row04" Height="450">
+                <Grid Name="Row04" Height="330">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.13*"/>
+                        <RowDefinition Height="0.18*"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid>
-                        <TextBlock Text="时尚 FASHION" FontSize="18" 
+                        <TextBlock Text="时尚 FASHION" FontSize="16" 
                                    Foreground="{ThemeResource AppPersonalTextColorPure02}"
                                    VerticalAlignment="Center" HorizontalAlignment="Left"
                                    Margin=" 5,0,0,0" FontWeight="Bold"/>
+                        <Button Name="FashionMoreButton" Content="更多>>" FontWeight="Bold" 
+                                Style="{StaticResource ButtonNoAnyShapeStyle}" Margin="0,0,5,0"
+                                FontSize="16" Click="ButtonSelect" HorizontalAlignment="Right"/>
                         <Rectangle Height="1" VerticalAlignment="Bottom" 
                                    Margin="5,0,5,5" Fill="{ThemeResource ENRZForeground01}"/>
                     </Grid>
@@ -506,7 +522,7 @@
                               Margin="5,0,5,3">
                         <GridView.ItemTemplate>
                             <DataTemplate x:DataType="model:SimpleImgModel">
-                                <Grid Height="390" Width="250" Margin="-2">
+                                <Grid Height="265" Width="160" Margin="-2">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="5*"/>
                                         <RowDefinition/>
@@ -516,7 +532,7 @@
                                            Grid.Row="0"/>
                                     <TextBlock Text="{Binding Title}"
                                                Margin="5,0,5,0"
-                                               FontSize="16"
+                                               FontSize="13"
                                                Grid.Row="1" 
                                                TextWrapping="WrapWholeWords"
                                                VerticalAlignment="Top"/>
@@ -528,16 +544,19 @@
                 <!--#endregion-->
 
                 <!--#region Row5-->
-                <Grid Name="Row05" Height="450">
+                <Grid Name="Row05" Height="330">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.13*"/>
+                        <RowDefinition Height="0.18*"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid>
-                        <TextBlock Text="玩物 PLAYTHING" FontSize="18" 
+                        <TextBlock Text="玩物 PLAYTHING" FontSize="16" 
                                    Foreground="{ThemeResource AppPersonalTextColorPure02}"
                                    VerticalAlignment="Center" HorizontalAlignment="Left"
                                    Margin=" 5,0,0,0" FontWeight="Bold"/>
+                        <Button Name="PlaythingMoreButton" Content="更多>>" FontWeight="Bold" 
+                                Style="{StaticResource ButtonNoAnyShapeStyle}" Margin="0,0,5,0"
+                                FontSize="16" Click="ButtonSelect" HorizontalAlignment="Right"/>
                         <Rectangle Height="1" VerticalAlignment="Bottom" 
                                    Margin="5,0,5,5" Fill="{ThemeResource ENRZForeground01}"/>
                     </Grid>
@@ -549,7 +568,7 @@
                               Margin="5,0,5,3">
                         <GridView.ItemTemplate>
                             <DataTemplate x:DataType="model:SimpleImgModel">
-                                <Grid Height="390" Width="250" Margin="-2">
+                                <Grid Height="265" Width="160" Margin="-2">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="5*"/>
                                         <RowDefinition/>
@@ -559,7 +578,7 @@
                                            Grid.Row="0"/>
                                     <TextBlock Text="{Binding Title}"
                                                Margin="5,0,5,0"
-                                               FontSize="16"
+                                               FontSize="13"
                                                Grid.Row="1" 
                                                TextWrapping="WrapWholeWords"
                                                VerticalAlignment="Top"/>
@@ -571,16 +590,19 @@
                 <!--#endregion-->
 
                 <!--#region Row6-->
-                <Grid Name="Row06" Height="450">
+                <Grid Name="Row06" Height="330">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.13*"/>
+                        <RowDefinition Height="0.18*"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid>
-                        <TextBlock Text="娱乐 ENT" FontSize="18" 
+                        <TextBlock Text="娱乐 ENT" FontSize="16" 
                                    Foreground="{ThemeResource AppPersonalTextColorPure02}"
                                    VerticalAlignment="Center" HorizontalAlignment="Left"
                                    Margin=" 5,0,0,0" FontWeight="Bold"/>
+                        <Button Name="EntMoreButton" Content="更多>>" FontWeight="Bold" 
+                                Style="{StaticResource ButtonNoAnyShapeStyle}" Margin="0,0,5,0"
+                                FontSize="16" Click="ButtonSelect" HorizontalAlignment="Right"/>
                         <Rectangle Height="1" VerticalAlignment="Bottom" 
                                    Margin="5,0,5,5" Fill="{ThemeResource ENRZForeground01}"/>
                     </Grid>
@@ -592,7 +614,7 @@
                               Margin="5,0,5,3">
                         <GridView.ItemTemplate>
                             <DataTemplate x:DataType="model:SimpleImgModel">
-                                <Grid Height="390" Width="250" Margin="-2">
+                                <Grid Height="265" Width="160" Margin="-2">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="5*"/>
                                         <RowDefinition/>
@@ -602,7 +624,7 @@
                                            Grid.Row="0"/>
                                     <TextBlock Text="{Binding Title}"
                                                Margin="5,0,5,0"
-                                               FontSize="16"
+                                               FontSize="13"
                                                Grid.Row="1" 
                                                TextWrapping="WrapWholeWords"
                                                VerticalAlignment="Top"/>

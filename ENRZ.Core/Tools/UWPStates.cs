@@ -7,6 +7,7 @@ using Windows.System.Profile;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace ENRZ.Core.Tools {
     /// <summary>
@@ -37,6 +38,30 @@ namespace ENRZ.Core.Tools {
         public static bool IsMobile { get { return AnalyticsInfo.VersionInfo.DeviceFamily.Equals("Windows.Mobile"); } }
 
         public static void SetVisibility(FrameworkElement element, bool IsVisible) { element.Visibility = IsVisible? Visibility.Visible : Visibility.Collapsed; }
+
+        /// <summary>
+        /// Adaptive the screen when you app running on a mobile device with vitual navigation bar.
+        /// </summary>
+        /// <param name="page"></param>
+        public static void AdapteVitualNavigationBarWithoutStatusBar(Page page) {
+            page.Width = VisibleWidth;
+            var wholeHeight = WindowHeight;
+            var wholeWidth = WindowWidth;
+            if (wholeHeight < wholeWidth) {
+                page.Height = VisibleHeight;
+                page.Width = VisibleWidth + 48;
+                page.Margin =
+                    page.Width - wholeWidth > -0.1 ?
+                    new Thickness(0, 0, 0, 0) :
+                    new Thickness(-24, 0, 0, 0);
+            } else {
+                page.Height = VisibleHeight + 24;
+                page.Margin =
+                    page.Height - wholeHeight > -0.1 ?
+                    new Thickness(0, 0, 0, 0) :
+                    new Thickness(0, -48, 0, 0);
+            }
+        }
 
     }
 }

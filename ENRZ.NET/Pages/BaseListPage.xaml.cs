@@ -16,7 +16,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using static ENRZ.NET.MainPage;
+
+using static ENRZ.Core.Tools.UWPStates;
+using static ENRZ.NET.Pages.BaseListPage.InsideResources;
 
 namespace ENRZ.NET.Pages {
     
@@ -32,47 +34,51 @@ namespace ENRZ.NET.Pages {
         protected override void OnNavigatedTo(NavigationEventArgs e) {
             base.OnNavigatedTo(e);
             var args = e.Parameter as NavigateParameter;
-            InnerResources.AddBaseListPageInstance(NaviPathTitle.RoutePath,this);
+            MainPage.InnerResources.AddBaseListPageInstance(MainPage.NaviPathTitle.RoutePath,this);
             HeaderResources.Source = args.Items;
         }
 
         private async void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            MainPage.Current.BaseListRing.IsActive = true;
             GridViewResources.Source = null;
             var args = (sender as Pivot).SelectedItem as BarItemModel;
-            if (args == null)
-                return;
-            NaviPathTitle.Route03 = (sender as Pivot).SelectedIndex == 0 ? null: args.Title;
-            ChangeTitlePath(NaviPathTitle.RoutePath);
-            ArgsPathKey = args.PathUri.ToString();
-            if (InsideResources.IfContainsListInstance(ArgsPathKey)) {
-                GridViewResources.Source = InsideResources.GetListInstance(ArgsPathKey);
+            if (args == null) {
+                MainPage.Current.BaseListRing.IsActive = false;
                 return;
             }
-            if (InsideResources.IfContainsAGVInstance(ArgsPathKey))
-                InsideResources.GetAGVInstance(ArgsPathKey).Opacity = 0;
+            MainPage.ChangeTitlePath(3, (sender as Pivot).SelectedIndex == 0 ? null : args.Title);
+            ArgsPathKey = args.PathUri.ToString();
+            if (IfContainsListInstance(ArgsPathKey)) {
+                GridViewResources.Source = GetListInstance(ArgsPathKey);
+                MainPage.Current.BaseListRing.IsActive = false;
+                return;
+            }
+            if (IfContainsAGVInstance(ArgsPathKey))
+                GetAGVInstance(ArgsPathKey).Opacity = 0;
             var newList = DataProcess.FetchNewsPreviewFromHtml(
                     (await WebProcess.GetHtmlResources(
                         ArgsPathKey, false))
                         .ToString());
             GridViewResources.Source = newList;
-            InsideResources.GetAGVInstance(ArgsPathKey).Opacity = 1;
-            InsideResources.AddResourcesInDec(ArgsPathKey, newList);
+            GetAGVInstance(ArgsPathKey).Opacity = 1;
+            AddResourcesInDec(ArgsPathKey, newList);
+            MainPage.Current.BaseListRing.IsActive = false;
         }
 
         private void AdaptiveGridView_Loaded(object sender, RoutedEventArgs e) {
             adaptiveGV = sender as AdaptiveGridView;
-            InsideResources.AddAGVInDec(ArgsPathKey, sender as AdaptiveGridView);
+            AddAGVInDec(ArgsPathKey, sender as AdaptiveGridView);
         }
 
         private void AdaptiveGridView_ItemClick(object sender, ItemClickEventArgs e) {
             var model = e.ClickedItem as NewsPreviewModel;
             if (model == null)
                 return;
-            Current.NavigateToBase?.Invoke(
+            MainPage.Current.NavigateToBase?.Invoke(
                 sender,
                 new NavigateParameter { PathUri = model.PathUri },
-                InnerResources.GetFrameInstance(NavigateType.Content),
-                InnerResources.GetPageType(NavigateType.Content));
+                MainPage.InnerResources.GetFrameInstance(NavigateType.Content),
+                MainPage.InnerResources.GetPageType(NavigateType.Content));
         }
         #endregion
 
@@ -84,7 +90,7 @@ namespace ENRZ.NET.Pages {
         /// <summary>
         /// Resources Helper
         /// </summary>
-        static class InsideResources {
+        internal static class InsideResources {
 
             public static void AddResourcesInDec(string key, List<NewsPreviewModel> instance) { if (!ListMap.ContainsKey(key)) { ListMap.Add(key, instance); } }
             public static List<NewsPreviewModel> GetListInstance(string key) { return ListMap.ContainsKey(key) ? ListMap[key] : null; }

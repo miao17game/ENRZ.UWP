@@ -15,6 +15,12 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
 
+        <Grid.Transitions>
+            <TransitionCollection>
+                <EntranceThemeTransition FromHorizontalOffset="400"/>
+            </TransitionCollection>
+        </Grid.Transitions>
+
         <!--#region StateTriggers-->
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
@@ -24,7 +30,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
 
-                        <Setter Target="BasePartBorder.(FrameworkElement.Height)" Value="90"/>
+                        <Setter Target="BasePartBorder.(FrameworkElement.Height)" Value="70"/>
                         <Setter Target="navigateTitlePath.(FrameworkElement.Margin)" >
                             <Setter.Value>0,20,0,0</Setter.Value>
                         </Setter>
@@ -32,12 +38,15 @@
                             <Setter.Value>0,20,0,0</Setter.Value>
                         </Setter>
                         <Setter Target="Scroll.(FrameworkElement.Margin)" >
-                            <Setter.Value>0,90,0,0</Setter.Value>
+                            <Setter.Value>0,70,0,0</Setter.Value>
                         </Setter>
                         <Setter Target="image01.(FrameworkElement.Height)" Value="70"/>
                         <Setter Target="image02.(FrameworkElement.Height)" Value="70"/>
                         <Setter Target="image01Text.(TextBlock.FontSize)" Value="12"/>
                         <Setter Target="image02Text.(TextBlock.FontSize)" Value="12"/>
+                        <Setter Target="BaseHamburgerButton.(FrameworkElement.Width)" Value="50"/>
+                        <Setter Target="BaseHamburgerButton.(FrameworkElement.Height)" Value="50"/>
+                        <Setter Target="navigateTitlePath.(TextBlock.FontSize)" Value="15"/>
 
                     </VisualState.Setters>
                 </VisualState>
@@ -47,7 +56,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
 
-                        <Setter Target="BasePartBorder.(FrameworkElement.Height)" Value="90"/>
+                        <Setter Target="BasePartBorder.(FrameworkElement.Height)" Value="70"/>
                         <Setter Target="navigateTitlePath.(FrameworkElement.Margin)" >
                             <Setter.Value>0,20,0,0</Setter.Value>
                         </Setter>
@@ -55,8 +64,11 @@
                             <Setter.Value>0,20,0,0</Setter.Value>
                         </Setter>
                         <Setter Target="Scroll.(FrameworkElement.Margin)" >
-                            <Setter.Value>0,90,0,0</Setter.Value>
+                            <Setter.Value>0,70,0,0</Setter.Value>
                         </Setter>
+                        <Setter Target="BaseHamburgerButton.(FrameworkElement.Width)" Value="50"/>
+                        <Setter Target="BaseHamburgerButton.(FrameworkElement.Height)" Value="50"/>
+                        <Setter Target="navigateTitlePath.(TextBlock.FontSize)" Value="15"/>
 
                     </VisualState.Setters>
                 </VisualState>
@@ -154,6 +166,9 @@
                                    VerticalAlignment="Center"
                                    MaxWidth="150"
                                    Margin=" 5"/>
+                        <Button Grid.ColumnSpan="2" Name="previousButton"
+                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                Style="{StaticResource MainPageButtonBackHamburgerStyle}"/>
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="1">
                         <Grid.ColumnDefinitions>
@@ -173,6 +188,9 @@
                                    VerticalAlignment="Center"
                                    MaxWidth="150"
                                    Margin=" 5"/>
+                        <Button Grid.ColumnSpan="2" Name="nextButton"
+                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                Style="{StaticResource MainPageButtonBackHamburgerStyle}"/>
                     </Grid>
                 </Grid>
 
@@ -183,43 +201,49 @@
                                FontWeight="ExtraBold" Foreground="White"/>
                 </Border>
 
-                <MSControls:AdaptiveGridView Name="AdaptiveGViewF04"
-                                                     ItemHeight="150"
-                                                     DesiredWidth="150"
-                                                     SelectionMode="None"
-                                                     IsItemClickEnabled="True"
+                <Border Margin="0,0,-3.5,0">
+                    <MSControls:AdaptiveGridView Name="AdaptiveGViewF04"
+                                             ItemHeight="150"
+                                             DesiredWidth="150"
+                                             SelectionMode="None"
+                                             IsItemClickEnabled="True"
                                              ItemClick="AdaptiveGV_ItemClick"
                                              ItemsSource="{Binding Source={StaticResource GridViewResources}}">
-                    <MSControls:AdaptiveGridView.ItemTemplate>
-                        <DataTemplate x:DataType="model:SimpleImgModel">
-                            <Grid Margin="-2">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <Image
+                        <MSControls:AdaptiveGridView.ItemTemplate>
+                            <DataTemplate x:DataType="model:SimpleImgModel">
+                                <Grid Margin="-2">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Image
                                             Source="{Binding ImageUri}"
                                             Stretch="UniformToFill"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             Grid.RowSpan="2"/>
-                                <Border Background="#70000000" 
+                                    <Border Background="#70000000" 
                                                 VerticalAlignment="Bottom"
                                                 Grid.Row="1">
-                                    <TextBlock Text="{Binding Title}" 
+                                        <TextBlock Text="{Binding Title}" 
                                                        Margin="5,10,5,10"
                                                FontSize="12"
                                                        VerticalAlignment="Bottom"
                                                        TextWrapping="WrapWholeWords"
                                                        Foreground="#DDFFFFFF"/>
-                                </Border>
-                            </Grid>
-                        </DataTemplate>
-                    </MSControls:AdaptiveGridView.ItemTemplate>
-                </MSControls:AdaptiveGridView>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </MSControls:AdaptiveGridView.ItemTemplate>
+                    </MSControls:AdaptiveGridView>
+                </Border>
 
             </StackPanel>
 
         </ScrollViewer>
+
+        <ProgressRing Name="contentRing" Width="70" Height=" 70" IsActive="False"
+                                  Foreground="{ThemeResource ENRZForeground01}"/>
+
     </Grid>
 </Page>

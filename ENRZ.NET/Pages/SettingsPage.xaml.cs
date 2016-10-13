@@ -17,6 +17,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+using static ENRZ.Core.Tools.UWPStates;
+using static ENRZ.NET.Pages.SettingsPage.InsideResources;
+
 namespace ENRZ.NET.Pages {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -31,21 +34,18 @@ namespace ENRZ.NET.Pages {
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e) {
-            MainPage.NaviPathTitle.Route02 = "设置";
-            MainPage.ChangeTitlePath(MainPage.NaviPathTitle.RoutePath);
+            MainPage.ChangeTitlePath(2, "设置");
         }
 
         private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if ((sender as Pivot).SelectedIndex == 0) {
-                MainPage.NaviPathTitle.Route03 = null;
-                MainPage.ChangeTitlePath(MainPage.NaviPathTitle.RoutePath);
+                MainPage.ChangeTitlePath(3, null);
                 return;
             }
-            MainPage.NaviPathTitle.Route03 = 
-                (e.AddedItems.FirstOrDefault() as PivotItem).Header as string != "设置"?
-                (e.AddedItems.FirstOrDefault() as PivotItem).Header as string:
-                null;
-            MainPage.ChangeTitlePath(MainPage.NaviPathTitle.RoutePath);
+            MainPage.ChangeTitlePath(
+                3, (e.AddedItems.FirstOrDefault() as PivotItem).Header as string != "设置" ? 
+                (e.AddedItems.FirstOrDefault() as PivotItem).Header as string :
+                null);
         }
 
         private async void FeedBackBtn_Click(object sender, RoutedEventArgs e) {
@@ -84,7 +84,7 @@ namespace ENRZ.NET.Pages {
         }
 
         private void ThemeSwitch_Toggled(object sender, RoutedEventArgs e) {
-            InsideResources.GetSwitchHandler((sender as ToggleSwitch).Name)
+            GetSwitchHandler((sender as ToggleSwitch).Name)
                .Invoke((sender as ToggleSwitch).Name);
         }
 
@@ -93,7 +93,7 @@ namespace ENRZ.NET.Pages {
             MainPage.Current.RequestedTheme = sender.IsOn ? ElementTheme.Dark : ElementTheme.Light;
         }
 
-        static class InsideResources {
+        internal static class InsideResources {
 
             public static ToggleSwitch GetSwitchInstance(string str) { return SwitchSettingsMaps.ContainsKey(str) ? SwitchSettingsMaps[str] : null; }
             static private Dictionary<string, ToggleSwitch> SwitchSettingsMaps = new Dictionary<string, ToggleSwitch> {

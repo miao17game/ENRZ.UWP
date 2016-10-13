@@ -19,6 +19,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
+using static ENRZ.Core.Tools.UWPStates;
+
 namespace ENRZ.NET.Pages {
     
     public sealed partial class ContentPage : Page {
@@ -28,9 +30,12 @@ namespace ENRZ.NET.Pages {
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e) {
+            contentRing.IsActive = true;
             var args = e.Parameter as NavigateParameter;
-            if (args == null)
+            if (args == null) {
+                contentRing.IsActive = false;
                 return;
+            }
             var source = DataProcess.GetPageInnerContent(
                     (await WebProcess.GetHtmlResources(
                         args.PathUri.ToString(), false))
@@ -61,7 +66,7 @@ namespace ENRZ.NET.Pages {
                     case ContentType.Image:
                         var grid = new Grid();
                         grid.Children.Add(new Image {
-                            Source = (item as ContentImages).Image,
+                            Source = new BitmapImage((item as ContentImages).ImageSource),
                             Margin = new Thickness(10, 5, 10, 5),
                             Stretch = Stretch.UniformToFill,
                         });
@@ -71,7 +76,7 @@ namespace ENRZ.NET.Pages {
                             Background = new SolidColorBrush(Windows.UI.Colors.Transparent),
                             Style = Application.Current.Resources["MainPageButtonBackHamburgerStyle"] as Style,
                         };
-                        button.Click += (sender, clickArgs) => { DataProcess.ReportException("图片功能开发中"); };
+                        button.Click += (sender, clickArgs) => { /*DataProcess.ReportException("图片功能开发中"); */ MainPage.ShowImageInScreen((item as ContentImages).ImageSource); };
                         grid.Children.Add(button);
                         ContentStack.Children.Add(grid);
                         break;
@@ -79,6 +84,7 @@ namespace ENRZ.NET.Pages {
                     default:break;
                 }
             }
+            contentRing.IsActive = false;
         }
 
         private void BaseHamburgerButton_Click(object sender, RoutedEventArgs e) {

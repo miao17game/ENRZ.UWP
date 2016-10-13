@@ -78,7 +78,7 @@
                                         <Storyboard>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PressedBackground"
     											Storyboard.TargetProperty="Fill">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ENRZForeground01}" />
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ENRZForeground02}" />
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
     											Storyboard.TargetProperty="Foreground">
@@ -90,7 +90,7 @@
                                         <Storyboard>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PressedBackground"
     											Storyboard.TargetProperty="Fill">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ENRZForeground01}" />
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ENRZForeground02}" />
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
     											Storyboard.TargetProperty="Foreground">
@@ -102,7 +102,7 @@
                                         <Storyboard>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PressedBackground"
     											Storyboard.TargetProperty="Fill">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ENRZForeground01}" />
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ENRZForeground02}" />
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
     											Storyboard.TargetProperty="Foreground">
@@ -114,7 +114,7 @@
                                         <Storyboard>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PressedBackground"
     											Storyboard.TargetProperty="Fill">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ENRZForeground01}" />
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ENRZForeground02}" />
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
     											Storyboard.TargetProperty="Foreground">
@@ -152,8 +152,9 @@
             <FadeOutThemeAnimation Storyboard.TargetName="DarkDivideBorder" />
         </Storyboard>
     </Page.Resources>
-    
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" 
+          SizeChanged="Grid_SizeChanged">
 
         <!--#region StateTriggers-->
         <VisualStateManager.VisualStateGroups>
@@ -165,7 +166,7 @@
                     <VisualState.Setters>
 
                         <Setter Target="NavigationSplit.(SplitView.DisplayMode)" Value="Overlay"/>
-                        <Setter Target="BasePartBorder.(FrameworkElement.Height)" Value="90"/>
+                        <Setter Target="BasePartBorder.(FrameworkElement.Height)" Value="70"/>
                         <Setter Target="navigateTitlePath.(FrameworkElement.Margin)" >
                             <Setter.Value>0,20,0,0</Setter.Value>
                         </Setter>
@@ -176,12 +177,17 @@
                             <Setter.Value>0,20,0,0</Setter.Value>
                         </Setter>
                         <Setter Target="BasePartFrame.(FrameworkElement.Margin)" >
-                            <Setter.Value>0,90,0,0</Setter.Value> 
+                            <Setter.Value>
+                                <Thickness>0,70,0,0</Thickness>
+                            </Setter.Value>
                         </Setter>
                         <Setter Target="SlideAnimaRec.(FrameworkElement.Margin)" >
-                            <Setter.Value>0,140,0,70</Setter.Value> 
+                            <Setter.Value>0,140,0,70</Setter.Value>
                         </Setter>
-                        
+                        <Setter Target="BaseHamburgerButton.(FrameworkElement.Width)" Value="50"/>
+                        <Setter Target="BaseHamburgerButton.(FrameworkElement.Height)" Value="50"/>
+                        <Setter Target="navigateTitlePath.(TextBlock.FontSize)" Value="15"/>
+
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Mobile480">
@@ -191,7 +197,7 @@
                     <VisualState.Setters>
 
                         <Setter Target="NavigationSplit.(SplitView.DisplayMode)" Value="Overlay"/>
-                        <Setter Target="BasePartBorder.(FrameworkElement.Height)" Value="90"/>
+                        <Setter Target="BasePartBorder.(FrameworkElement.Height)" Value="70"/>
                         <Setter Target="navigateTitlePath.(FrameworkElement.Margin)" >
                             <Setter.Value>0,20,0,0</Setter.Value>
                         </Setter>
@@ -202,11 +208,16 @@
                             <Setter.Value>0,20,0,0</Setter.Value>
                         </Setter>
                         <Setter Target="BasePartFrame.(FrameworkElement.Margin)" >
-                            <Setter.Value>0,90,0,0</Setter.Value>
+                            <Setter.Value>
+                                <Thickness>0,70,0,0</Thickness>
+                            </Setter.Value>
                         </Setter>
                         <Setter Target="SlideAnimaRec.(FrameworkElement.Margin)" >
                             <Setter.Value>0,140,0,70</Setter.Value>
                         </Setter>
+                        <Setter Target="BaseHamburgerButton.(FrameworkElement.Width)" Value="50"/>
+                        <Setter Target="BaseHamburgerButton.(FrameworkElement.Height)" Value="50"/>
+                        <Setter Target="navigateTitlePath.(TextBlock.FontSize)" Value="15"/>
 
                     </VisualState.Setters>
                 </VisualState>
@@ -220,7 +231,7 @@
                         <Setter Target="SlideAnimaRec.(FrameworkElement.Margin)" >
                             <Setter.Value>70,120,0,70</Setter.Value>
                         </Setter>
-                        
+
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="DesktopExtra_Tablet">
@@ -266,12 +277,15 @@
                    CompactPaneLength="70"
                    PaneClosed="NavigationSplit_PaneClosed">
             <SplitView.Pane>
-                <RelativePanel>
+
+                <!--#region HamburgerList-->
+                <RelativePanel Background="{ThemeResource ENRZBackground03}">
                     <Button Name="HamburgerButton"
                             Content="&#xE700;"
                             Width="70"
                             Height="70"
                             Click="HamburgerButton_Click"
+                            Foreground="White"
                             Style="{ThemeResource MainPageButtonBackHamburgerStyle}"/>
                     <ListBox Name="HamburgerListBox" 
                              Background="Transparent"
@@ -299,7 +313,7 @@
                                     </Grid>
                                     <TextBlock  Name="ModelTitle" Text="{Binding Title}" 
                                                 Margin=" 60,0,0,0" FontSize="16"
-                                                Foreground="{ThemeResource AppPersonalTextColorPure02}"
+                                                Foreground="{ThemeResource AppPersonalTextColorPure}"
                                                 Style="{ThemeResource CenterContentTextBlock}"/>
                                 </Grid>
                             </DataTemplate>
@@ -323,14 +337,18 @@
                             </Grid>
                             <TextBlock  Text="设置" 
                                         Margin=" 60,0,0,0" FontSize="16"
-                                        Foreground="{ThemeResource AppPersonalTextColorPure02}"
+                                        Foreground="{ThemeResource AppPersonalTextColorPure}"
                                         FontFamily="{ThemeResource PhoneFontFamilySemiLight}"
                                         Style="{ThemeResource CenterContentTextBlock}"/>
                         </Grid>
                     </Button>
                 </RelativePanel>
+                <!--#endregion-->
+
             </SplitView.Pane>
             <SplitView.Content>
+
+                <!--#region BaseListContent-->
                 <Grid>
 
                     <Border Name="BasePartBorder" 
@@ -352,12 +370,17 @@
                             Style="{ThemeResource MainPageButtonBackHamburgerStyle}"/>
                     <Frame Name="BasePartFrame" Margin="0,70,0,0"/>
 
+                    <ProgressRing Name="baseListRing" Width="70" Height=" 70" IsActive="False"
+                                  Foreground="{ThemeResource ENRZForeground01}"/>
+
                     <Border Name="DarkDivideBorder" 
                             Background="{ThemeResource DQDPopupBackColor}"
                             Grid.ColumnSpan="2"
                             Visibility="Collapsed"/>
 
                 </Grid>
+                <!--#endregion-->
+
             </SplitView.Content>
         </SplitView>
 
@@ -368,6 +391,40 @@
             <Frame Name="ContentFrame"/>
         </Grid>
 
+        <Popup x:Name="ImagePopup" IsOpen="False" Grid.ColumnSpan="2"
+               SizeChanged="ImagePopup_SizeChanged">
+            <Border Name="ImagePopupBorder"
+                    Width="{Binding ActualWidth, ElementName=ImagePopup, Mode=OneWay}" 
+                    Height="{Binding ActualHeight, ElementName=ImagePopup, Mode=OneWay}" 
+                    Background="{ThemeResource DQDPopupBackColor}">
+                <Grid>
+                    <Button Name="ImageControlButton" 
+                            Background="Transparent"
+                            Style="{ThemeResource MainPageButtonBackHamburgerStyle}"
+                            HorizontalAlignment="Stretch" 
+                            VerticalAlignment="Stretch"
+                            Click="ImageControlButton_Click" 
+                            ManipulationMode="Scale">
+                        <Image Name="ImageScreen" Margin="40"
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center"/>
+                    </Button>
+                    <Button Name="ImageSaveButton" 
+                            Height="50" Width="50"
+                            Background="#404040"
+                            Foreground="White" 
+                            Content="&#xE105;" 
+                            FontSize="27"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Margin="0,0,30,30" 
+                            Click="ImageSaveButton_Click"
+                            Style="{ThemeResource MainPageButtonBackHamburgerStyle}"/>
+                </Grid>
+            </Border>
+        </Popup>
+
         <Frame Name="PrepareFrame" Grid.ColumnSpan="2"/>
+
     </Grid>
 </Page>
