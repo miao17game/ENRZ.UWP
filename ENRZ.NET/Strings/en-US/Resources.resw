@@ -1,0 +1,536 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutENRZUWP.Text" xml:space="preserve">
+    <value>About ENRZ For Windows10</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="AboutENRZUWP_mess01.Text" xml:space="preserve">
+    <value>From ENRZ.COM, the app is created by a third-party  developer, based on the Windows to provide users with simplified ENRZ.COM content access method, a better reading experience service.</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="AboutENRZUWP_mess02.Text" xml:space="preserve">
+    <value>I will be within the scope of the ability to provide the best maintenance and follow-up, but such as the application of the content is not updated, the situation is not the developer. Application development is still in an early stage, I hope you positive feedback.</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="AboutENRZUWP_mess03.Text" xml:space="preserve">
+    <value>Application all content from ENRZ.COM is completely free, the application itself will not be charged to become a limit to the user to use the threshold, I do not have this power. Late may have additional independent content sources, will be used to provide the way to buy.</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="AboutENRZUWP_mess04.Text" xml:space="preserve">
+    <value>Support for donations, how much at random, focusing on encouragement. Development is not easy to drink, nutrition express, thank you for your old driver. -- By Baidu Translation.</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Alipay.Text" xml:space="preserve">
+    <value>AliPay：18640046260</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Blog.Text" xml:space="preserve">
+    <value>Blog：</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Contact.Text" xml:space="preserve">
+    <value>Contact</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="DarkMode.Text" xml:space="preserve">
+    <value>DarkTheme Mode</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="DarkModeSummary.Text" xml:space="preserve">
+    <value>Change the background and fonts foreground.</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="D_C.Text" xml:space="preserve">
+    <value>Donations and support</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="ENRZGroupProfile.Text" xml:space="preserve">
+    <value>ENRZ Group Profile</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="ENRZGroupProfile_mess01.Text" xml:space="preserve">
+    <value>Fashion group was born in 1993, starting from a magazine, has been developed into a 16-grade journals, including journal editors, book design, online media, advertising, printing, publishing, digital publishing, television production and many other areas of cross-media multi-platform media group, and their advertising and distribution branch in Shanghai and Guangzhou offices. Group for many years and always with attention to detail and the pursuit of excellence, leading for the purpose, for the media industry, fashion and good causes has made landmark contributions, and for many years was named &amp;amp; China's 500 most valuable brands &amp;amp; ...</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="ENRZMagazine.Text" xml:space="preserve">
+    <value>ENRZ Magazine</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="ENRZMagazine_mess01.Text" xml:space="preserve">
+    <value>The world's true men of the man magazine, the international market for men's magazine FHM, a popular magazine on April 23, 2004, on behalf of the man landed the Chinese mainland market. The man is fashion group launched in 2004 a comprehensive fashion men magazine, not only fills the gaps in the magazine market in the Mainland men's magazine, and brought the new men's magazine consumer boom, it was at the outset to do &amp;amp; Journal of man's true nature &amp;amp; it fills vacancies in the market for men's journal, also fills the vacancy of male psychological needs. By August 2012, has published a full 100 times.</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="ENRZMagazine_mess02.Text" xml:space="preserve">
+    <value>The man is pure exposed China's first men's magazine, Playboy, China said. Because of consumer groups are primarily men, published the cover man is beauty sexy pictures. Man of the new weekly list of new media's annual magazine of the year award.</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="ENRZWebsites.Text" xml:space="preserve">
+    <value>ENRZ.COM</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="ENRZWebsites_mess01.Text" xml:space="preserve">
+    <value>Fashion media group's flagship magazine "men's outfit" official website.</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="ENRZWebsites_mess02.Text" xml:space="preserve">
+    <value>Male aesthetic man website is full of visual pleasure, men want to think, colleagues not say, creates Supreme taboos of Chinese erotic discourse; its sexy yet sharp argued that humour and not the lack of realism, is the current men's best friends. Same texture as the magazine content, and spread more rapidly expanding man's influence on men's fashion.</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="ENRZWebsites_mess03.Text" xml:space="preserve">
+    <value>High quality graphics and text information for men about lirong, enjoy the taste of life guidance, here found connection with the spiritual partner and share every point of life found, out of most valuable inspiration.</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Feedback.Content" xml:space="preserve">
+    <value>Feedback</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Feedback_Email.Text" xml:space="preserve">
+    <value>Feedback by email</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="LanguageMode.Text" xml:space="preserve">
+    <value>Language localization (Developing...)</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="LanguageModeSummary.Text" xml:space="preserve">
+    <value>Choose your local language.</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="LanguageOptions.Text" xml:space="preserve">
+    <value>Language Options</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="ProgressRoute.Text" xml:space="preserve">
+    <value>ENRZ For Windows10 progress record (Only zh-CN)</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="SettPageItem_About.Header" xml:space="preserve">
+    <value>About</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="SettPageItem_AboutENRZ.Header" xml:space="preserve">
+    <value>About ENRZ.COM</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="SettPageItem_AboutMe.Header" xml:space="preserve">
+    <value>About Developer</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="SettPageItem_Settings.Header" xml:space="preserve">
+    <value>Settings</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="VersionMessage" xml:space="preserve">
+    <value>App Version : </value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="VersionMessageFor.Text" xml:space="preserve">
+    <value>App Version : Create by system</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="VisualOptions.Text" xml:space="preserve">
+    <value>Visual options</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Weibo.Text" xml:space="preserve">
+    <value>Weibo：</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Weibo_mess.Content" xml:space="preserve">
+    <value>Code大白痴</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="AppErrorString" xml:space="preserve">
+    <value>Error throws !</value>
+    <comment>App.cs</comment>
+  </data>
+  <data name="Art" xml:space="preserve">
+    <value>Art</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="A_B" xml:space="preserve">
+    <value>Party A Party B</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Beauty" xml:space="preserve">
+    <value>Beauty</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Car" xml:space="preserve">
+    <value>Car</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Cars" xml:space="preserve">
+    <value>Cars</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Collocation" xml:space="preserve">
+    <value>Collocation</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Complain" xml:space="preserve">
+    <value>Complain</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="CoverStars" xml:space="preserve">
+    <value>Cover stars</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Digital" xml:space="preserve">
+    <value>Digital</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Ent" xml:space="preserve">
+    <value>Entertainment</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Fashion" xml:space="preserve">
+    <value>Fashion</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Fashions" xml:space="preserve">
+    <value>Fashions</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Feedback_Body" xml:space="preserve">
+    <value>Description</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Feedback_FriendlyName" xml:space="preserve">
+    <value>DeviceName</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Feedback_OS" xml:space="preserve">
+    <value>OperatingSystem</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Feedback_SFV" xml:space="preserve">
+    <value>FirmwareVersion</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Feedback_SHV" xml:space="preserve">
+    <value>HardwareVersion</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Feedback_SMF" xml:space="preserve">
+    <value>Manufacturer</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Feedback_SPN" xml:space="preserve">
+    <value>ProductName</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Feedback_Subject" xml:space="preserve">
+    <value>ENRZ For Win10 Feedback</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Feedback_Version" xml:space="preserve">
+    <value>Version</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="FetchDataError" xml:space="preserve">
+    <value>Error occurred when fetching data</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Gallery" xml:space="preserve">
+    <value>Gallery</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="HotGossip" xml:space="preserve">
+    <value>Hot gossip</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Information</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="LoveOfHabit" xml:space="preserve">
+    <value>Love of habit</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="MaleCharacters" xml:space="preserve">
+    <value>Male characters</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Mall" xml:space="preserve">
+    <value>Mall</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Men" xml:space="preserve">
+    <value>Men</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Men_large" xml:space="preserve">
+    <value>Men's large</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="mix" xml:space="preserve">
+    <value>Mix</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="NewsGirl" xml:space="preserve">
+    <value>News girl</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Outdoor" xml:space="preserve">
+    <value>Outdoor</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Photographic" xml:space="preserve">
+    <value>Photographic</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Photography" xml:space="preserve">
+    <value>Photography</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Plaything" xml:space="preserve">
+    <value>Plaything</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="RC" xml:space="preserve">
+    <value>RC</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="See" xml:space="preserve">
+    <value>See</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="SettingsString" xml:space="preserve">
+    <value>Settings</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Show</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="SkinCare" xml:space="preserve">
+    <value>Skin care</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Sports" xml:space="preserve">
+    <value>Sports</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="SportsBaby" xml:space="preserve">
+    <value>Sports baby</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Stunner" xml:space="preserve">
+    <value>Stunner</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Swaths" xml:space="preserve">
+    <value>Swaths</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="TheGlobalVillage" xml:space="preserve">
+    <value>The global village</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="TimeOutError" xml:space="preserve">
+    <value>Network timed out, please try again.</value>
+    <comment>WebProcess.cs</comment>
+  </data>
+  <data name="Topics" xml:space="preserve">
+    <value>Topics</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Untitled" xml:space="preserve">
+    <value>Untitled</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Watch" xml:space="preserve">
+    <value>Watch</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Wine" xml:space="preserve">
+    <value>Wine</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Yuppie" xml:space="preserve">
+    <value>Yuppie</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="ClickTwiceToExit" xml:space="preserve">
+    <value>Click back-button again to exit app</value>
+    <comment>MainPage</comment>
+  </data>
+  <data name="Image_Ent.Text" xml:space="preserve">
+    <value />
+    <comment>ImagePage</comment>
+  </data>
+  <data name="Image_Fashion.Text" xml:space="preserve">
+    <value />
+    <comment>ImagePage</comment>
+  </data>
+  <data name="Image_Girl.Text" xml:space="preserve">
+    <value />
+    <comment>ImagePage</comment>
+  </data>
+  <data name="Image_More.Content" xml:space="preserve">
+    <value>More&gt;&gt;</value>
+    <comment>ImagePage</comment>
+  </data>
+  <data name="Image_Plaything.Text" xml:space="preserve">
+    <value />
+    <comment>ImagePage</comment>
+  </data>
+  <data name="Image_Recommend.Text" xml:space="preserve">
+    <value />
+    <comment>ImagePage</comment>
+  </data>
+  <data name="Image_Select.Text" xml:space="preserve">
+    <value />
+    <comment>ImagePage</comment>
+  </data>
+  <data name="Picture_Next.Text" xml:space="preserve">
+    <value>NEXT</value>
+    <comment>PicturesPage</comment>
+  </data>
+  <data name="Picture_Previous.Text" xml:space="preserve">
+    <value>PREVIOUS</value>
+    <comment>PicturesPage</comment>
+  </data>
+  <data name="Picture_Recommend.Text" xml:space="preserve">
+    <value>RECOMMEND</value>
+    <comment>PicturesPage</comment>
+  </data>
+  <data name="Picture_Watch.Text" xml:space="preserve">
+    <value>ENRZ.COM-PIC</value>
+    <comment>PicturesPage</comment>
+  </data>
+  <data name="SaveImageSuccess" xml:space="preserve">
+    <value>Picture Saved.</value>
+    <comment>MainPage</comment>
+  </data>
+  <data name="SettingButton.Text" xml:space="preserve">
+    <value>Settings</value>
+    <comment>MainPage</comment>
+  </data>
+  <data name="Top5.Text" xml:space="preserve">
+    <value>Top5</value>
+    <comment>ImagePage</comment>
+  </data>
+  <data name="ValidToShow" xml:space="preserve">
+    <value>content not supported display</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+</root>

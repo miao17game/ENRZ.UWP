@@ -104,10 +104,11 @@
                             Background="{ThemeResource ENRZForeground01}" 
                             Height="70" VerticalAlignment="Top">
             <TextBlock Name="navigateTitlePath"
-                                   Text="ENRZ.COM-看图" FontSize="20"
-                                   HorizontalAlignment="Center" 
-                                   VerticalAlignment="Center"
-                                   Foreground="White"/>
+                       x:Uid="Picture_Watch"
+                       FontSize="20"
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"
+                       Foreground="White"/>
         </Border>
         <Button Name="BaseHamburgerButton"
                             VerticalAlignment="Top"
@@ -134,7 +135,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Grid x:Name="grid1" Grid.Column="0" >
-                        <TextBlock x:Name="textBlock1" Text="PREVIOUS" FontSize="14" 
+                        <TextBlock x:Name="textBlock1" x:Uid="Picture_Previous" FontSize="14" 
                                    Foreground="{ThemeResource AppPersonalTextColorPure02}"
                                    VerticalAlignment="Center" HorizontalAlignment="Left"
                                    Margin=" 10,10,0,10" FontWeight="Bold"/>
@@ -142,7 +143,7 @@
                                    Margin="5,0,5,3" Fill="{ThemeResource ENRZForeground01}"/>
                     </Grid>
                     <Grid x:Name="grid2" Grid.Column="1" >
-                        <TextBlock x:Name="textBlock2" Text="NEXT" FontSize="14" 
+                        <TextBlock x:Name="textBlock2" x:Uid="Picture_Next" FontSize="14" 
                                    Foreground="{ThemeResource AppPersonalTextColorPure02}"
                                    VerticalAlignment="Center" HorizontalAlignment="Right"
                                    Margin=" 0,10,10,10" FontWeight="Bold"/>
@@ -194,9 +195,9 @@
                     </Grid>
                 </Grid>
 
-                <Border x:Name="border" Grid.Column="1" Height="40"
+                <!--<Border x:Name="border" Grid.Column="1" Height="40"
                         Background="{ThemeResource ENRZForeground01}">
-                    <TextBlock x:Name="textBlock" Text="精彩推荐" FontSize="16" 
+                    <TextBlock x:Name="textBlock" x:Uid="Picture_Recommend" FontSize="16" 
                                VerticalAlignment="Center" HorizontalAlignment="Center" 
                                FontWeight="ExtraBold" Foreground="White"/>
                 </Border>
@@ -236,7 +237,7 @@
                             </DataTemplate>
                         </MSControls:AdaptiveGridView.ItemTemplate>
                     </MSControls:AdaptiveGridView>
-                </Border>
+                </Border>-->
 
             </StackPanel>
 

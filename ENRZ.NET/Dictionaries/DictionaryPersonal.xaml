@@ -1420,7 +1420,7 @@
     								Grid.Row="2"
     								Background="{ThemeResource SystemControlForegroundChromeHighBrush}"
     								Template="{StaticResource VerticalThumbTemplate}"
-    								Width="8"
+    								Width="12"
     								MinHeight="8"
     								AutomationProperties.AccessibilityView="Raw" />
                             <RepeatButton x:Name="VerticalLargeIncrease"

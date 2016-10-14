@@ -101,7 +101,7 @@ namespace ENRZ.NET {
             if (model == null)
                 return;
             ChangeTitlePath(2, (sender as ListBox).SelectedIndex == 0 ? null : model.Title);
-            NavigateType type = model.Title.ToString() == "美图" ?
+            NavigateType type = model.Title.ToString() == GetUIString("Gallery") ?
             NavigateType.ImageNaviBar :
             NavigateType.NaviBar;
             if (IfContainsPageInstance(NaviPathTitle.RoutePath)) {
@@ -135,7 +135,7 @@ namespace ENRZ.NET {
                 SoftwareBitmapSource source = new SoftwareBitmapSource();
                 await source.SetBitmapAsync(sb);
                 var name = await WriteToFile(sb);
-                new ToastSmooth("图片保存成功").Show();
+                new ToastSmooth(GetUIString("SaveImageSuccess")).Show();
             }
         }
 
@@ -145,7 +145,7 @@ namespace ENRZ.NET {
 
         private void InitCloseAppTask() {
             isNeedClose = true;
-            new ToastSmooth("再按一次返回键退出").Show();
+            new ToastSmooth(GetUIString("ClickTwiceToExit")).Show();
             Task.Run(async () => {
                 await Task.Delay(2000);
                 isNeedClose = false;
@@ -216,13 +216,12 @@ namespace ENRZ.NET {
                 SoftwareBitmap softBmp = await decoder.GetSoftwareBitmapAsync(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied);
                 return softBmp;
             } catch (Exception) {
-                DataProcess.ReportException("图片保存成功");
                 return null;
             }
         }
 
         public async Task<string> WriteToFile(SoftwareBitmap softwareBitmap) {
-            string fileName =
+            string fileName = "ENRZ" + 
                 Guid.NewGuid().GetHashCode().ToString() + "FR" +
                 DateTime.Now.Year.ToString() + "GR" +
                 DateTime.Now.Month.ToString() + "VE" +

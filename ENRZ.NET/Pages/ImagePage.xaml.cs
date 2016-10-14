@@ -1,4 +1,5 @@
-﻿using ENRZ.Core.DataVirtualization;
+﻿#region Using
+using ENRZ.Core.DataVirtualization;
 using ENRZ.Core.Models;
 using ENRZ.Core.Tools;
 using Microsoft.Toolkit.Uwp.UI.Controls;
@@ -22,6 +23,7 @@ using Windows.UI.Xaml.Navigation;
 
 using static ENRZ.Core.Tools.UWPStates;
 using static ENRZ.NET.Pages.ImagePage.InsideResources;
+#endregion
 
 namespace ENRZ.NET.Pages {
    
@@ -75,9 +77,10 @@ namespace ENRZ.NET.Pages {
                 return;
             }
             SetVisibility(IndexScroll, false);
-            htmlResourcesNow = (await WebProcess.GetHtmlResources(GetUriPath(button.Name), true)).ToString();
-            var headList = DataProcess.FetchBarItemNaviFromHtml(htmlResourcesNow);
-            HeaderResources.Source = headList;
+            htmlResourcesNow = IfContainsHtmlResources(button.Name) ? 
+                GetHtmlResources(button.Name) : 
+                await SetAndSaveResources(button.Name);
+            HeaderResources.Source = DataProcess.FetchBarItemNaviFromHtml(htmlResourcesNow);
             MainPage.Current.BaseListRing.IsActive = false;
         }
 
@@ -134,7 +137,7 @@ namespace ENRZ.NET.Pages {
             ArgsPathKey = args.Title;
             GridViewResources.Source = IfContainsResources(ArgsPathKey) ?
                 GetResources(ArgsPathKey) :
-                SetAndSaveResources(args);
+                SetAndSaveENRZDataContextResources(args);
             MainPage.Current.BaseListRing.IsActive = false;
         }
 
@@ -182,7 +185,13 @@ namespace ENRZ.NET.Pages {
             } catch { /* something goes wrong if action done when resources does not loaded.*/}
         }
 
-        private ENRZDataContext<SimpleImgModel> SetAndSaveResources(BarItemModel args) {
+        private async Task<string> SetAndSaveResources(string buttonName) {
+            var htmlSource = (await WebProcess.GetHtmlResources(GetUriPath(buttonName), true)).ToString();
+            AddHtmlResources(buttonName, htmlSource);
+            return HtmlNowResMap[buttonName];
+        }
+
+        private ENRZDataContext<SimpleImgModel> SetAndSaveENRZDataContextResources(BarItemModel args) {
             if (IfContainsAGVInstance(ArgsPathKey))
                 GetAGVInstance(ArgsPathKey).Opacity = 0;
             var resources = new ENRZDataContext<SimpleImgModel>(
@@ -223,15 +232,19 @@ namespace ENRZ.NET.Pages {
 
             public static Button GetButtonFromMoreName(string buttonName) { return ButtonMap.ContainsKey(buttonName) ? ButtonMap[buttonName] : null; }
             public static void SetButtonToggled(string buttonName) {
-                ClearAllButtonToggled();
+                ClearAllButtonToggled(buttonName);
                 GetButtonFromMoreName(buttonName).Foreground = Application.Current.Resources["ENRZForeground02"] as Brush;
                 Current.nowToggledButton = buttonName;
             }
-            public static void ClearAllButtonToggled() {
+            public static void ClearAllButtonToggled(string buttonName) {
                 var solidBrush = MainPage.Current.RequestedTheme == ElementTheme.Dark ?
                         new SolidColorBrush(Colors.White) :
-                        new SolidColorBrush(Color.FromArgb(255, 70, 70, 70));
-                ButtonMap.Values.Distinct().ToList().ForEach(button => button.Foreground = solidBrush);
+                        new SolidColorBrush(Color.FromArgb(255, 100, 100, 100));
+                ButtonMap.Values.Distinct().ToList().ForEach(
+                    button => button.Foreground = 
+                    button.Name == Current.IndexButton.Name? 
+                    new SolidColorBrush(Colors.White) : 
+                    solidBrush);
             }
             static private Dictionary<string, Button> ButtonMap = new Dictionary<string, Button> {
                 {Current.IndexButton.Name, Current.IndexButton },
@@ -256,6 +269,13 @@ namespace ENRZ.NET.Pages {
                 {Current.PlaythingMoreButton.Name, "http://pic.enrz.com/plaything/" },
                 {Current.EntButton.Name, "http://pic.enrz.com/ent/" },
                 {Current.EntMoreButton.Name, "http://pic.enrz.com/ent/" },
+            };
+
+            public static string GetHtmlResources(string key) { return HtmlResourcesMap.ContainsKey(key) ? HtmlResourcesMap[key] : null; }
+            public static void AddHtmlResources(string key, string value) { if (!HtmlResourcesMap.ContainsKey(key)) HtmlResourcesMap.Add(key, value); }
+            public static bool IfContainsHtmlResources(string key) { return HtmlResourcesMap.ContainsKey(key); }
+            public static Dictionary<string, string> HtmlNowResMap { get { return HtmlResourcesMap; } }
+            static private Dictionary<string, string> HtmlResourcesMap = new Dictionary<string, string> {
             };
 
             public static ENRZDataContext<SimpleImgModel> GetResources(string key) { return ListResourcesMap.ContainsKey(key) ? ListResourcesMap[key] : null; }

@@ -76,7 +76,7 @@ namespace ENRZ.NET.Pages {
                             Background = new SolidColorBrush(Windows.UI.Colors.Transparent),
                             Style = Application.Current.Resources["MainPageButtonBackHamburgerStyle"] as Style,
                         };
-                        button.Click += (sender, clickArgs) => { /*DataProcess.ReportException("图片功能开发中"); */ MainPage.ShowImageInScreen((item as ContentImages).ImageSource); };
+                        button.Click += (sender, clickArgs) => { MainPage.ShowImageInScreen((item as ContentImages).ImageSource); };
                         grid.Children.Add(button);
                         ContentStack.Children.Add(grid);
                         break;

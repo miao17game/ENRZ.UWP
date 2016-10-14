@@ -236,7 +236,7 @@
             <Pivot.ItemTemplate>
                 <DataTemplate x:DataType="model:BarItemModel" >
                     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                          Margin="0,0,-3.5,0">
+                          Margin="0,0,-5,0">
                         <MSControls:AdaptiveGridView Name="AdaptiveGridView"
                                                      ItemHeight="150"
                                                      DesiredWidth="150"
@@ -331,8 +331,8 @@
                         </FlipView.ItemTemplate>
                     </FlipView>
 
-                    <Border x:Name="border" Grid.Column="1" Background="{ThemeResource ENRZForeground02}">
-                        <TextBlock x:Name="textBlock" Text="每日热图TOP5" FontSize="14" 
+                    <Border x:Name="border" Grid.Column="1" Background="{ThemeResource ENRZForeground04}">
+                        <TextBlock x:Name="textBlock" x:Uid="Top5" FontSize="14" 
                                    VerticalAlignment="Center" HorizontalAlignment="Center" 
                                    FontWeight="ExtraBold" Foreground="White"/>
                     </Border>
@@ -390,18 +390,24 @@
                     </Grid.RowDefinitions>
 
                     <Grid x:Name="grid1" Grid.Column="0" Grid.Row="0">
-                        <TextBlock x:Name="textBlock1" Text="编辑推荐 Recommend" FontSize="14" 
+                        <TextBlock x:Name="textBlock1" FontSize="14" 
                                    Foreground="{ThemeResource AppPersonalTextColorPure02}"
                                    VerticalAlignment="Center" HorizontalAlignment="Left"
-                                   Margin=" 10,10,0,10" FontWeight="Bold"/>
+                                   Margin=" 10,10,0,10" FontWeight="Bold">
+                            <Run x:Uid="Image_Recommend"/>
+                            <Run Text="RECOMMEND" Foreground="{ThemeResource ENRZForeground03}"/>
+                        </TextBlock>
                         <Rectangle Height="1" VerticalAlignment="Bottom" 
                                    Margin="5,0,5,3" Fill="{ThemeResource ENRZForeground01}"/>
                     </Grid>
                     <Grid x:Name="grid2" Grid.Column="1" Grid.Row="0">
-                        <TextBlock x:Name="textBlock2" Text="精选 Select" FontSize="14" 
+                        <TextBlock x:Name="textBlock2" FontSize="14" 
                                    Foreground="{ThemeResource AppPersonalTextColorPure02}"
                                    VerticalAlignment="Center" HorizontalAlignment="Left"
-                                   Margin=" 5,10,0,10" FontWeight="Bold"/>
+                                   Margin=" 5,10,0,10" FontWeight="Bold">
+                            <Run x:Uid="Image_Select"/>
+                            <Run Text="SELECT" Foreground="{ThemeResource ENRZForeground03}"/>
+                        </TextBlock>
                         <Rectangle Height="1" VerticalAlignment="Bottom" 
                                    Margin="5,0,5,3" Fill="{ThemeResource ENRZForeground01}"/>
                     </Grid>
@@ -458,11 +464,14 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid>
-                        <TextBlock Text="美女 GIRL" FontSize="16" 
+                        <TextBlock FontSize="16" 
                                    Foreground="{ThemeResource AppPersonalTextColorPure02}"
                                    VerticalAlignment="Center" HorizontalAlignment="Left"
-                                   Margin=" 5,0,0,0" FontWeight="Bold"/>
-                        <Button Name="GirlMoreButton" Content="更多>>" FontWeight="Bold" 
+                                   Margin=" 5,0,0,0" FontWeight="Bold">
+                            <Run x:Uid="Image_Girl"/>
+                            <Run Text="GIRL" Foreground="{ThemeResource ENRZForeground03}"/>
+                        </TextBlock>
+                        <Button Name="GirlMoreButton" x:Uid="Image_More" FontWeight="Bold" 
                                 Style="{StaticResource ButtonNoAnyShapeStyle}" Margin="0,0,5,0"
                                 FontSize="16" Click="ButtonSelect" HorizontalAlignment="Right"/>
                         <Rectangle Height="1" VerticalAlignment="Bottom" 
@@ -504,11 +513,14 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid>
-                        <TextBlock Text="时尚 FASHION" FontSize="16" 
+                        <TextBlock FontSize="16" 
                                    Foreground="{ThemeResource AppPersonalTextColorPure02}"
                                    VerticalAlignment="Center" HorizontalAlignment="Left"
-                                   Margin=" 5,0,0,0" FontWeight="Bold"/>
-                        <Button Name="FashionMoreButton" Content="更多>>" FontWeight="Bold" 
+                                   Margin=" 5,0,0,0" FontWeight="Bold">
+                            <Run x:Uid="Image_Fashion"/>
+                            <Run Text="FASHION" Foreground="{ThemeResource ENRZForeground03}"/>
+                        </TextBlock>
+                        <Button Name="FashionMoreButton" x:Uid="Image_More" FontWeight="Bold" 
                                 Style="{StaticResource ButtonNoAnyShapeStyle}" Margin="0,0,5,0"
                                 FontSize="16" Click="ButtonSelect" HorizontalAlignment="Right"/>
                         <Rectangle Height="1" VerticalAlignment="Bottom" 
@@ -550,11 +562,14 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid>
-                        <TextBlock Text="玩物 PLAYTHING" FontSize="16" 
+                        <TextBlock FontSize="16" 
                                    Foreground="{ThemeResource AppPersonalTextColorPure02}"
                                    VerticalAlignment="Center" HorizontalAlignment="Left"
-                                   Margin=" 5,0,0,0" FontWeight="Bold"/>
-                        <Button Name="PlaythingMoreButton" Content="更多>>" FontWeight="Bold" 
+                                   Margin=" 5,0,0,0" FontWeight="Bold">
+                            <Run x:Uid="Image_Plaything"/>
+                            <Run Text="PLAYTHING" Foreground="{ThemeResource ENRZForeground03}"/>
+                        </TextBlock>
+                        <Button Name="PlaythingMoreButton" x:Uid="Image_More" FontWeight="Bold" 
                                 Style="{StaticResource ButtonNoAnyShapeStyle}" Margin="0,0,5,0"
                                 FontSize="16" Click="ButtonSelect" HorizontalAlignment="Right"/>
                         <Rectangle Height="1" VerticalAlignment="Bottom" 
@@ -596,11 +611,14 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid>
-                        <TextBlock Text="娱乐 ENT" FontSize="16" 
+                        <TextBlock FontSize="16" 
                                    Foreground="{ThemeResource AppPersonalTextColorPure02}"
                                    VerticalAlignment="Center" HorizontalAlignment="Left"
-                                   Margin=" 5,0,0,0" FontWeight="Bold"/>
-                        <Button Name="EntMoreButton" Content="更多>>" FontWeight="Bold" 
+                                   Margin=" 5,0,0,0" FontWeight="Bold">
+                            <Run x:Uid="Image_Ent"/>
+                            <Run Text="ENT" Foreground="{ThemeResource ENRZForeground03}"/>
+                        </TextBlock>
+                        <Button Name="EntMoreButton" x:Uid="Image_More" FontWeight="Bold" 
                                 Style="{StaticResource ButtonNoAnyShapeStyle}" Margin="0,0,5,0"
                                 FontSize="16" Click="ButtonSelect" HorizontalAlignment="Right"/>
                         <Rectangle Height="1" VerticalAlignment="Bottom" 

@@ -7,6 +7,8 @@ using Windows.UI;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 
+using static ENRZ.Core.Tools.UWPStates;
+
 namespace ENRZ.Core.Models.Converters {
     public class ColorConverter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, string language) {
@@ -19,19 +21,17 @@ namespace ENRZ.Core.Models.Converters {
 
         private Brush ToColorSolidBrush(string title) {
             SolidColorBrush result = new SolidColorBrush();
-            switch (title) {
-                case "ENRZ.COM": result.Color = Color.FromArgb(255,75,21,173); break;
-                case "尤物": result.Color = Color.FromArgb(255, 217, 6, 94); break;
-                case "资讯": result.Color = Color.FromArgb(255, 60, 188, 98); break;
-                case "恋物癖": result.Color = Color.FromArgb(255, 97, 17, 171); break;
-                case "时装": result.Color = Color.FromArgb(255, 254, 183, 8); break;
-                case "男性人物": result.Color = Color.FromArgb(255, 69, 90, 172); break;
-                case "专题": result.Color = Color.FromArgb(255, 141, 4, 33); break;
-                case "美图": result.Color = Color.FromArgb(255, 244, 78, 97); break;
-                case "商城": result.Color = Color.FromArgb(255, 53, 132, 154); break;
-                default: result.Color = Color.FromArgb(255, 82, 82,82); break;
-            }
-            return result as Brush;
+            result.Color = title == "ENRZ.COM" ? Color.FromArgb(255, 75, 21, 173) :
+                title == GetUIString("Stunner") ? Color.FromArgb(255, 217, 6, 94) :
+                title == GetUIString("Information") ? Color.FromArgb(255, 60, 188, 98) :
+                title == GetUIString("LoveOfHabit") ? Color.FromArgb(255, 97, 17, 171) :
+                title == GetUIString("Fashion") ? Color.FromArgb(255, 254, 183, 8) :
+                title == GetUIString("MaleCharacters") ? Color.FromArgb(255, 69, 90, 172) :
+                title == GetUIString("Topics") ? Color.FromArgb(255, 141, 4, 33) :
+                title == GetUIString("Gallery") ? Color.FromArgb(255, 244, 78, 97) :
+                title == GetUIString("Mall") ? Color.FromArgb(255, 53, 132, 154) :
+                Color.FromArgb(255, 82, 82, 82);
+            return result;
         }
     }
 }

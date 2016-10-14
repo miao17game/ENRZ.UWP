@@ -42,8 +42,9 @@
                        RelativePanel.AlignTopWithPanel="True"
                        RelativePanel.AlignLeftWithPanel="True"
                        RelativePanel.AlignRightWithPanel="True"
-                       Fill="{ThemeResource ENRZBackground03}"  />
-            <TextBlock x:Name="tbNotify" TextWrapping="WrapWholeWords" Foreground="White" 
+                       Fill="{ThemeResource ENRZForeground01}"  />
+            <TextBlock x:Name="tbNotify" TextWrapping="WrapWholeWords" 
+                       Foreground="White" 
                        Margin="20,15" TextAlignment="Center" />
          
         </RelativePanel>

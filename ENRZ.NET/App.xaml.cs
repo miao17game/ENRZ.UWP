@@ -16,6 +16,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+using static ENRZ.Core.Tools.UWPStates;
+
 namespace ENRZ.NET {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
@@ -33,7 +35,7 @@ namespace ENRZ.NET {
 
         private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e) {
             e.Handled = true;
-            new ToastSmooth("发生错误 \n" + e.Exception.Message).Show();
+            new ToastSmooth($"{GetUIString("AppErrorString")}\n" + e.Exception.Message).Show();
         }
 
         /// <summary>
@@ -47,7 +49,7 @@ namespace ENRZ.NET {
 
         private void SynchronizationContext_UnhandledException(object sender, Core.Tools.UnhandledExceptionEventArgs e) {
             e.Handled = true;
-            new ToastSmooth("发生错误 \n" + e.Exception.Message).Show();
+            new ToastSmooth($"{GetUIString("AppErrorString")}\n" + e.Exception.Message).Show();
         }
 
         /// <summary>

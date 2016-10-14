@@ -1,0 +1,536 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutENRZUWP.Text" xml:space="preserve">
+    <value>关于 ENRZ For Windows10</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="AboutENRZUWP_mess01.Text" xml:space="preserve">
+    <value>应用内容来自ENRZ.COM，本应用来自第三方开发者，立足于为Windows用户提供简化的ENRZ.COM网站内容获取方式，更好的阅读体验服务。</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="AboutENRZUWP_mess02.Text" xml:space="preserve">
+    <value>开发者会在能力范围之内，提供最好的维护与跟进，但是诸如应用内容没有更新之类的状况，并非开发者管得着的事。应用开发仍处于早期阶段，希望大家积极反馈。</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="AboutENRZUWP_mess03.Text" xml:space="preserve">
+    <value>应用所有来自于ENRZ.COM的内容完全免费，应用本身不会以收费来成为限制用户使用的门槛，我也没有这个权力。后期或许会有额外的独立内容来源，会以应用内购买的方式提供。</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="AboutENRZUWP_mess04.Text" xml:space="preserve">
+    <value>支持捐赠，多少随意，重在鼓励。开发不易，多喝营养快线，谢谢各位老司机。</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Alipay.Text" xml:space="preserve">
+    <value>支付宝：18640046260</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Blog.Text" xml:space="preserve">
+    <value>博客：</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Contact.Text" xml:space="preserve">
+    <value>联系作者</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="DarkMode.Text" xml:space="preserve">
+    <value>夜间模式</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="DarkModeSummary.Text" xml:space="preserve">
+    <value>改变应用背景和文字前景</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="D_C.Text" xml:space="preserve">
+    <value>捐助与支持</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="ENRZGroupProfile.Text" xml:space="preserve">
+    <value>时尚集团简介</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="ENRZGroupProfile_mess01.Text" xml:space="preserve">
+    <value>时尚集团诞生于1993年，从一本杂志开始，至今已发展成为拥有16本高档期刊，业务涵盖期刊编辑、图书策划、网络传媒、广告、印刷、发行、数字出版、电视制作等多项领域的跨媒体多平台的传媒集团，并在上海和广州设立广告、发行分公司、办事处。集团多年来始终以 注重细节、追求卓越、引导潮流 为宗旨，为传媒产业、时尚领域和公益事业做出了里程碑式的贡献，连续多年被评为 &amp;amp; 中国最具价值的500个品牌 &amp;amp; 之一。</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="ENRZMagazine.Text" xml:space="preserve">
+    <value>男人装 杂志</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="ENRZMagazine_mess01.Text" xml:space="preserve">
+    <value>《男人装》全球真性情男性杂志、国际男性杂志市场的当红杂志《FHM》于2004年4月23日以《男人装》的名义登陆中国内地市场。《男人装》是时尚集团在2004年推出的一本男性综合类时尚杂志，不仅填补了内地期刊市场男性杂志的空白，而且带来了男性杂志消费的新热潮，它开宗明义就是要做 &amp;amp; 男人的真性情杂志 &amp;amp; ，它填补了男性期刊市场的空缺，也填补了男性心理需要的空缺。到2012年8月，已经出版了整整一百期。</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="ENRZMagazine_mess02.Text" xml:space="preserve">
+    <value>《男人装》是中国第一本公开的纯男性杂志，有中国的《花花公子》之称。因为面对的消费群体主要是男性朋友，所以男人装封面刊登的都是美女明星的性感照片。男人装获《新周刊》新锐榜年度传媒之年度杂志奖。</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="ENRZWebsites.Text" xml:space="preserve">
+    <value>男人装 官方网站</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="ENRZWebsites_mess01.Text" xml:space="preserve">
+    <value>时尚传媒集团旗舰刊《男人装》官方网站。</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="ENRZWebsites_mess02.Text" xml:space="preserve">
+    <value>男人装官网充满视觉快感的男性审美，想男人之所想，言同行所不敢言，创造了中国性爱话语的最高禁忌尺度；它性感而不失犀利主张，幽默而不缺现实主义，是潮流男士的最佳伴侣。呈现与杂志内容相同的质感，并以更迅速的传播力量拓展男人装对男士时尚的影响力。</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="ENRZWebsites_mess03.Text" xml:space="preserve">
+    <value>优质的图文资讯给予男士有关着装理容、乐享生活的品位指导，在这里找到一拍即合的心灵伙伴，分享对生活趣味的每一点发现，碰撞出最具价值的商业灵感。</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Feedback.Content" xml:space="preserve">
+    <value>我要反馈</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Feedback_Email.Text" xml:space="preserve">
+    <value>通过邮件反馈问题</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="LanguageMode.Text" xml:space="preserve">
+    <value>语言本地化（施工中...）</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="LanguageModeSummary.Text" xml:space="preserve">
+    <value>选择您的本地化语言</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="LanguageOptions.Text" xml:space="preserve">
+    <value>语言选项</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="ProgressRoute.Text" xml:space="preserve">
+    <value>ENRZ For Windows10 进度记录</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="SettPageItem_About.Header" xml:space="preserve">
+    <value>关于</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="SettPageItem_AboutENRZ.Header" xml:space="preserve">
+    <value>关于男人装</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="SettPageItem_AboutMe.Header" xml:space="preserve">
+    <value>关于开发者</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="SettPageItem_Settings.Header" xml:space="preserve">
+    <value>设置</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="VersionMessage" xml:space="preserve">
+    <value>版本信息：</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="VersionMessageFor.Text" xml:space="preserve">
+    <value>版本信息：由系统生成</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="VisualOptions.Text" xml:space="preserve">
+    <value>视觉选项</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Weibo.Text" xml:space="preserve">
+    <value>新浪微博</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Weibo_mess.Content" xml:space="preserve">
+    <value>Code大白痴</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="AppErrorString" xml:space="preserve">
+    <value>发生错误</value>
+    <comment>App.cs</comment>
+  </data>
+  <data name="Art" xml:space="preserve">
+    <value>艺和团</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="A_B" xml:space="preserve">
+    <value>甲方乙方</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Beauty" xml:space="preserve">
+    <value>美女</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Car" xml:space="preserve">
+    <value>座驾</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Cars" xml:space="preserve">
+    <value>汽车</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Collocation" xml:space="preserve">
+    <value>搭配栏目</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Complain" xml:space="preserve">
+    <value>热辣吐槽</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="CoverStars" xml:space="preserve">
+    <value>封面明星</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Digital" xml:space="preserve">
+    <value>数码</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Ent" xml:space="preserve">
+    <value>娱乐</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Fashion" xml:space="preserve">
+    <value>时装</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Fashions" xml:space="preserve">
+    <value>时尚</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Feedback_Body" xml:space="preserve">
+    <value>问题描述</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Feedback_FriendlyName" xml:space="preserve">
+    <value>设备名</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Feedback_OS" xml:space="preserve">
+    <value>操作系统</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Feedback_SFV" xml:space="preserve">
+    <value>固件版本</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Feedback_SHV" xml:space="preserve">
+    <value>硬件版本</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Feedback_SMF" xml:space="preserve">
+    <value>制造商</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Feedback_SPN" xml:space="preserve">
+    <value>产品名称</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Feedback_Subject" xml:space="preserve">
+    <value>ENRZ For Win10 反馈</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Feedback_Version" xml:space="preserve">
+    <value>程序版本</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="FetchDataError" xml:space="preserve">
+    <value>获取数据发生错误</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Gallery" xml:space="preserve">
+    <value>美图</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="HotGossip" xml:space="preserve">
+    <value>八卦热点</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>资讯</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="LoveOfHabit" xml:space="preserve">
+    <value>恋物癖</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="MaleCharacters" xml:space="preserve">
+    <value>男性人物</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Mall" xml:space="preserve">
+    <value>商城</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Men" xml:space="preserve">
+    <value>男人帮</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Men_large" xml:space="preserve">
+    <value>男装大片</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="mix" xml:space="preserve">
+    <value>搭配</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="NewsGirl" xml:space="preserve">
+    <value>新闻女郎</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Outdoor" xml:space="preserve">
+    <value>户外</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Photographic" xml:space="preserve">
+    <value>性感写真</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Photography" xml:space="preserve">
+    <value>摄影</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Plaything" xml:space="preserve">
+    <value>玩物</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="RC" xml:space="preserve">
+    <value>香车美女</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="See" xml:space="preserve">
+    <value>猎奇</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="SettingsString" xml:space="preserve">
+    <value>设置</value>
+    <comment>SettingsPage</comment>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>秀场</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="SkinCare" xml:space="preserve">
+    <value>美容护肤</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Sports" xml:space="preserve">
+    <value>体育</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="SportsBaby" xml:space="preserve">
+    <value>体育宝贝</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Stunner" xml:space="preserve">
+    <value>尤物</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Swaths" xml:space="preserve">
+    <value>大片</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="TheGlobalVillage" xml:space="preserve">
+    <value>地球村</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="TimeOutError" xml:space="preserve">
+    <value>网络超时，请重试</value>
+    <comment>WebProcess.cs</comment>
+  </data>
+  <data name="Topics" xml:space="preserve">
+    <value>专题</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Untitled" xml:space="preserve">
+    <value>未知</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Watch" xml:space="preserve">
+    <value>腕表</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Wine" xml:space="preserve">
+    <value>美酒</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="Yuppie" xml:space="preserve">
+    <value>后雅皮</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+  <data name="ClickTwiceToExit" xml:space="preserve">
+    <value>再按一次返回键退出</value>
+    <comment>MainPage</comment>
+  </data>
+  <data name="Image_Ent.Text" xml:space="preserve">
+    <value>娱乐 </value>
+    <comment>ImagePage</comment>
+  </data>
+  <data name="Image_Fashion.Text" xml:space="preserve">
+    <value>时尚 </value>
+    <comment>ImagePage</comment>
+  </data>
+  <data name="Image_Girl.Text" xml:space="preserve">
+    <value>美女 </value>
+    <comment>ImagePage</comment>
+  </data>
+  <data name="Image_More.Content" xml:space="preserve">
+    <value>更多&gt;&gt;</value>
+    <comment>ImagePage</comment>
+  </data>
+  <data name="Image_Plaything.Text" xml:space="preserve">
+    <value>玩物 </value>
+    <comment>ImagePage</comment>
+  </data>
+  <data name="Image_Recommend.Text" xml:space="preserve">
+    <value>编辑推荐 </value>
+    <comment>ImagePage</comment>
+  </data>
+  <data name="Image_Select.Text" xml:space="preserve">
+    <value>精选 </value>
+    <comment>ImagePage</comment>
+  </data>
+  <data name="Picture_Next.Text" xml:space="preserve">
+    <value>下一个图集</value>
+    <comment>PicturesPage</comment>
+  </data>
+  <data name="Picture_Previous.Text" xml:space="preserve">
+    <value>上一个图集</value>
+    <comment>PicturesPage</comment>
+  </data>
+  <data name="Picture_Recommend.Text" xml:space="preserve">
+    <value>精彩推荐</value>
+    <comment>PicturesPage</comment>
+  </data>
+  <data name="Picture_Watch.Text" xml:space="preserve">
+    <value>ENRZ.COM-看图</value>
+    <comment>PicturesPage</comment>
+  </data>
+  <data name="SaveImageSuccess" xml:space="preserve">
+    <value>图片保存成功</value>
+    <comment>MainPage</comment>
+  </data>
+  <data name="SettingButton.Text" xml:space="preserve">
+    <value>设置</value>
+    <comment>MainPage</comment>
+  </data>
+  <data name="Top5.Text" xml:space="preserve">
+    <value>每日热图TOP5</value>
+    <comment>ImagePage</comment>
+  </data>
+  <data name="ValidToShow" xml:space="preserve">
+    <value>部分内容暂不支持显示</value>
+    <comment>DataProcess.cs</comment>
+  </data>
+</root>

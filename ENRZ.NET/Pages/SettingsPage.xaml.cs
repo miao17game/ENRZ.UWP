@@ -29,12 +29,12 @@ namespace ENRZ.NET.Pages {
             this.InitializeComponent();
             Current = this;
             this.NavigationCacheMode = NavigationCacheMode.Required;
-            VersionMessage.Text = "版本信息：" + Utils.GetAppVersion();
+            VersionMessage.Text = GetUIString("VersionMessage") + Utils.GetAppVersion();
             ThemeSwitch.IsOn = (bool?)SettingsHelper.ReadSettingsValue(SettingsConstants.IsDarkThemeOrNot) ?? true;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e) {
-            MainPage.ChangeTitlePath(2, "设置");
+            MainPage.ChangeTitlePath(2, GetUIString("SettingsString"));
         }
 
         private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e) {
@@ -43,7 +43,7 @@ namespace ENRZ.NET.Pages {
                 return;
             }
             MainPage.ChangeTitlePath(
-                3, (e.AddedItems.FirstOrDefault() as PivotItem).Header as string != "设置" ? 
+                3, (e.AddedItems.FirstOrDefault() as PivotItem).Header as string != GetUIString("SettingsString") ? 
                 (e.AddedItems.FirstOrDefault() as PivotItem).Header as string :
                 null);
         }
@@ -63,18 +63,18 @@ namespace ENRZ.NET.Pages {
         public static async Task ReportError(string msg = null, string pageSummary = "N/A", bool includeDeviceInfo = true) {
             var deviceInfo = new EasClientDeviceInformation();
 
-            string subject = "ENRZ For Win10 反馈";
-            string body = $"问题描述：{msg}  " +
-                          $"（程序版本：{Utils.GetAppVersion()} ";
+            string subject = GetUIString("Feedback_Subject");
+            string body = $"{GetUIString("Feedback_Body")}：{msg}  " +
+                          $"（{GetUIString("Feedback_Version")}：{Utils.GetAppVersion()} ";
 
             if (includeDeviceInfo) {
-                body += $", \n设备名：{deviceInfo.FriendlyName}, " +
-                          $"\n操作系统：{deviceInfo.OperatingSystem}, " +
-                          $"\nSKU：{deviceInfo.SystemSku}, " +
-                          $"\n产品名称：{deviceInfo.SystemProductName}, " +
-                          $"\n制造商：{deviceInfo.SystemManufacturer}, " +
-                          $"\n固件版本：{deviceInfo.SystemFirmwareVersion}, " +
-                          $"\n硬件版本：{deviceInfo.SystemHardwareVersion}）";
+                body += $", {GetUIString("Feedback_FriendlyName")}：{deviceInfo.FriendlyName}, " +
+                          $"{GetUIString("Feedback_OS")}：{deviceInfo.OperatingSystem}, " +
+                          $"SKU：{deviceInfo.SystemSku}, " +
+                          $"{GetUIString("Feedback_SPN")}：{deviceInfo.SystemProductName}, " +
+                          $"{GetUIString("Feedback_SMF")}：{deviceInfo.SystemManufacturer}, " +
+                          $"{GetUIString("Feedback_SFV")}：{deviceInfo.SystemFirmwareVersion}, " +
+                          $"{GetUIString("Feedback_SHV")}：{deviceInfo.SystemHardwareVersion}）";
             } else {
                 body += ")";
             }

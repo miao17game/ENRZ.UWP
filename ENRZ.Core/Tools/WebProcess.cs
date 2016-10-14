@@ -11,6 +11,8 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using DBCSCodePage;
 
+using static ENRZ.Core.Tools.UWPStates;
+
 namespace ENRZ.Core. Tools {
     public static class WebProcess {
         static CoreDispatcher Dispatcher = Window.Current.Dispatcher;
@@ -32,16 +34,16 @@ namespace ENRZ.Core. Tools {
                     }
                 } catch (WebException ex) {
                     Debug.WriteLine("\nTimeOut：\n" + ex.Message);
-                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { new ToastSmooth("网络超时，请重试").Show(); });
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { new ToastSmooth(GetUIString("TimeOutError")).Show(); });
                     return null;
                 } catch (Exception e) {
                     Debug.WriteLine("\nTimeOut：\n" + e.Message);
-                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { new ToastSmooth("网络异常，请重试").Show(); });
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { new ToastSmooth(GetUIString("TimeOutError")).Show(); });
                     return null;
                 } request.Abort();
             } catch {
                 Debug.WriteLine("\nTimeOut：\n" );
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { new ToastSmooth("网络异常，请检查网络").Show(); });
+                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => { new ToastSmooth(GetUIString("TimeOutError")).Show(); });
                 return null;
             }
             return LrcStringBuider;

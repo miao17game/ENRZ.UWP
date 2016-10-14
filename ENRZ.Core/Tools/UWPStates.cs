@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Resources;
 using Windows.System.Profile;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -15,8 +16,13 @@ namespace ENRZ.Core.Tools {
     /// </summary>
     public static class UWPStates {
 
+        #region Properties and state
+        private static ResourceLoader resLoader = new ResourceLoader();
+        #endregion
+
         public static SystemNavigationManager NavigateManager { get { return SystemNavigationManager.GetForCurrentView(); } }
         public static ApplicationView AppView { get { return ApplicationView.GetForCurrentView(); } }
+        public static ResourceLoader ResLoader{ get { return resLoader ?? new ResourceLoader(); } }
 
         /// <summary>
         /// Current window height with NavigationBar and StatusBar
@@ -38,6 +44,8 @@ namespace ENRZ.Core.Tools {
         public static bool IsMobile { get { return AnalyticsInfo.VersionInfo.DeviceFamily.Equals("Windows.Mobile"); } }
 
         public static void SetVisibility(FrameworkElement element, bool IsVisible) { element.Visibility = IsVisible? Visibility.Visible : Visibility.Collapsed; }
+
+        public static string GetUIString(string id) { return ResLoader.GetString(id); }
 
         /// <summary>
         /// Adaptive the screen when you app running on a mobile device with vitual navigation bar.

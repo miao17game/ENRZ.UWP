@@ -14,6 +14,8 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Imaging;
 
+using static ENRZ.Core.Tools.UWPStates;
+
 namespace ENRZ.Core.Tools {
     public static class DataProcess {
         #region Properties and State
@@ -22,7 +24,7 @@ namespace ENRZ.Core.Tools {
 
         public static async void ReportError(string erroeMessage) {
             await Window.Current.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => {
-                new ToastSmooth("获取数据发生错误\n"+erroeMessage).Show();
+                new ToastSmooth($"{GetUIString("FetchDataError")}\n"+erroeMessage).Show();
             });
         }
 
@@ -45,9 +47,7 @@ namespace ENRZ.Core.Tools {
             foreach (var li in LiCollection) {
                 if (li.SelectSingleNode("a") != null) {
                     var naviBarModel = new NavigationBarModel();
-                    naviBarModel.Title = li.SelectSingleNode("a").InnerText== "首页"? 
-                        "ENRZ.COM"
-                        :li.SelectSingleNode("a").InnerText;
+                    naviBarModel.Title = ToGlobalization(li.SelectSingleNode("a").InnerText);
                     naviBarModel.PathUri = new Uri(li.SelectSingleNode("a").Attributes["href"].Value);
                     // Check if it has innerItems
                     naviBarModel.Items = new List<BarItemModel>(); 
@@ -55,7 +55,7 @@ namespace ENRZ.Core.Tools {
                     if (li.SelectSingleNode("ul[@class='gn-sub']") != null) {
                         foreach (var innerLi in li.SelectSingleNode("ul[@class='gn-sub']").SelectNodes("li")) {
                             naviBarModel.Items.Add(new BarItemModel {
-                                Title = innerLi.SelectSingleNode("a").InnerText,
+                                Title = ToGlobalization(innerLi.SelectSingleNode("a").InnerText),
                                 PathUri = new Uri(innerLi.SelectSingleNode("a").Attributes["href"].Value),
                             });
                         }
@@ -66,6 +66,136 @@ namespace ENRZ.Core.Tools {
             }
 
             return list;
+        }
+
+        private static string ToGlobalization(string input) {
+            var result = default(string);
+            switch (input) {
+                case "首页":
+                    result = "ENRZ.COM";
+                    break;
+                case "尤物":
+                    result = GetUIString("Stunner");
+                    break;
+                case "资讯":
+                    result = GetUIString("Information");
+                    break;
+                case "恋物癖":
+                    result = GetUIString("LoveOfHabit");
+                    break;
+                case "时装":
+                    result = GetUIString("Fashion");
+                    break;
+                case "男性人物":
+                    result = GetUIString("MaleCharacters");
+                    break;
+                case "专题":
+                    result = GetUIString("Topics");
+                    break;
+                case "美图":
+                    result = GetUIString("Gallery");
+                    break;
+                case "商城":
+                    result = GetUIString("Mall");
+                    break;
+                case "封面明星":
+                    result = GetUIString("CoverStars");
+                    break;
+                case "新闻女郎":
+                    result = GetUIString("NewsGirl");
+                    break;
+                case "猎奇":
+                    result = GetUIString("See");
+                    break;
+                case "体育":
+                    result = GetUIString("Sports");
+                    break;
+                case "地球村":
+                    result = GetUIString("TheGlobalVillage");
+                    break;
+                case "艺和团":
+                    result = GetUIString("Art");
+                    break;
+                case "汽车":
+                    result = GetUIString("Cars");
+                    break;
+                case "数码":
+                    result = GetUIString("Digital");
+                    break;
+                case "腕表":
+                    result = GetUIString("Watch");
+                    break;
+                case "美酒":
+                    result = GetUIString("Wine");
+                    break;
+                case "户外":
+                    result = GetUIString("Outdoor");
+                    break;
+                case "搭配栏目":
+                    result = GetUIString("Collocation");
+                    break;
+                case "男装大片":
+                    result = GetUIString("Men_large");
+                    break;
+                case "美容护肤":
+                    result = GetUIString("SkinCare");
+                    break;
+                case "后雅皮":
+                    result = GetUIString("Yuppie");
+                    break;
+                case "男人帮":
+                    result = GetUIString("Men");
+                    break;
+                case "甲方乙方":
+                    result = GetUIString("A_B");
+                    break;
+                case "美女":
+                    result = GetUIString("Beauty");
+                    break;
+                case "性感写真":
+                    result = GetUIString("Photographic");
+                    break;
+                case "香车美女":
+                    result = GetUIString("RC");
+                    break;
+                case "体育宝贝":
+                    result = GetUIString("SportsBaby");
+                    break;
+                case "时尚":
+                    result = GetUIString("Fashions");
+                    break;
+                case "秀场":
+                    result = GetUIString("Show");
+                    break;
+                case "大片":
+                    result = GetUIString("Swaths");
+                    break;
+                case "搭配":
+                    result = GetUIString("mix");
+                    break;
+                case "娱乐":
+                    result = GetUIString("Ent");
+                    break;
+                case "八卦热点":
+                    result = GetUIString("HotGossip");
+                    break;
+                case "热辣吐槽":
+                    result = GetUIString("Complain");
+                    break;
+                case "玩物":
+                    result = GetUIString("Plaything");
+                    break;
+                case "座驾":
+                    result = GetUIString("Car");
+                    break;
+                case "摄影":
+                    result = GetUIString("Photography");
+                    break;
+                default:
+                    result = input;
+                    break;
+            }
+            return result;
         }
 
         public static List<NewsPreviewModel> FetchNewsPreviewFromHtml(string htmlResources) {
@@ -144,7 +274,7 @@ namespace ENRZ.Core.Tools {
             foreach (var li in navi_Li_Coll) {
                 try {
                     list.Add(new BarItemModel {
-                        Title = li.SelectSingleNode("a").Attributes["title"].Value,
+                        Title = ToGlobalization(li.SelectSingleNode("a").Attributes["title"].Value),
                         PathUri = new Uri(li.SelectSingleNode("a").Attributes["href"].Value),
                     });
                 } catch (NullReferenceException ex) {
@@ -343,7 +473,7 @@ namespace ENRZ.Core.Tools {
                             model.ContentString.Add(new ContentStrings { Content = item.InnerText, Index = index });
                         }
                     } catch (NullReferenceException) {
-                        ReportException("部分内容暂不支持显示");
+                        ReportException(GetUIString("ValidToShow"));
                     } catch (ArgumentOutOfRangeException ex) {
                         Debug.WriteLine(ex.StackTrace);
                     } catch (ArgumentNullException ex) {

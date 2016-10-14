@@ -42,22 +42,20 @@
             </Pivot.HeaderTemplate>
             
             <!--#region Settings-->
-            <PivotItem Name="Settings" Header="设置">
+            <PivotItem Name="Settings" x:Uid="SettPageItem_Settings">
                 <ScrollViewer>
                     <StackPanel>
                         <StackPanel Orientation="Vertical" 
                                     Margin=" 10,10,10,0">
-                            <TextBlock Text="视觉选项" FontWeight="Bold"
+                            <TextBlock x:Uid="VisualOptions" FontWeight="Bold"
                                    Style="{StaticResource SummaryTextStyle}"/>
-                            <Rectangle Height="1"
-                                       Margin=" 0,5,0,0"
-                                       Fill="{ThemeResource DQDSummTextColor}"/>
+                            <Rectangle Height="1" Margin=" 0,5,0,0" Fill="{ThemeResource DQDSummTextColor}"/>
                         </StackPanel>
                         <Grid Margin="10,10,10,0" >
                             <StackPanel Orientation="Vertical">
-                                <TextBlock Text="夜间模式"
+                                <TextBlock x:Uid="DarkMode"
                                    Style="{StaticResource TitleTextStyle}"/>
-                                <TextBlock Text="改变应用背景和文字前景"
+                                <TextBlock x:Uid="DarkModeSummary"
                                    Style="{StaticResource SummaryTextStyle}"/>
                             </StackPanel>
                             <ToggleSwitch Name="ThemeSwitch" 
@@ -68,31 +66,72 @@
                                       OffContent=" " 
                                       Toggled="ThemeSwitch_Toggled" />
                         </Grid>
+                        <StackPanel Orientation="Vertical" 
+                                    Margin=" 10,10,10,0">
+                            <TextBlock x:Uid="LanguageOptions" FontWeight="Bold"
+                                   Style="{StaticResource SummaryTextStyle}"/>
+                            <Rectangle Height="1" Margin=" 0,5,0,0" Fill="{ThemeResource DQDSummTextColor}"/>
+                        </StackPanel>
+                        <Grid Margin="10,10,10,0" >
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock x:Uid="LanguageMode"
+                                   Style="{StaticResource TitleTextStyle}"/>
+                                <TextBlock x:Uid="LanguageModeSummary"
+                                   Style="{StaticResource SummaryTextStyle}"/>
+                            </StackPanel>
+                            <ComboBox Name="LanguageCombox" 
+                                      HorizontalAlignment="Right"
+                                      MinWidth="150">
+                                <ComboBoxItem Name="enUSSelect" Content="English"/>
+                                <ComboBoxItem Name="zhCNSelect" Content="简体中文"/>
+                            </ComboBox>
+                        </Grid>
+                        
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>
             <!--#endregion-->
             
             <!--#region About-->
-            <PivotItem Name="About" Header="关于">
+            <PivotItem Name="About" x:Uid="SettPageItem_About" >
                 <ScrollViewer>
                     <StackPanel>
 
-                        <TextBlock Margin="10,5,10,5" Text="版本信息：由系统生成" 
-                                   FontWeight="ExtraBold" Name="VersionMessage"/>
+                        <TextBlock Margin="10,5,10,5" x:Uid="VersionMessageFor" 
+                                   FontWeight="ExtraBold" Name="VersionMessage" FontSize="23"/>
 
-                        <TextBlock Margin="10,5,10,5" Text="关于 ENRZ For Windows10" 
+                        <TextBlock Margin="10,5,10,0" x:Uid="AboutENRZUWP"
                                    FontWeight="ExtraBold" FontSize="16"/>
+
+                        <Rectangle Height="1" Margin=" 10,5,10,0">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="{ThemeResource ENRZLineColor}" Offset="0.0" />
+                                    <GradientStop Color="Transparent" Offset="1.0" />
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+
                         <TextBlock Margin="10,5,10,5" FontSize="14" FontWeight="Thin"
                                TextWrapping="WrapWholeWords">
-                            <Run Text="应用内容来自ENRZ.COM，本应用来自第三开发者，立足于为Windows用户提供简化的ENRZ.COM网站内容获取方式，更好的阅读体验服务。" /><LineBreak/><LineBreak/>
-                            <Run Text="开发者会在能力范围之内，提供最好的维护与跟进，但是诸如应用内容没有更新之类的状况，并非开发者管得着的事。应用开发仍处于早期阶段，希望大家积极反馈。"  /><LineBreak/><LineBreak/>
-                            <Run Text="应用所有来自于ENRZ.COM的内容完全免费，应用本身不会以收费来成为限制用户使用的门槛，我也没有这个权力。后期或许会有额外的独立内容来源，会以应用内购买的方式提供。"/><LineBreak/><LineBreak/>
-                            <Run Text="支持捐赠，多少随意，重在鼓励。开发不易，多喝营养快线，谢谢各位老司机。"/><LineBreak/>
+                            <Run x:Uid="AboutENRZUWP_mess01" /><LineBreak/><LineBreak/>
+                            <Run x:Uid="AboutENRZUWP_mess02" /><LineBreak/><LineBreak/>
+                            <Run x:Uid="AboutENRZUWP_mess03" /><LineBreak/><LineBreak/>
+                            <Run x:Uid="AboutENRZUWP_mess04" />
                         </TextBlock>
 
-                        <TextBlock Margin="10,5,10,5" Text="ENRZ For Windows10 进度记录" 
+                        <TextBlock Margin="10,5,10,0" x:Uid="ProgressRoute"
                                    FontWeight="ExtraBold" FontSize="16"/>
+
+                        <Rectangle Height="1" Margin=" 10,5,10,0">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="{ThemeResource ENRZLineColor}" Offset="0.0" />
+                                    <GradientStop Color="Transparent" Offset="1.0" />
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+
                         <TextBlock Margin="10,5,10,5" FontSize="12" FontWeight="Thin"
                                TextWrapping="WrapWholeWords">
                             
@@ -131,28 +170,28 @@
             <!--#endregion-->
             
             <!--#region About ENRZ-->
-            <PivotItem Name="AboutENRZ" Header="关于ENRZ.COM">
+            <PivotItem Name="AboutENRZ" x:Uid="SettPageItem_AboutENRZ" >
                 <ScrollViewer>
                     <StackPanel>
                         <TextBlock Margin="10,5,10,5" FontSize="14" FontWeight="Thin"
                                TextWrapping="WrapWholeWords">
-                            <Run Text="男人装 官方网站" FontWeight="ExtraBold" FontSize="18"/><LineBreak/>
+                            <Run x:Uid="ENRZWebsites" FontWeight="ExtraBold" FontSize="18"/><LineBreak/>
                             <LineBreak/>
-                        <Run Text="时尚传媒集团旗舰刊《男人装》官方网站。"/><LineBreak/>
+                        <Run x:Uid="ENRZWebsites_mess01"/><LineBreak/>
                         <LineBreak/>
-                        <Run Text="男人装官网充满视觉快感的男性审美，想男人之所想，言同行所不敢言，创造了中国性爱话语的最高禁忌尺度；它性感而不失犀利主张，幽默而不缺现实主义，是潮流男士的最佳伴侣。呈现与杂志内容相同的质感，并以更迅速的传播力量拓展男人装对男士时尚的影响力。"/><LineBreak/>
+                        <Run x:Uid="ENRZWebsites_mess02"/><LineBreak/>
                         <LineBreak/>
-                        <Run Text="优质的图文资讯给予男士有关着装理容、乐享生活的品位指导，在这里找到一拍即合的心灵伙伴，分享对生活趣味的每一点发现，碰撞出最具价值的商业灵感。"/><LineBreak/>
+                        <Run x:Uid="ENRZWebsites_mess03"/><LineBreak/>
                         <LineBreak/>
-                            <Run Text="男人装 杂志" FontWeight="ExtraBold" FontSize="18"/><LineBreak/>
+                            <Run x:Uid="ENRZMagazine" FontWeight="ExtraBold" FontSize="18"/><LineBreak/>
                             <LineBreak/>
-                        <Run Text="《男人装》全球真性情男性杂志、国际男性杂志市场的当红杂志《FHM》于2004年4月23日以《男人装》的名义登陆中国内地市场。《男人装》是时尚集团在2004年推出的一本男性综合类时尚杂志，不仅填补了内地期刊市场男性杂志的空白，而且带来了男性杂志消费的新热潮，它开宗明义就是要做 &amp; 男人的真性情杂志 &amp; ，它填补了男性期刊市场的空缺，也填补了男性心理需要的空缺。到2012年8月，已经出版了整整一百期。"/><LineBreak/>
+                        <Run x:Uid="ENRZMagazine_mess01"/><LineBreak/>
                         <LineBreak/>
-                        <Run Text="《男人装》是中国第一本公开的纯男性杂志，有中国的《花花公子》之称。因为面对的消费群体主要是男性朋友，所以男人装封面刊登的都是美女明星的性感照片。男人装获《新周刊》新锐榜年度传媒之年度杂志奖。"/><LineBreak/>
+                        <Run x:Uid="ENRZMagazine_mess02"/><LineBreak/>
                         <LineBreak/>
-                            <Run Text="时尚集团简介" FontWeight="ExtraBold" FontSize="18"/><LineBreak/>
+                            <Run x:Uid="ENRZGroupProfile" FontWeight="ExtraBold" FontSize="18"/><LineBreak/>
                             <LineBreak/>
-                        <Run Text="时尚集团诞生于1993年，从一本杂志开始，至今已发展成为拥有16本高档期刊，业务涵盖期刊编辑、图书策划、网络传媒、广告、印刷、发行、数字出版、电视制作等多项领域的跨媒体多平台的传媒集团，并在上海和广州设立广告、发行分公司、办事处。集团多年来始终以 注重细节、追求卓越、引导潮流 为宗旨，为传媒产业、时尚领域和公益事业做出了里程碑式的贡献，连续多年被评为 &amp; 中国最具价值的500个品牌 &amp; 之一。"/><LineBreak/>
+                        <Run x:Uid="ENRZGroupProfile_mess01"/><LineBreak/>
 
                         </TextBlock>
                     </StackPanel>
@@ -161,7 +200,7 @@
             <!--#endregion-->
             
             <!--#region About Me-->
-            <PivotItem Name="AboutMe" Header="关于开发者">
+            <PivotItem Name="AboutMe" x:Uid="SettPageItem_AboutMe" >
                 <ScrollViewer>
                     <StackPanel>
                         <Ellipse Name="Ellipse" Width="150" Height="150" Margin="10,10,10,10" 
@@ -183,10 +222,11 @@
                                    HorizontalAlignment="Center">Wallace Sun</TextBlock>
 
                         <TextBlock FontWeight="Thin"
-                               FontSize="16"
-                               Margin="0,15,5,5"
-                               TextWrapping="WrapWholeWords"
-                                   HorizontalAlignment="Center">联系作者</TextBlock>
+                                   x:Uid="Contact"
+                                   FontSize="16"
+                                   Margin="0,15,5,5"
+                                   TextWrapping="WrapWholeWords"
+                                   HorizontalAlignment="Center"></TextBlock>
                         <TextBlock FontWeight="Thin"
                                FontSize="16"
                                Margin="0,5,5,5"
@@ -200,8 +240,9 @@
                         <StackPanel Orientation="Horizontal" 
                                     HorizontalAlignment="Center" Margin="0,5,5,5">
                             <TextBlock FontWeight="Thin"
-                               FontSize="16"
-                               TextWrapping="WrapWholeWords">博客：</TextBlock>
+                                       x:Uid="Blog"
+                                       FontSize="16"
+                                       TextWrapping="WrapWholeWords"></TextBlock>
                             <HyperlinkButton Content="Wallace Sun"
                                      NavigateUri="http://noodlesblog.azurewebsites.net/" 
                                      Foreground="{ThemeResource ENRZForeground01}"
@@ -210,9 +251,10 @@
                         <StackPanel Orientation="Horizontal" 
                                     HorizontalAlignment="Center" Margin="0,5,5,5">
                             <TextBlock FontWeight="Thin"
-                               FontSize="16"
-                               TextWrapping="WrapWholeWords">新浪微博：</TextBlock>
-                            <HyperlinkButton Content="Code大白痴" 
+                                       x:Uid="Weibo"
+                                       FontSize="16"
+                                       TextWrapping="WrapWholeWords"></TextBlock>
+                            <HyperlinkButton x:Uid="Weibo_mess"
                                      NavigateUri="http://weibo.com/miao17game?refer_flag=1001030102_" 
                                      Foreground="{ThemeResource ENRZForeground01}"
                                      Padding="0" FontWeight="Bold"/>
@@ -223,23 +265,34 @@
                                Margin="0,5,5,0"
                                    HorizontalAlignment="Center"
                                TextWrapping="WrapWholeWords">
-                        <Run Text="捐助与支持" FontWeight="SemiBold"/>
+                        <Run x:Uid="D_C" FontWeight="SemiBold"/>
                         </TextBlock>
                         <TextBlock FontWeight="Thin"
                                FontSize="16"
                                Margin="0,5,5,5"
                                    HorizontalAlignment="Center"
                                TextWrapping="WrapWholeWords">
-                        <Run Text="支付宝：18640046260" FontSize="14"/><LineBreak/>
+                        <Run x:Uid="Alipay" FontSize="14"/><LineBreak/>
                         </TextBlock>
+
+                        <Rectangle Height="1" Width="300" Margin=" 35,5,35,0">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="Transparent" Offset="0.0" />
+                                    <GradientStop Color="{ThemeResource ENRZLineColor}" Offset="0.5" />
+                                    <GradientStop Color="Transparent" Offset="1.0" />
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+
                         <TextBlock FontWeight="Thin"
                                FontSize="16"
                                Margin="0,15,5,5"
                                    HorizontalAlignment="Center"
                                TextWrapping="WrapWholeWords">
-                        <Run Text="通过邮件反馈问题" FontWeight="SemiBold"/>
+                        <Run x:Uid="Feedback_Email" FontWeight="SemiBold"/>
                         </TextBlock>
-                        <Button Content="我要反馈"
+                        <Button x:Uid="Feedback"
                             Background="{ThemeResource ENRZForeground01}"
                             Foreground="#EFEFEF"
                             Name="FeedBackBtn" 

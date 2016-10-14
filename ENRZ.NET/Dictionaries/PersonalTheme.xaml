@@ -77,12 +77,17 @@
             <!--DQDListBottomColor-->
             <SolidColorBrush x:Key="DQDListBottomColor" Color="#4433BB73"/>
 
+            <!--ENRZForeground01-->
+            <SolidColorBrush x:Key="ENRZForeground01" Color="#CA003E"/>
+            <!--ENRZForeground02-->
+            <SolidColorBrush x:Key="ENRZForeground02" Color="#FE9A04"/>
+            <!--ENRZForeground03-->
+            <SolidColorBrush x:Key="ENRZForeground03" Color="#FE9A04"/>
+            <!--ENRZForeground04-->
+            <SolidColorBrush x:Key="ENRZForeground04" Color="#2F9B69"/>
+            
             <!--ENRZBackgroundColor-->
             <SolidColorBrush x:Key="ENRZBackground" Color="#202020"/>
-            <!--ENRZBackgroundColor-->
-            <SolidColorBrush x:Key="ENRZForeground01" Color="#CA003E"/>
-            <!--ENRZBackgroundColor-->
-            <SolidColorBrush x:Key="ENRZForeground02" Color="#FE9A04"/>
             <!--ENRZBackground02-->
             <SolidColorBrush x:Key="ENRZBackground02" Color="#282828"/>
             <!--ENRZBackground03-->
@@ -90,6 +95,8 @@
 
             <!--DQDReBackColor-->
             <Color x:Key="DQDReBackColor">#99000000</Color>
+            <!--ENRZLineColor-->
+            <Color x:Key="ENRZLineColor">#909090</Color>
 
         </ResourceDictionary>
 
@@ -167,21 +174,29 @@
             <!--DQDListBottomColor-->
             <SolidColorBrush x:Key="DQDListBottomColor" Color="#4430BB45"/>
 
+            <!--ENRZForeground01-->
+            <SolidColorBrush x:Key="ENRZForeground01" Color="#4368CB"/>
+            <!--ENRZForeground02-->
+            <SolidColorBrush x:Key="ENRZForeground02" Color="#FE9A04"/>
+            <!--ENRZForeground03-->
+            <SolidColorBrush x:Key="ENRZForeground03" Color="#2F9B69"/>
+            <!--ENRZForeground03-->
+            <SolidColorBrush x:Key="ENRZForeground04" Color="#2F9B69"/>
+            
             <!--ENRZBackgroundColor-->
             <SolidColorBrush x:Key="ENRZBackground" Color="#FCFCFC"/>
-            <!--ENRZBackgroundColor--><!--
-            <SolidColorBrush x:Key="ENRZForeground01" Color="#FF125B"/>-->
-            <!--ENRZBackgroundColor-->
-            <SolidColorBrush x:Key="ENRZForeground01" Color="#4368CB"/>
-            <!--ENRZBackgroundColor-->
-            <SolidColorBrush x:Key="ENRZForeground02" Color="#FE9A04"/>
             <!--ENRZBackground02-->
             <SolidColorBrush x:Key="ENRZBackground02" Color="#E6E6E6"/>
             <!--ENRZBackground03-->
             <SolidColorBrush x:Key="ENRZBackground03" Color="#607FD3"/>
+            
+            <!--ENRZBackgroundColor--><!--
+            <SolidColorBrush x:Key="ENRZForeground01" Color="#FF125B"/>-->
 
             <!--DQDReBackColor-->
             <Color x:Key="DQDReBackColor">#99FFFFFF</Color>
+            <!--ENRZLineColor-->
+            <Color x:Key="ENRZLineColor">#909090</Color>
 
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>

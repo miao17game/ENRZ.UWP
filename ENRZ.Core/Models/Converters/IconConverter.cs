@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Data;
 
+using static ENRZ.Core.Tools.UWPStates;
+
 namespace ENRZ.Core.Models.Converters {
     public class IconConverter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, string language) {
@@ -16,20 +18,16 @@ namespace ENRZ.Core.Models.Converters {
         }
 
         private string ToIconCode(string title) {
-            var result = default(string);
-            switch (title) {
-                case "ENRZ.COM": result = char.ConvertFromUtf32(0xE10F); break;
-                case "尤物": result = char.ConvertFromUtf32(0xE95E); break;
-                case "资讯": result = char.ConvertFromUtf32(0xE1CB); break;
-                case "恋物癖": result = char.ConvertFromUtf32(0xEE57); break;
-                case "时装": result = char.ConvertFromUtf32(0xECA7); break;
-                case "男性人物": result = char.ConvertFromUtf32(0xEB68); break;
-                case "专题": result = char.ConvertFromUtf32(0xECE9); break;
-                case "美图": result = char.ConvertFromUtf32(0xE052); break;
-                case "商城": result = char.ConvertFromUtf32(0xE14D); break;
-                default: result = char.ConvertFromUtf32(0xE1F6); break;
-            }
-            return result;
+            return title == "ENRZ.COM" ? char.ConvertFromUtf32(0xE10F) :
+                title == GetUIString("Stunner") ? char.ConvertFromUtf32(0xE95E) :
+                title == GetUIString("Information") ? char.ConvertFromUtf32(0xE1CB) :
+                title == GetUIString("LoveOfHabit") ? char.ConvertFromUtf32(0xEE57) :
+                title == GetUIString("Fashion") ? char.ConvertFromUtf32(0xECA7) :
+                title == GetUIString("MaleCharacters") ? char.ConvertFromUtf32(0xEB68) :
+                title == GetUIString("Topics") ? char.ConvertFromUtf32(0xECE9) :
+                title == GetUIString("Gallery") ? char.ConvertFromUtf32(0xE052) :
+                title == GetUIString("Mall") ? char.ConvertFromUtf32(0xE14D) :
+                char.ConvertFromUtf32(0xE1F6);
         }
     }
 }

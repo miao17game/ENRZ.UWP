@@ -335,7 +335,7 @@
                                             Style="{ThemeResource CenterContentTextBlock}"
                                             FontFamily="{ThemeResource SymbolThemeFontFamily}"/>
                             </Grid>
-                            <TextBlock  Text="设置" 
+                            <TextBlock  x:Uid="SettingButton"
                                         Margin=" 60,0,0,0" FontSize="16"
                                         Foreground="{ThemeResource AppPersonalTextColorPure}"
                                         FontFamily="{ThemeResource PhoneFontFamilySemiLight}"

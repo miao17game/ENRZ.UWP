@@ -47,7 +47,7 @@ namespace ENRZ.NET.Pages {
                     Background = new SolidColorBrush(Colors.Transparent),
                     Style = Application.Current.Resources["MainPageButtonBackHamburgerStyle"] as Style,
                 };
-                button.Click += (sender, clickArgs) => { /*DataProcess.ReportException("图片功能开发中"); */ MainPage.ShowImageInScreen(uri); };
+                button.Click += (sender, clickArgs) => { MainPage.ShowImageInScreen(uri); };
                 grid.Children.Add(button);
                 ContentStack.Children.Add(grid);
             }
@@ -89,7 +89,8 @@ namespace ENRZ.NET.Pages {
                         .ToString());
             SetPreAndNextResources(source);
             await SetPicturesResources(source);
-            GridViewResources.Source = source.MoreCollection;
+            // Not Support
+            //GridViewResources.Source = source.MoreCollection;
             contentRing.IsActive = false;
         }
 
